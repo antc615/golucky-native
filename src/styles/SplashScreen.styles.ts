@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   background: {
@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'space-between', // Adjusted for spacing
+    justifyContent: 'center', // Adjusted for spacing
     alignItems: 'center',
     paddingTop: 60, // Added padding at the top
     paddingBottom: 40, // Added padding at the bottom
@@ -19,15 +19,25 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   titleText: {
-    fontSize: 24,
+    fontSize: 48,
     color: 'white',
     fontWeight: 'bold',
     // fontFamily: 'YourCustomFont', // Include this if you have a custom font.
     marginTop: 20, // Space between logo and title
   },
+  disclaimer: {
+    fontSize: 16,
+    color: '#fff',
+    justifyContent: 'center',
+    marginRight: 20,
+    marginLeft: 20,
+    marginBottom: 50,
+    // fontFamily: 'YourCustomFont',
+  },
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
+    marginBottom: 40,
   },
   button: {
     backgroundColor: 'white',
