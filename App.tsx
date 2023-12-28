@@ -1,10 +1,12 @@
 import React from 'react';
-
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {styles} from './src/styles/App.styles';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SplashScreen from './src/components/SplashScreen';
+import UserFeed from './src/components/UserFeed';
 
-import SplashScreen from './src/components/SplashScreen'; // Update the path as necessary
-
-import {styles} from './src/styles/App.styles'; // Update the path as necessary
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,7 +18,12 @@ function App(): React.JSX.Element {
         backgroundColor={isDarkMode ? 'black' : 'white'}
       />
 
-      <SplashScreen />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SplashScreen">
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="UserFeed" component={UserFeed} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 }

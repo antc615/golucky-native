@@ -3,8 +3,24 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import logo from '../assets/gllogo1.png';
 import {styles} from '../styles/SplashScreen.styles';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  SplashScreen: undefined;
+  UserFeed: undefined;
+  // ... other routes
+};
+
+// Define the navigation prop type
+type SplashScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'SplashScreen'
+>;
 
 const SplashScreen: React.FC = () => {
+  const navigation = useNavigation<SplashScreenNavigationProp>();
+
   return (
     <LinearGradient
       colors={[
@@ -25,10 +41,14 @@ const SplashScreen: React.FC = () => {
             By tapping 'Sign in' you agree to our Terms. Learn how we process
             your data in our Cookies and Privacy Policy
           </Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('UserFeed')}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('UserFeed')}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
