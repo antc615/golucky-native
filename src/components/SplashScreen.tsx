@@ -1,25 +1,23 @@
 import React from 'react';
 
-import {SafeAreaView, View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
+import logo from '../assets/gllogo1.png';
 
-import styles from '../styles/SplashScreen.styles.ts'; // Importing styles from an external file
-import logo from '../assets/gllogo1.png'; // Importing styles from an external file
+import {styles} from '../styles/SplashScreen.styles';
+
+import LinearGradient from 'react-native-linear-gradient';
 
 const SplashScreen: React.FC = () => {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <LinearGradient colors={['#ff8c00', '#ff0080']} style={styles.background}>
       <View style={styles.container}>
-        <Image
-          source={require(logo)}
-          resizeMode="contain"
-          style={styles.logo}
-        />
-        <TouchableOpacity style={styles.registerButton}>
-          <Text style={styles.registerButtonText}>Register</Text>
+        <Image source={logo} style={styles.logo} />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <Text style={styles.footerText}>Online Dating App</Text>
       </View>
-    </SafeAreaView>
+    </LinearGradient>
   );
 };
 
