@@ -4,7 +4,7 @@ import {styles} from './src/styles/App.styles';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './src/components/SplashScreen';
-import UserFeed from './src/components/UserFeed';
+import FeedContainer from './src/components/FeedContainer';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ function App(): React.JSX.Element {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="SplashScreen">
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="UserFeed" component={UserFeed} />
+          <Stack.Screen name="FeedContainer" component={FeedContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

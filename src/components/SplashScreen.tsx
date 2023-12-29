@@ -8,7 +8,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   SplashScreen: undefined;
-  UserFeed: undefined;
+  FeedContainer: undefined;
   // ... other routes
 };
 
@@ -43,12 +43,12 @@ const SplashScreen: React.FC = () => {
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('UserFeed')}>
+            onPress={() => navigation.navigate('FeedContainer')}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('UserFeed')}>
+            onPress={() => navigation.navigate('FeedContainer')}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
