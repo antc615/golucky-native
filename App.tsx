@@ -4,7 +4,6 @@ import {styles} from './src/styles/App.styles';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './src/components/SplashScreen';
-import FeedContainer from './src/components/FeedContainer';
 import BottomTabNavigator from './src/components/BottomTabNavigator';
 
 import {library} from '@fortawesome/fontawesome-svg-core';

@@ -4,8 +4,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+
 import SplashScreen from '../components/SplashScreen';
 import FeedContainer from '../components/FeedContainer';
+import Messages from '../components/Messages'; // Import the Messages component
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 
@@ -24,6 +26,9 @@ const BottomTabNavigator: React.FC = () => {
               break;
             case 'Feed':
               iconName = 'rss';
+              break;
+            case 'Messages':
+              iconName = 'comment';
               break;
             // Add other cases for different tabs
             case 'Profile':
@@ -54,6 +59,7 @@ const BottomTabNavigator: React.FC = () => {
       })}>
       <Tab.Screen name="Home" component={SplashScreen} />
       <Tab.Screen name="Feed" component={FeedContainer} />
+      <Tab.Screen name="Messages" component={Messages} />
       {/* Add other Tab.Screen components here for additional tabs */}
     </Tab.Navigator>
   );
