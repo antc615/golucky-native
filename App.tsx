@@ -15,6 +15,7 @@ import {faRss} from '@fortawesome/free-solid-svg-icons/faRss';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faBell} from '@fortawesome/free-solid-svg-icons/faBell';
 import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
+import {faCamera} from '@fortawesome/free-solid-svg-icons/faCamera';
 
 library.add(
   faThumbsUp,
@@ -25,6 +26,7 @@ library.add(
   faUser,
   faBell,
   faCog,
+  faCamera,
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();
