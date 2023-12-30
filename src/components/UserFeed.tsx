@@ -25,7 +25,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
       <Image source={{uri: postImage}} style={styles.postImage} />
       <View style={styles.iconsSection}>
         <TouchableOpacity>
-          <FontAwesomeIcon icon="thumbs-up" color="red" />
+          <FontAwesomeIcon icon="thumbs-up" size={24} color="red" />
         </TouchableOpacity>
         <TouchableOpacity>
           <FontAwesomeIcon icon="heart" size={24} color="red" />

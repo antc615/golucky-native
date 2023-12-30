@@ -8,11 +8,10 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   SplashScreen: undefined;
-  FeedContainer: undefined;
+  MainApp: undefined; // Added MainApp
   // ... other routes
 };
 
-// Define the navigation prop type
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'SplashScreen'
@@ -20,6 +19,13 @@ type SplashScreenNavigationProp = NativeStackNavigationProp<
 
 const SplashScreen: React.FC = () => {
   const navigation = useNavigation<SplashScreenNavigationProp>();
+
+  const navigateToMainApp = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'MainApp'}],
+    });
+  };
 
   return (
     <LinearGradient
@@ -41,14 +47,10 @@ const SplashScreen: React.FC = () => {
             By tapping 'Sign in' you agree to our Terms. Learn how we process
             your data in our Cookies and Privacy Policy
           </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('FeedContainer')}>
+          <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('FeedContainer')}>
+          <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>

@@ -19,42 +19,14 @@ const dummyData = [
   },
 ];
 import React from 'react';
-import {ScrollView, TouchableOpacity, Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import UserFeed from './UserFeed';
-import {RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {styles} from '../styles/FeedContainer.styles';
 
-type RootStackParamList = {
-  SplashScreen: undefined;
-  FeedContainer: undefined;
-  // ... other routes
-};
-
-type FeedContainerNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'FeedContainer'
->;
-
-interface FeedContainerProps {
-  navigation: FeedContainerNavigationProp;
-  route: RouteProp<RootStackParamList, 'FeedContainer'>;
-  // Add other props here if needed
-}
-
-const FeedContainer: React.FC<FeedContainerProps> = ({
-  navigation,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  route,
-}) => {
+const FeedContainer: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.navigate('SplashScreen')}>
-        <Text style={styles.backButtonText}>Back to Splash</Text>
-      </TouchableOpacity>
       {dummyData.map(item => (
         <UserFeed
           key={item.id}

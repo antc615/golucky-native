@@ -5,14 +5,30 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './src/components/SplashScreen';
 import FeedContainer from './src/components/FeedContainer';
+import BottomTabNavigator from './src/components/BottomTabNavigator';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons/faThumbsUp';
 import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart';
 import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
+import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
+import {faRss} from '@fortawesome/free-solid-svg-icons/faRss';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {faBell} from '@fortawesome/free-solid-svg-icons/faBell';
+import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 
-library.add(faThumbsUp, faHeart, faComment); // FA Library
-const Stack = createNativeStackNavigator();
+library.add(
+  faThumbsUp,
+  faHeart,
+  faComment,
+  faHome,
+  faRss,
+  faUser,
+  faBell,
+  faCog,
+); // FA Library
+
+const RootStack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,10 +41,10 @@ function App(): React.JSX.Element {
       />
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SplashScreen">
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="FeedContainer" component={FeedContainer} />
-        </Stack.Navigator>
+        <RootStack.Navigator screenOptions={{headerShown: false}}>
+          <RootStack.Screen name="SplashScreen" component={SplashScreen} />
+          <RootStack.Screen name="MainApp" component={BottomTabNavigator} />
+        </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
   );
