@@ -1,9 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons/faThumbsUp';
-import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart';
-import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
 
 import {styles} from '../styles/UserFeed.styles';
 
@@ -28,13 +25,13 @@ const UserFeed: React.FC<UserFeedProps> = ({
       <Image source={{uri: postImage}} style={styles.postImage} />
       <View style={styles.iconsSection}>
         <TouchableOpacity>
-          <FontAwesomeIcon icon={faThumbsUp} size={24} color="black" />
+          <FontAwesomeIcon icon="thumbs-up" color="red" />
         </TouchableOpacity>
         <TouchableOpacity>
-          <FontAwesomeIcon icon={faHeart} size={24} color="black" />
+          <FontAwesomeIcon icon="heart" size={24} color="red" />
         </TouchableOpacity>
         <TouchableOpacity>
-          <FontAwesomeIcon icon={faComment} size={24} color="black" />
+          <FontAwesomeIcon icon="comment" size={24} color="red" />
         </TouchableOpacity>
       </View>
     </View>
