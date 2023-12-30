@@ -9,6 +9,7 @@ import SplashScreen from '../components/SplashScreen';
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Profile from '../components/Profile';
+import Explore from '../components/Explore';
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 
@@ -35,7 +36,7 @@ const BottomTabNavigator: React.FC = () => {
             case 'Profile':
               iconName = 'user';
               break;
-            case 'Notifications':
+            case 'Explore':
               iconName = 'bell';
               break;
             case 'Settings':
@@ -59,6 +60,7 @@ const BottomTabNavigator: React.FC = () => {
         // Add other tabBarOptions as needed
       })}>
       <Tab.Screen name="Home" component={SplashScreen} />
+      <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Feed" component={FeedContainer} />
       <Tab.Screen name="Messages" component={Messages} />
       <Tab.Screen name="Profile" component={Profile} />
