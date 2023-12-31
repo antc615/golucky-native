@@ -30,16 +30,16 @@ const SplashScreen: React.FC = () => {
     <ImageBackground source={logobg} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
+          <Text style={styles.disclaimer}>
+            By tapping 'Sign in' you agree to our Terms. Learn how we process
+            your data in our Cookies and Privacy Policy
+          </Text>
           <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
-          <Text style={styles.disclaimer}>
-            By tapping 'Sign in' you agree to our Terms. Learn how we process
-            your data in our Cookies and Privacy Policy
-          </Text>
         </View>
         <Text style={styles.footerText}>Trouble signing in?</Text>
       </View>

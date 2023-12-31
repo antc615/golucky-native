@@ -1,3 +1,4 @@
+import {faBold} from '@fortawesome/free-solid-svg-icons';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -17,6 +18,8 @@ export const styles = StyleSheet.create({
   disclaimer: {
     fontSize: 12, // Smaller font size for disclaimer
     textAlign: 'center',
+    width: 300,
+    fontWeight: 'bold',
     marginVertical: 10, // Adds space around the text
   },
   background: {
