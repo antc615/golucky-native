@@ -1,17 +1,28 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end', // Aligns children to the bottom
+    paddingTop: 60, // Added padding at the top
+    paddingBottom: 40, // Added padding at the bottom
+  },
+  buttonContainer: {
+    alignItems: 'center', // Centers buttons horizontally
+  },
+  disclaimer: {
+    fontSize: 12, // Smaller font size for disclaimer
+    textAlign: 'center',
+    marginVertical: 10, // Adds space around the text
+  },
   background: {
     flex: 1,
     justifyContent: 'flex-start', // Changed to flex-start to move content towards the top
     alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center', // Adjusted for spacing
-    alignItems: 'center',
-    paddingTop: 60, // Added padding at the top
-    paddingBottom: 40, // Added padding at the bottom
   },
   logo: {
     width: 150,
@@ -25,21 +36,11 @@ export const styles = StyleSheet.create({
     // fontFamily: 'YourCustomFont', // Include this if you have a custom font.
     marginTop: 20, // Space between logo and title
   },
-  disclaimer: {
-    fontSize: 16,
-    color: '#fff',
-    justifyContent: 'center',
-    marginRight: 20,
-    marginLeft: 20,
-    marginBottom: 50,
-    // fontFamily: 'YourCustomFont',
-  },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 40,
-  },
   button: {
+    width: '50%', // Set a specific width for all buttons
+    alignItems: 'center', // Center text in the button
+    padding: 10,
+    marginVertical: 5, // Adds vertical space between buttons
     backgroundColor: 'white',
     paddingHorizontal: 30,
     paddingVertical: 10,
@@ -55,13 +56,13 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#000',
     // fontFamily: 'YourCustomFont',
   },
   footerText: {
     fontSize: 16,
     color: '#fff',
-    // fontFamily: 'YourCustomFont',
+    textAlign: 'center',
   },
 });
