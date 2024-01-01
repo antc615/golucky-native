@@ -14,7 +14,48 @@ export const styles = StyleSheet.create({
   },
   messagesContainer: {
     flex: 1,
-    // Style for the chat messages area
+    padding: 10,
+  },
+  userMessage: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginBottom: 10,
+  },
+  otherMessage: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: 10,
+  },
+  messageBubble: {
+    maxWidth: '70%',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    backgroundColor: '#e0e0e0', // Default color for other person
+  },
+  userBubble: {
+    backgroundColor: '#4fc3f7', // Distinct color for user
+    maxWidth: '80%',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  messageText: {
+    color: '#333',
+    fontSize: 16,
+  },
+  timestamp: {
+    alignSelf: 'center',
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 5, // Add some space above the message bubble
   },
   inputContainer: {
     flexDirection: 'row',
