@@ -1,4 +1,3 @@
-import {faBold} from '@fortawesome/free-solid-svg-icons';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -11,26 +10,24 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end', // Aligns children to the bottom
     paddingTop: 60, // Added padding at the top
     paddingBottom: 40, // Added padding at the bottom
+    alignItems: 'center',
   },
-  buttonContainer: {
-    alignItems: 'center', // Centers buttons horizontally
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 100, // Adjust as needed for top padding
   },
-  disclaimer: {
-    fontSize: 12, // Smaller font size for disclaimer
-    textAlign: 'center',
-    width: 300,
-    fontWeight: 'bold',
-    marginVertical: 10, // Adds space around the text
+  logo: {
+    width: 225, // Adjust the width as needed
+    height: 225, // Adjust the height as needed
+    resizeMode: 'contain',
+    marginBottom: 30, // Add some space below the logo
   },
   background: {
     flex: 1,
     justifyContent: 'flex-start', // Changed to flex-start to move content towards the top
     alignItems: 'center',
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
   },
   titleText: {
     fontSize: 48,
@@ -39,33 +36,41 @@ export const styles = StyleSheet.create({
     // fontFamily: 'YourCustomFont', // Include this if you have a custom font.
     marginTop: 20, // Space between logo and title
   },
+  buttonContainer: {
+    alignItems: 'center', // Centers buttons horizontally
+    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  disclaimer: {
+    fontSize: 12, // Smaller font size for disclaimer
+    textAlign: 'center',
+    width: 290,
+    marginVertical: 10, // Adds space around the text
+  },
   button: {
-    width: '50%', // Set a specific width for all buttons
-    alignItems: 'center', // Center text in the button
-    padding: 10,
-    marginVertical: 5, // Adds vertical space between buttons
+    width: '50%',
+    height: 55,
+    alignItems: 'center',
+    justifyContent: 'center', // Ensure vertical centering
+    marginVertical: 5,
     backgroundColor: 'white',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
     borderRadius: 20,
-    marginTop: 15, // Space between buttons
+    marginTop: 15,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   buttonText: {
-    fontSize: 16,
-    color: '#000',
-    // fontFamily: 'YourCustomFont',
+    fontSize: 18,
+    color: '#000', // Example pink color
+    fontWeight: 'bold', // Optional: to make text bold
   },
   footerText: {
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
+    paddingTop: 20,
   },
 });

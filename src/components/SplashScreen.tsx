@@ -1,9 +1,16 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
-import logobg from '../assets/logobg-pink.jpg';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import {styles} from '../styles/SplashScreen.styles';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import logobg from '../assets/FO217D4220786.1-01.jpg';
+import logo from '../assets/logo3.png';
 
 type RootStackParamList = {
   SplashScreen: undefined;
@@ -28,19 +35,20 @@ const SplashScreen: React.FC = () => {
 
   return (
     <ImageBackground source={logobg} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Text style={styles.disclaimer}>
-            By tapping 'Sign in' you agree to our Terms. Learn how we process
-            your data in our Cookies and Privacy Policy
-          </Text>
-          <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
-            <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
-            <Text style={styles.buttonText}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.logoContainer}>
+        <Image source={logo} style={styles.logo} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Text style={styles.disclaimer}>
+          By tapping 'Sign in' you agree to our Terms. Learn how we process your
+          data in our Privacy Policy
+        </Text>
+        <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
         <Text style={styles.footerText}>Trouble signing in?</Text>
       </View>
     </ImageBackground>
