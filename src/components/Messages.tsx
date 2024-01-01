@@ -1,8 +1,10 @@
 // Messages.tsx
 
 import React from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
+import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
 import {styles} from '..//styles/Messages.styles.ts'; // Import or define your styles
+import {useNavigation} from '@react-navigation/native';
+import ChatScreen from './ChatScreen.tsx';
 
 const dummyData = [
   {
@@ -69,16 +71,25 @@ const dummyData = [
 ];
 
 const Messages: React.FC = () => {
+  const navigation = useNavigation();
+
+  const openChat = () => {
+    navigation.navigate('ChatScreen'); // Add any parameters if needed
+  };
+
   return (
     <ScrollView style={styles.container}>
       {dummyData.map(message => (
-        <View key={message.id} style={styles.messageBlock}>
+        <TouchableOpacity
+          key={message.id}
+          style={styles.messageBlock}
+          onPress={() => openChat(message.userName)}>
           <Image source={{uri: message.imageUrl}} style={styles.image} />
           <View style={styles.textContainer}>
             <Text style={styles.username}>{message.userName}</Text>
             <Text style={styles.description}>{message.description}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );

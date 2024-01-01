@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './src/components/SplashScreen';
 import BottomTabNavigator from './src/components/BottomTabNavigator';
+import ChatScreen from './src/components/ChatScreen';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons/faThumbsUp';
@@ -45,6 +46,7 @@ function App(): React.JSX.Element {
         <RootStack.Navigator screenOptions={{headerShown: false}}>
           <RootStack.Screen name="SplashScreen" component={SplashScreen} />
           <RootStack.Screen name="MainApp" component={BottomTabNavigator} />
+          <RootStack.Screen name="ChatScreen" component={ChatScreen} />
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   button: {
     width: '50%',
-    height: 55,
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center', // Ensure vertical centering
     marginVertical: 5,

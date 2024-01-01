@@ -59,9 +59,9 @@ const BottomTabNavigator: React.FC = () => {
         tabBarInactiveTintColor: 'gray',
         // Add other tabBarOptions as needed
       })}>
-      <Tab.Screen name="Home" component={SplashScreen} />
-      <Tab.Screen name="Explore" component={Explore} />
+      {/* <Tab.Screen name="Home" component={SplashScreen} /> */}
       <Tab.Screen name="Feed" component={FeedContainer} />
+      <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Messages" component={Messages} />
       <Tab.Screen name="Profile" component={Profile} />
       {/* Add other Tab.Screen components here for additional tabs */}
