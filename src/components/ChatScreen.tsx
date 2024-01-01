@@ -11,6 +11,7 @@ import {
 
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../styles/ChatScreen.styles'; // Define styles for chat screen
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const now = new Date();
 const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
@@ -89,17 +90,26 @@ const ChatScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}>
-        <Text style={styles.backButtonText}>{'< Back'}</Text>
-      </TouchableOpacity>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>{'< Back'}</Text>
+        </TouchableOpacity>
+        <Image
+          source={{uri: 'https://via.placeholder.com/50'}}
+          style={styles.headerImage}
+        />
+        <FontAwesomeIcon icon="camera" style={styles.cameraIcon} size={24} />
+      </View>
+
+      {/* ScrollView, TextInput, and other UI elements */}
       <ScrollView style={styles.messagesContainer}>
         {mockMessages.map((msg, index) => (
           <View key={msg.id}>
             {shouldShowTimestamp(msg, mockMessages[index - 1]) && (
               <Text style={styles.timestamp}>
-                {msg.timestamp.toLocaleTimeString()} {/* Format timestamp */}
+                {msg.timestamp.toLocaleDateString()} {/* Format timestamp */}
               </Text>
             )}
             <View

@@ -5,13 +5,38 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backButton: {
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 10,
-    // Adjust the styling as needed
+    backgroundColor: '#f0f0f0', // Adjust the background color as needed
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5, // for Android
+    zIndex: 1, // ensure the shadow appears above the chat content
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5,
   },
   backButtonText: {
-    // Styling for the back button text
+    fontSize: 16,
+    color: '#007bff', // A standard link color
   },
+  headerImage: {
+    width: 40, // Adjust size as needed
+    height: 40,
+    borderRadius: 20,
+  },
+  cameraIcon: {
+    color: '#000', // Adjust icon color as needed
+  },
+
+  /* ScrollView, TextInput, and other UI elements */
   messagesContainer: {
     flex: 1,
     padding: 10,
@@ -28,7 +53,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   messageBubble: {
-    maxWidth: '70%',
+    maxWidth: '80%',
     borderRadius: 20,
     paddingVertical: 12,
     paddingHorizontal: 15,
@@ -74,10 +99,10 @@ export const styles = StyleSheet.create({
   sendButton: {
     padding: 10,
     borderRadius: 20,
-    backgroundColor: '#4CAF50', // Example button color
+    backgroundColor: 'transparent', // Example button color
   },
   sendButtonText: {
-    color: 'white',
+    color: 'gray',
     fontWeight: 'bold',
   },
   // Additional styles as needed
