@@ -13,7 +13,7 @@ interface UserFeedProps {
 }
 
 const screenWidth = Dimensions.get('window').width;
-const carouselItemWidth = screenWidth - 60; // Adjust padding as needed
+const carouselItemWidth = screenWidth - 50; // Adjust padding as needed
 
 const UserFeed: React.FC<UserFeedProps> = ({
   userName,
