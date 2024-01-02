@@ -21,21 +21,26 @@ const dummyData = [
 import React from 'react';
 import {ScrollView} from 'react-native';
 import UserFeed from './UserFeed';
+import HeaderComponent from './HeaderComponent';
 
 import {styles} from '../styles/FeedContainer.styles';
 
+// Inside FeedContainer component
 const FeedContainer: React.FC = () => {
   return (
-    <ScrollView style={styles.container}>
-      {dummyData.map(item => (
-        <UserFeed
-          key={item.id}
-          userName={item.userName}
-          profilePic={item.profilePic}
-          postImage={item.postImage}
-        />
-      ))}
-    </ScrollView>
+    <>
+      <HeaderComponent showIcons={false} />
+      <ScrollView style={styles.container}>
+        {dummyData.map(item => (
+          <UserFeed
+            key={item.id}
+            userName={item.userName}
+            profilePic={item.profilePic}
+            postImage={item.postImage}
+          />
+        ))}
+      </ScrollView>
+    </>
   );
 };
 

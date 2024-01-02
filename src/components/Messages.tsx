@@ -5,6 +5,7 @@ import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
 import {styles} from '..//styles/Messages.styles.ts'; // Import or define your styles
 import {useNavigation} from '@react-navigation/native';
 import ChatScreen from './ChatScreen.tsx';
+import HeaderComponent from './HeaderComponent';
 
 const dummyData = [
   {
@@ -78,20 +79,23 @@ const Messages: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {dummyData.map(message => (
-        <TouchableOpacity
-          key={message.id}
-          style={styles.messageBlock}
-          onPress={() => openChat(message.userName)}>
-          <Image source={{uri: message.imageUrl}} style={styles.image} />
-          <View style={styles.textContainer}>
-            <Text style={styles.username}>{message.userName}</Text>
-            <Text style={styles.description}>{message.description}</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <>
+      <HeaderComponent showIcons={false} />
+      <ScrollView style={styles.container}>
+        {dummyData.map(message => (
+          <TouchableOpacity
+            key={message.id}
+            style={styles.messageBlock}
+            onPress={() => openChat(message.userName)}>
+            <Image source={{uri: message.imageUrl}} style={styles.image} />
+            <View style={styles.textContainer}>
+              <Text style={styles.username}>{message.userName}</Text>
+              <Text style={styles.description}>{message.description}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </>
   );
 };
 

@@ -60,10 +60,26 @@ const BottomTabNavigator: React.FC = () => {
         // Add other tabBarOptions as needed
       })}>
       {/* <Tab.Screen name="Home" component={SplashScreen} /> */}
-      <Tab.Screen name="Feed" component={FeedContainer} />
-      <Tab.Screen name="Explore" component={Explore} />
-      <Tab.Screen name="Messages" component={Messages} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen
+        name="Feed"
+        component={FeedContainer}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{headerShown: false}}
+      />
       {/* Add other Tab.Screen components here for additional tabs */}
     </Tab.Navigator>
   );
