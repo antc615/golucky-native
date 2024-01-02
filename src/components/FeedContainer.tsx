@@ -1,23 +1,3 @@
-const dummyData = [
-  {
-    id: '1',
-    userName: 'User1',
-    profilePic: 'https://via.placeholder.com/150',
-    postImage: 'https://via.placeholder.com/300',
-  },
-  {
-    id: '2',
-    userName: 'User2',
-    profilePic: 'https://via.placeholder.com/150',
-    postImage: 'https://via.placeholder.com/300',
-  },
-  {
-    id: '3',
-    userName: 'User3',
-    profilePic: 'https://via.placeholder.com/150',
-    postImage: 'https://via.placeholder.com/300',
-  },
-];
 import React from 'react';
 import {ScrollView} from 'react-native';
 import UserFeed from './UserFeed';
@@ -25,7 +5,38 @@ import HeaderComponent from './HeaderComponent';
 
 import {styles} from '../styles/FeedContainer.styles';
 
-// Inside FeedContainer component
+import image1 from '../assets/mock-feed-assets/mock-image1.png';
+import image2 from '../assets/mock-feed-assets/mock-image2.png';
+import image3 from '../assets/mock-feed-assets/mock-image3.png';
+import image4 from '../assets/mock-feed-assets/mock-image4.png';
+import image5 from '../assets/mock-feed-assets/mock-image5.png';
+import image6 from '../assets/mock-feed-assets/mock-image6.png';
+import image7 from '../assets/mock-feed-assets/mock-image7.png';
+import image8 from '../assets/mock-feed-assets/mock-image8.png';
+import image9 from '../assets/mock-feed-assets/mock-image9.png';
+
+const dummyData = [
+  {
+    id: '1',
+    userName: 'User1',
+    profilePic: image1,
+    postImages: [image2, image3],
+  },
+  {
+    id: '2',
+    userName: 'User2',
+    profilePic: image4,
+    postImages: [image5, image6],
+  },
+  // Add more users as needed
+  {
+    id: '3',
+    userName: 'User3',
+    profilePic: image7,
+    postImages: [image8, image9],
+  },
+];
+
 const FeedContainer: React.FC = () => {
   return (
     <>
@@ -36,7 +47,7 @@ const FeedContainer: React.FC = () => {
             key={item.id}
             userName={item.userName}
             profilePic={item.profilePic}
-            postImage={item.postImage}
+            postImages={item.postImages} // Updated to postImages
           />
         ))}
       </ScrollView>

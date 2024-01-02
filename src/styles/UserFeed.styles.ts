@@ -21,8 +21,30 @@ export const styles = StyleSheet.create({
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 10,
     // Add additional styling
+  },
+  // ... other styles
+  iconsSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+  },
+  iconsGroup: {
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 10, // Spacing between icons
+  },
+  paginator: {
+    // Center your paginator styling
+    // If necessary, adjust width to help with centering
+  },
+  likesSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   profilePic: {
     width: 40,
@@ -40,10 +62,19 @@ export const styles = StyleSheet.create({
     height: 200,
     // Add additional styling
   },
-  iconsSection: {
+  paginatorContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-    // Add additional styling
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paginatorNode: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'lightgray',
+    marginHorizontal: 4,
+  },
+  activeNode: {
+    backgroundColor: 'blue',
   },
 });
