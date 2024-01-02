@@ -9,7 +9,8 @@ import {
 import {styles} from '../styles/SplashScreen.styles';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import logobg from '../assets/FO217D4220786.1-01.jpg';
+// import logobg from '../assets/FO217D4220786.1-01.jpg';
+import logobg from '../assets/logobg-blue.jpg';
 import logo from '../assets/logo3.png';
 
 type RootStackParamList = {

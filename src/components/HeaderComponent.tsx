@@ -2,7 +2,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import logoStandaloneBlack from '../assets/logo-standalone-black.png';
+import logoStandaloneBlack from '../assets/logo-custom-blue.png';
 
 const HeaderComponent = ({showIcons = true}) => {
   return (
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'rgb(52, 103, 164)',
     // Add any additional styling for the text
   },
   iconsContainer: {
