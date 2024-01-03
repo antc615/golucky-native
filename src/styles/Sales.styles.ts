@@ -26,6 +26,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
   },
+  messagesText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingRight: 21,
+  },
   planSection: {
     paddingHorizontal: 10,
     marginBottom: 20,

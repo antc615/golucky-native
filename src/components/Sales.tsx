@@ -66,7 +66,7 @@ const SalesComponent = () => {
       <HeaderComponent showIcons={false} />
       <ScrollView style={styles.container}>
         <View style={styles.messageSection}>
-          <Text>
+          <Text style={styles.messagesText}>
             See who liked you and match with them instantly with GoLucky
             platinum.
           </Text>
