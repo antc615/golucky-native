@@ -27,6 +27,7 @@ import {faMessage as farMessage} from '@fortawesome/free-regular-svg-icons/faMes
 import {faUser as farUser} from '@fortawesome/free-regular-svg-icons/faUser';
 import {faBell as farBell} from '@fortawesome/free-regular-svg-icons/faBell';
 import {faCheckCircle as farCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
+import {faGem as farGem} from '@fortawesome/free-regular-svg-icons/faGem';
 
 library.add(
   faThumbsUp,
@@ -47,6 +48,7 @@ library.add(
   farUser,
   farBell,
   farCheckCircle,
+  farGem,
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();

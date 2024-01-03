@@ -12,6 +12,7 @@ import Profile from '../components/Profile';
 import Explore from './Notifications';
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
+import SalesComponent from './Sales';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +39,9 @@ const BottomTabNavigator: React.FC = () => {
               break;
             case 'Notifications':
               iconName = ['far', 'bell'];
+              break;
+            case 'Sales':
+              iconName = ['far', 'gem'];
               break;
             case 'Settings':
               iconName = ['far', 'cog'];
@@ -69,6 +73,11 @@ const BottomTabNavigator: React.FC = () => {
       <Tab.Screen
         name="Messages"
         component={Messages}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Sales"
+        component={SalesComponent}
         options={{headerShown: false}}
       />
       <Tab.Screen
