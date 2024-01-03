@@ -20,6 +20,12 @@ import {faCamera} from '@fortawesome/free-solid-svg-icons/faCamera';
 import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
 import {faEllipsisH} from '@fortawesome/free-solid-svg-icons/faEllipsisH';
 
+import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons/faHeart';
+import {faComment as farComment} from '@fortawesome/free-regular-svg-icons/faComment';
+import {faMessage as farMessage} from '@fortawesome/free-regular-svg-icons/faMessage';
+import {faUser as farUser} from '@fortawesome/free-regular-svg-icons/faUser';
+import {faBell as farBell} from '@fortawesome/free-regular-svg-icons/faBell';
+
 library.add(
   faThumbsUp,
   faHeart,
@@ -32,6 +38,11 @@ library.add(
   faCamera,
   faBars,
   faEllipsisH,
+  farHeart,
+  farComment,
+  farMessage,
+  farUser,
+  farBell,
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();

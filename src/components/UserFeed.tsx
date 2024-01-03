@@ -12,8 +12,30 @@ interface UserFeedProps {
   postImages: number[]; // An array of numbers
 }
 
+interface PaginatorProps {
+  postImages: number[];
+  activeSlide: number;
+}
+
 const screenWidth = Dimensions.get('window').width;
 const carouselItemWidth = screenWidth; // Adjust padding as needed
+
+// Paginator
+const Paginator: React.FC<PaginatorProps> = ({postImages, activeSlide}) => {
+  return (
+    <View style={styles.paginatorContainer}>
+      {postImages.map((_, index) => (
+        <View
+          key={index}
+          style={[
+            styles.paginatorNode,
+            activeSlide === index && styles.activeNode,
+          ]}
+        />
+      ))}
+    </View>
+  );
+};
 
 const UserFeed: React.FC<UserFeedProps> = ({
   userName,
@@ -22,23 +44,6 @@ const UserFeed: React.FC<UserFeedProps> = ({
 }) => {
   const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide
   const likes = Math.floor(Math.random() * 100);
-
-  // Paginator component
-  const Paginator = () => {
-    return (
-      <View style={styles.paginatorContainer}>
-        {postImages.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.paginatorNode,
-              activeSlide === index && styles.activeNode,
-            ]}
-          />
-        ))}
-      </View>
-    );
-  };
 
   return (
     <View style={styles.feedBlock}>
@@ -59,13 +64,17 @@ const UserFeed: React.FC<UserFeedProps> = ({
       <View style={styles.iconsSection}>
         <View style={styles.iconsGroup}>
           <TouchableOpacity style={styles.icon}>
-            <FontAwesomeIcon icon="heart" size={24} color="gray" />
+            <FontAwesomeIcon icon={['far', 'heart']} size={21} color="black" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icon}>
-            <FontAwesomeIcon icon="comment" size={24} color="gray" />
+            <FontAwesomeIcon
+              icon={['far', 'comment']}
+              size={21}
+              color="black"
+            />
           </TouchableOpacity>
         </View>
-        <Paginator />
+        <Paginator postImages={postImages} activeSlide={activeSlide} />
         <View style={styles.likesSection}>
           <Text>{likes} likes</Text>
         </View>
