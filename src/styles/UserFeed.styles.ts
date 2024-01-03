@@ -26,20 +26,10 @@ export const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 10,
   },
-  profilePic: {
-    width: 40, // Adjust size as needed
-    height: 40, // Adjust size as needed
-    borderRadius: 20,
-  },
   userNameContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-  },
-  userName: {
-    marginLeft: 10,
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   verifiedIcon: {
     marginLeft: 5,

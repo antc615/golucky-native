@@ -25,23 +25,22 @@ const BottomTabNavigator: React.FC = () => {
 
           switch (route.name) {
             case 'Home':
-              iconName = 'home'; // Regular icon
+              iconName = 'home';
               break;
             case 'Feed':
-              iconName = 'home'; // Replace with the correct regular icon name
+              iconName = 'home';
               break;
             case 'Messages':
-              iconName = ['far', 'message']; // Replace with the correct regular icon name
+              iconName = ['far', 'message'];
               break;
-            // Add other cases for different tabs with regular icons
             case 'Profile':
-              iconName = ['far', 'user']; // Replace with the correct regular icon name
+              iconName = ['far', 'user'];
               break;
             case 'Notifications':
-              iconName = ['far', 'bell']; // Replace with the correct regular icon name
+              iconName = ['far', 'bell'];
               break;
             case 'Settings':
-              iconName = ['far', 'cog']; // Replace with the correct regular icon name
+              iconName = ['far', 'cog'];
               break;
           }
 
