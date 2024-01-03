@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-    marginBottom: 20,
+    paddingTop: 20,
     // Add additional styling for shadow, borders etc.
   },
   backButton: {
@@ -47,8 +47,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 20,
     marginRight: 10,
   },

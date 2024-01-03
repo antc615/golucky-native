@@ -9,7 +9,7 @@ import SplashScreen from '../components/SplashScreen';
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Profile from '../components/Profile';
-import Explore from '../components/Explore';
+import Explore from './Notifications';
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 
@@ -19,15 +19,16 @@ const BottomTabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => {
+        tabBarIcon: ({color}) => {
           let iconName;
+          let size = 20;
 
           switch (route.name) {
             case 'Home':
               iconName = 'home';
               break;
             case 'Feed':
-              iconName = 'rss';
+              iconName = 'home';
               break;
             case 'Messages':
               iconName = 'comment';
@@ -36,7 +37,7 @@ const BottomTabNavigator: React.FC = () => {
             case 'Profile':
               iconName = 'user';
               break;
-            case 'Explore':
+            case 'Notifications':
               iconName = 'bell';
               break;
             case 'Settings':
@@ -53,9 +54,10 @@ const BottomTabNavigator: React.FC = () => {
             />
           );
         },
+        tabBarLabel: () => null,
         tabBarLabelStyle: styles.tabLabel,
         tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: '#e91e63', // Pinkish color for active tab
+        tabBarActiveTintColor: '#000', // Pinkish color for active tab
         tabBarInactiveTintColor: 'gray',
         // Add other tabBarOptions as needed
       })}>
@@ -66,13 +68,13 @@ const BottomTabNavigator: React.FC = () => {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Explore"
-        component={Explore}
+        name="Messages"
+        component={Messages}
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Messages"
-        component={Messages}
+        name="Notifications"
+        component={Explore}
         options={{headerShown: false}}
       />
       <Tab.Screen

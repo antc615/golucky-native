@@ -17,23 +17,23 @@ import image9 from '../assets/mock-feed-assets/mock-image9.png';
 
 const dummyData = [
   {
-    id: '1',
-    userName: 'User1',
-    profilePic: image1,
-    postImages: [image2, image3],
-  },
-  {
     id: '2',
-    userName: 'User2',
+    userName: 'User1',
     profilePic: image4,
-    postImages: [image5, image6],
+    postImages: [image6, image5],
   },
   // Add more users as needed
   {
     id: '3',
-    userName: 'User3',
+    userName: 'User2',
     profilePic: image7,
     postImages: [image8, image9],
+  },
+  {
+    id: '1',
+    userName: 'User3',
+    profilePic: image1,
+    postImages: [image2, image3],
   },
 ];
 
