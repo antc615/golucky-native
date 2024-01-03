@@ -21,6 +21,7 @@ const dummyData = [
     userName: 'User1',
     profilePic: image4,
     postImages: [image6, image5],
+    isVerified: true,
   },
   // Add more users as needed
   {
@@ -28,12 +29,14 @@ const dummyData = [
     userName: 'User2',
     profilePic: image7,
     postImages: [image8, image9],
+    isVerified: true,
   },
   {
     id: '1',
     userName: 'User3',
     profilePic: image1,
     postImages: [image2, image3],
+    isVerified: true,
   },
 ];
 
@@ -48,6 +51,7 @@ const FeedContainer: React.FC = () => {
             userName={item.userName}
             profilePic={item.profilePic}
             postImages={item.postImages} // Updated to postImages
+            isVerified={item.isVerified} // Updated to postImages
           />
         ))}
       </ScrollView>

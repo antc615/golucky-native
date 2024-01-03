@@ -22,8 +22,32 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
-    // Add additional styling
+    marginBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 10,
+  },
+  profilePic: {
+    width: 40, // Adjust size as needed
+    height: 40, // Adjust size as needed
+    borderRadius: 20,
+  },
+  userNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  userName: {
+    marginLeft: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  verifiedIcon: {
+    marginLeft: 5,
+    color: 'blue',
+    fontSize: 12, // Small size for the verified icon
+  },
+  ellipsisIcon: {
+    fontSize: 16, // Smaller ellipsis icon
   },
   // ... other styles
   iconsSection: {

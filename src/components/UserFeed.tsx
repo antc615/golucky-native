@@ -10,6 +10,7 @@ interface UserFeedProps {
   userName: string;
   profilePic: number; // Image require() returns a number
   postImages: number[]; // An array of numbers
+  isVerified: boolean; // An array of numbers
 }
 
 interface PaginatorProps {
@@ -41,6 +42,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
   userName,
   profilePic,
   postImages,
+  isVerified, // Add this boolean prop for verified status
 }) => {
   const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide
   const likes = Math.floor(Math.random() * 100);
@@ -49,8 +51,25 @@ const UserFeed: React.FC<UserFeedProps> = ({
     <View style={styles.feedBlock}>
       <View style={styles.profileSection}>
         <Image source={profilePic} style={styles.profilePic} />
-        <Text style={styles.userName}>{userName}</Text>
-        <FontAwesomeIcon icon="ellipsis" size={24} color="black" />
+        <View style={styles.userNameContainer}>
+          <Text style={styles.userName}>{userName}</Text>
+          {isVerified && (
+            <FontAwesomeIcon
+              icon={['fas', 'check-circle']}
+              size={12}
+              color="#4892f3"
+              style={styles.verifiedIcon}
+            />
+          )}
+        </View>
+        <View>
+          <FontAwesomeIcon
+            icon="ellipsis"
+            size={16}
+            color="#949494"
+            style={styles.ellipsisIcon}
+          />
+        </View>
       </View>
       <SnapCarousel
         data={postImages}
