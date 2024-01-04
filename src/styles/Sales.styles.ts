@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   planCard: {
     borderRadius: 10,
     padding: 15,
-    minHeight: 150,
+    minHeight: 185,
     justifyContent: 'space-between',
     alignItems: 'center',
     shadowColor: shadowColor,
@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
   disclaimerSection: {
     padding: 20,
     paddingLeft: 20,
+    paddingTop: 0,
     backgroundColor: 'white',
     // borderTopWidth: 1,
     // borderBottomWidth: 1,

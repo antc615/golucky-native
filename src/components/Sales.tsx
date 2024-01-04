@@ -71,8 +71,10 @@ const SalesComponent = () => {
       <ScrollView style={styles.container}>
         <View style={styles.messageSection}>
           <Text style={styles.messagesText}>
-            See who liked you and match with them instantly with GoLucky
-            platinum.
+            Upgrade your experience with unlimited photo generation and match
+            priority with GoLucky platinum.
+            {/* See who liked you and match with them instantly with GoLucky
+            platinum. */}
           </Text>
         </View>
 
