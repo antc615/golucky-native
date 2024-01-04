@@ -14,15 +14,19 @@ import HeaderComponent from './HeaderComponent';
 
 const screenWidth = Dimensions.get('window').width;
 
+const plans = [
+  {name: 'Best Value', duration: '12 Months', price: '$4.99 / month'},
+  {name: 'Popular', duration: '6 Months', price: '$5.99 / month'},
+  {name: 'Standard', duration: '1 Month', price: '$7.99 / month'},
+];
+
+const getSelectedPlanPrice = (planName: string) => {
+  const plan = plans.find(p => p.name === planName);
+  return plan ? plan.price : 'N/A';
+};
+
 const SalesComponent = () => {
   const [selectedPlan, setSelectedPlan] = useState('Best Value');
-
-  const plans = [
-    {name: 'Best Value', duration: '12 Months', price: '$4.99 / month'},
-    {name: 'Popular', duration: '6 Months', price: '$5.99 / month'},
-    {name: 'Standard', duration: '1 Month', price: '$7.99 / month'},
-  ];
-
   const features = [
     'Unlimited Likes',
     'Rewind your last swipe',
@@ -104,16 +108,22 @@ const SalesComponent = () => {
             </View>
           ))}
         </View>
-
-        <View style={styles.summarySection}>
-          <Text style={styles.summaryText}>
-            You have selected: {selectedPlan}
-          </Text>
-          <TouchableOpacity style={styles.continueButton}>
-            <Text style={styles.continueButtonText}>Continue</Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+      <View style={styles.summarySection}>
+        <Text style={styles.disclaimerText}>
+          By tapping continue you will be charged, your subscription will
+          auto-renew for the same price and package length until you cancel via
+          App Store settings, and you agree to our Terms.
+        </Text>
+        {/* <Text style={styles.summaryText}>
+          You have selected: {selectedPlan} - {selectedPlanPrice}
+        </Text> */}
+        <TouchableOpacity style={styles.continueButton}>
+          <Text style={styles.continueButtonText}>
+            Continue - {getSelectedPlanPrice(selectedPlan)}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };

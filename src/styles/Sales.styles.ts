@@ -8,15 +8,16 @@ const textColor = '#333'; // Primary text color
 const subTextColor = '#666'; // Subtext color
 const borderColor = '#ddd'; // Border color
 const shadowColor = '#000'; // Shadow color
+const white = '#fff'; // Shadow color
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: backgroundColor,
+    backgroundColor: white,
   },
   messageSection: {
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: white,
     borderBottomWidth: 1,
     borderColor: borderColor,
     marginBottom: 20,
@@ -40,7 +41,8 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: primaryColor,
     marginBottom: 10,
-    textAlign: 'center',
+    paddingLeft: 10,
+    // textAlign: 'center',
   },
   planCard: {
     borderRadius: 10,
@@ -58,7 +60,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
   activePlanCard: {
-    backgroundColor: '#e6f7ff', // Light blue background for active plan
+    // backgroundColor: '#e6f7ff', // Light blue background for active plan
     borderColor: primaryColor, // Highlight with primary color border
     borderWidth: 2,
   },
@@ -68,7 +70,7 @@ export const styles = StyleSheet.create({
   planName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: secondaryColor,
+    color: primaryColor,
   },
   planDuration: {
     fontSize: 24,
@@ -82,16 +84,16 @@ export const styles = StyleSheet.create({
   },
   disclaimerSection: {
     padding: 20,
+    paddingLeft: 20,
     backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: borderColor,
-    marginBottom: 20,
-    shadowColor: shadowColor,
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    // borderTopWidth: 1,
+    // borderBottomWidth: 1,
+    // borderColor: borderColor,
+    // shadowColor: shadowColor,
+    // shadowOffset: {width: 0, height: 1},
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
+    // elevation: 2,
   },
   featuresSection: {
     padding: 20,
@@ -99,7 +101,7 @@ export const styles = StyleSheet.create({
     borderColor: borderColor,
     borderRadius: 10,
     backgroundColor: 'white',
-    marginBottom: 20,
+    marginBottom: 130,
     shadowColor: shadowColor,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
@@ -125,22 +127,27 @@ export const styles = StyleSheet.create({
   summarySection: {
     padding: 20,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderTopWidth: 1,
+    borderColor: borderColor,
     shadowColor: shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
+    shadowOffset: {width: 0, height: -2},
+    shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
-  summaryText: {
-    fontSize: 18,
-    marginBottom: 15,
-    color: textColor,
+  disclaimerText: {
+    fontSize: 10,
+    color: subTextColor,
+    marginBottom: 10,
   },
   continueButton: {
-    backgroundColor: secondaryColor,
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: 'gold', // Gold color for the button
+    padding: 10,
+    borderRadius: 20,
     alignItems: 'center',
     shadowColor: shadowColor,
     shadowOffset: {width: 0, height: 2},
@@ -149,8 +156,13 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
   continueButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black', // Black text color
+  },
+  summaryText: {
+    fontSize: 12,
+    marginBottom: 15,
+    color: textColor,
   },
 });
