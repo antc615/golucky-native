@@ -145,6 +145,9 @@ export const styles = StyleSheet.create({
     color: subTextColor,
     marginBottom: 10,
   },
+  termsText: {
+    textDecorationLine: 'underline',
+  },
   continueButton: {
     backgroundColor: 'gold', // Gold color for the button
     padding: 10,

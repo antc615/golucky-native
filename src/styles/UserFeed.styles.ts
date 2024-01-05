@@ -36,9 +36,7 @@ export const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 12, // Small size for the verified icon
   },
-  ellipsisIcon: {
-    fontSize: 16, // Smaller ellipsis icon
-  },
+  ellipsisIcon: {},
   // ... other styles
   iconsSection: {
     flexDirection: 'row',

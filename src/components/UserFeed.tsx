@@ -8,9 +8,9 @@ import {styles} from '../styles/UserFeed.styles';
 
 interface UserFeedProps {
   userName: string;
-  profilePic: number; // Image require() returns a number
-  postImages: number[]; // An array of numbers
-  isVerified: boolean; // An array of numbers
+  profilePic: number; // Image require( number )
+  postImages: number[];
+  isVerified: boolean;
 }
 
 interface PaginatorProps {
@@ -19,7 +19,7 @@ interface PaginatorProps {
 }
 
 const screenWidth = Dimensions.get('window').width;
-const carouselItemWidth = screenWidth; // Adjust padding as needed
+const carouselItemWidth = screenWidth; // * 0.8 - Adjust padding as needed
 
 // Paginator
 const Paginator: React.FC<PaginatorProps> = ({postImages, activeSlide}) => {

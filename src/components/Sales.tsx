@@ -71,8 +71,8 @@ const SalesComponent = () => {
       <ScrollView style={styles.container}>
         <View style={styles.messageSection}>
           <Text style={styles.messagesText}>
-            Upgrade your experience with unlimited photo generation and match
-            priority with GoLucky platinum.
+            Go ad free with unlimited photo generation and match priority with
+            Golucky platinum.
             {/* See who liked you and match with them instantly with GoLucky
             platinum. */}
           </Text>
@@ -115,7 +115,8 @@ const SalesComponent = () => {
         <Text style={styles.disclaimerText}>
           By tapping continue you will be charged, your subscription will
           auto-renew for the same price and package length until you cancel via
-          App Store settings, and you agree to our Terms.
+          App Store settings, and you agree to our{' '}
+          <Text style={styles.termsText}>Terms.</Text>
         </Text>
         {/* <Text style={styles.summaryText}>
           You have selected: {selectedPlan} - {selectedPlanPrice}

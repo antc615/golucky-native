@@ -50,8 +50,8 @@ const FeedContainer: React.FC = () => {
             key={item.id}
             userName={item.userName}
             profilePic={item.profilePic}
-            postImages={item.postImages} // Updated to postImages
-            isVerified={item.isVerified} // Updated to postImages
+            postImages={item.postImages}
+            isVerified={item.isVerified}
           />
         ))}
       </ScrollView>

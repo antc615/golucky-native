@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import {styles} from '../styles/ChatScreen.styles'; // Define styles for chat screen
+import {styles} from '../styles/ChatScreen.styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const now = new Date();
