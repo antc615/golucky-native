@@ -89,21 +89,23 @@ const NotificationsComponent = () => {
 
       <View style={styles.section}>
         {likedPhotos.map(item => (
-          <View key={item.id} style={styles.row}>
-            <Image source={item.photo} style={styles.photo} />
-            <View style={styles.content}>
+          <View key={item.id}>
+            <View style={styles.row}>
+              <Image source={item.photo} style={styles.photo} />
+            </View>
+            <View style={styles.contentRow}>
               <Image source={item.userImg} style={styles.profilePic} />
               <Text style={styles.text}>
                 {item.userName} and {item.others} others liked this photo
               </Text>
-              <View style={styles.icons}>
-                <TouchableOpacity style={styles.icon}>
-                  <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
-                  <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
-                </TouchableOpacity>
-              </View>
+            </View>
+            <View style={styles.iconsRow}>
+              <TouchableOpacity style={styles.icon}>
+                <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.icon}>
+                <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
+              </TouchableOpacity>
             </View>
           </View>
         ))}
@@ -111,22 +113,24 @@ const NotificationsComponent = () => {
 
       <View style={styles.section}>
         {commentedPhotos.map(item => (
-          <View key={item.id} style={styles.row}>
-            <Image source={item.photo} style={styles.photo} />
-            <View style={styles.commentRow}>
+          <View key={item.id}>
+            <View style={styles.row}>
+              <Image source={item.photo} style={styles.photo} />
+            </View>
+            <View style={styles.commentContentRow}>
               <Image source={item.userImg} style={styles.profilePic} />
               <View style={styles.commentTextContainer}>
                 <Text style={styles.userName}>{item.userName}</Text>
                 <Text style={styles.commentText}>{item.comment}</Text>
               </View>
-              <View style={styles.icons}>
-                <TouchableOpacity style={styles.icon}>
-                  <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
-                  <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
-                </TouchableOpacity>
-              </View>
+            </View>
+            <View style={styles.iconsRow}>
+              <TouchableOpacity style={styles.icon}>
+                <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.icon}>
+                <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
+              </TouchableOpacity>
             </View>
           </View>
         ))}

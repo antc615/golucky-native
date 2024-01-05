@@ -5,7 +5,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
-import SplashScreen from '../components/SplashScreen';
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Profile from '../components/Profile';
