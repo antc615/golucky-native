@@ -91,11 +91,11 @@ const Messages: React.FC = () => {
       <HeaderComponent showIcons={false} />
       <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.headerText}>New Matches</Text>
+          <Text style={styles.headerText}>Matching</Text>
         </View>
         <NewMatches />
         <View style={styles.textContainer}>
-          <Text style={styles.headerText}>Auto Match</Text>
+          <Text style={styles.headerText}>Auto Chat</Text>
         </View>
         <SwipeListView
           data={dummyData}

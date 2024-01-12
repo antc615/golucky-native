@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
   },
   matchImage: {
-    width: 85,
+    width: 90,
     height: 110,
     borderRadius: 5,
     borderWidth: 2,

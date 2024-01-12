@@ -7,8 +7,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
-import Profile from '../components/Profile';
 import Explore from './Notifications';
+import Profile from '../components/Profile';
+import UserProfile from '../components/UserProfile';
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 import SalesComponent from './Sales';
@@ -84,9 +85,14 @@ const BottomTabNavigator: React.FC = () => {
         component={Explore}
         options={{headerShown: false}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={Profile}
+        options={{headerShown: false}}
+      /> */}
+      <Tab.Screen
+        name="Profile"
+        component={UserProfile}
         options={{headerShown: false}}
       />
       {/* Add other Tab.Screen components here for additional tabs */}
