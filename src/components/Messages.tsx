@@ -7,9 +7,9 @@ import {useNavigation} from '@react-navigation/native';
 import HeaderComponent from './HeaderComponent';
 import {SwipeListView} from 'react-native-swipe-list-view';
 
-import image1 from '../assets/mock-feed-assets/mock-image1.png';
-import image2 from '../assets/mock-feed-assets/mock-image2.png';
-import image3 from '../assets/mock-feed-assets/mock-image3.png';
+import image1 from '../assets/mock-feed-assets/mock-image5.png';
+import image2 from '../assets/mock-feed-assets/mock-image6.png';
+import image3 from '../assets/mock-feed-assets/mock-image4.png';
 
 const dummyData = [
   {
@@ -37,7 +37,10 @@ const newMatchesData = [
   {id: '1', userName: 'Alice', imageUrl: image1},
   {id: '2', userName: 'Bob', imageUrl: image2},
   {id: '3', userName: 'Charlie', imageUrl: image3},
-  // ... more dummy data ...
+  {id: '4', userName: 'Ashley', imageUrl: image1},
+  {id: '5', userName: 'Stephanie', imageUrl: image2},
+  {id: '6', userName: 'Rose', imageUrl: image3},
+  {id: '7', userName: 'Alice', imageUrl: image1},
 ];
 
 const NewMatches: React.FC = () => (
@@ -87,7 +90,13 @@ const Messages: React.FC = () => {
     <>
       <HeaderComponent showIcons={false} />
       <ScrollView style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text style={styles.headerText}>New Matches</Text>
+        </View>
         <NewMatches />
+        <View style={styles.textContainer}>
+          <Text style={styles.headerText}>Auto Match</Text>
+        </View>
         <SwipeListView
           data={dummyData}
           renderItem={(data, rowMap) => (

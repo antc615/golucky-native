@@ -7,9 +7,43 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF', // Consistent background color
   },
+  textContainer: {
+    flex: 1,
+    backgroundColor: '#FFF', // Consistent background color
+  },
+  headerText: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  // new matches styles
+  newMatchesContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  matchItem: {
+    alignItems: 'center',
+    marginRight: 5,
+    marginLeft: 15,
+  },
+  matchImage: {
+    width: 85,
+    height: 110,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#E91E63', // Use your theme color
+  },
+  matchUsername: {
+    marginTop: 5,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+
+  // Messages styles
   messageBlock: {
     flexDirection: 'row',
-    backgroundColor: '#f7f7f7', // Light grey background for each message block
+    // backgroundColor: '#f7f7f7', // Light grey background for each message block
+    backgroundColor: '#fff', // Light grey background for each message block
     padding: 10,
     borderRadius: 8,
     shadowColor: '#000',
@@ -26,9 +60,6 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     marginRight: 10,
   },
-  textContainer: {
-    flex: 1,
-  },
   username: {
     fontWeight: 'bold',
     fontSize: 16,
@@ -41,8 +72,8 @@ export const styles = StyleSheet.create({
   // Styles for SwipeListView
   rowFront: {
     backgroundColor: '#FFF',
-    borderBottomColor: '#DDD', // subtle border color for separation
-    borderBottomWidth: 1,
+    // borderBottomColor: '#DDD', // subtle border color for separation
+    // borderBottomWidth: 1,
   },
   rowBack: {
     alignItems: 'center',
@@ -70,27 +101,5 @@ export const styles = StyleSheet.create({
   },
   backTextWhite: {
     color: '#FFF', // White text for buttons
-  },
-
-  // new matches styles
-  newMatchesContainer: {
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  matchItem: {
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  matchImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    borderWidth: 2,
-    borderColor: '#E91E63', // Use your theme color
-  },
-  matchUsername: {
-    marginTop: 5,
-    fontWeight: 'bold',
-    color: '#333',
   },
 });
