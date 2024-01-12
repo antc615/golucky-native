@@ -71,4 +71,26 @@ export const styles = StyleSheet.create({
   backTextWhite: {
     color: '#FFF', // White text for buttons
   },
+
+  // new matches styles
+  newMatchesContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  matchItem: {
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  matchImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#E91E63', // Use your theme color
+  },
+  matchUsername: {
+    marginTop: 5,
+    fontWeight: 'bold',
+    color: '#333',
+  },
 });

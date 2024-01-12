@@ -33,6 +33,26 @@ const dummyData = [
   // Add more dummy data as needed
 ];
 
+const newMatchesData = [
+  {id: '1', userName: 'Alice', imageUrl: image1},
+  {id: '2', userName: 'Bob', imageUrl: image2},
+  {id: '3', userName: 'Charlie', imageUrl: image3},
+  // ... more dummy data ...
+];
+
+const NewMatches: React.FC = () => (
+  <View style={styles.newMatchesContainer}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {newMatchesData.map(match => (
+        <View key={match.id} style={styles.matchItem}>
+          <Image source={match.imageUrl} style={styles.matchImage} />
+          <Text style={styles.matchUsername}>{match.userName}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  </View>
+);
+
 const Messages: React.FC = () => {
   const navigation = useNavigation();
 
@@ -66,27 +86,32 @@ const Messages: React.FC = () => {
   return (
     <>
       <HeaderComponent showIcons={false} />
-      <SwipeListView
-        data={dummyData}
-        renderItem={(data, rowMap) => (
-          <View style={styles.rowFront}>
-            <TouchableOpacity
-              onPress={() => openChat(data.item.userName)}
-              style={styles.messageBlock}>
-              <Image source={data.item.imageUrl} style={styles.image} />
-              <View style={styles.textContainer}>
-                <Text style={styles.username}>{data.item.userName}</Text>
-                <Text style={styles.description}>{data.item.description}</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-        renderHiddenItem={renderHiddenItem}
-        rightOpenValue={-150} // Adjust as needed
-        previewRowKey={'0'}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-      />
+      <ScrollView style={styles.container}>
+        <NewMatches />
+        <SwipeListView
+          data={dummyData}
+          renderItem={(data, rowMap) => (
+            <View style={styles.rowFront}>
+              <TouchableOpacity
+                onPress={() => openChat(data.item.userName)}
+                style={styles.messageBlock}>
+                <Image source={data.item.imageUrl} style={styles.image} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.username}>{data.item.userName}</Text>
+                  <Text style={styles.description}>
+                    {data.item.description}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )}
+          renderHiddenItem={renderHiddenItem}
+          rightOpenValue={-150} // Adjust as needed
+          previewRowKey={'0'}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+        />
+      </ScrollView>
     </>
   );
 };
