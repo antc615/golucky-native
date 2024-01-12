@@ -38,4 +38,37 @@ export const styles = StyleSheet.create({
     color: '#666', // Subtle color for description
     fontSize: 14,
   },
+  // Styles for SwipeListView
+  rowFront: {
+    backgroundColor: '#FFF',
+    borderBottomColor: '#DDD', // subtle border color for separation
+    borderBottomWidth: 1,
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+  },
+  backRightBtn: {
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+  },
+  backRightBtnLeft: {
+    backgroundColor: '#1E88E5', // Blue color for "Start Game" button
+    right: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: '#E91E63', // Pink color matching username for "Chat" button
+    right: 0,
+  },
+  backTextWhite: {
+    color: '#FFF', // White text for buttons
+  },
 });
