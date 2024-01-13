@@ -17,7 +17,7 @@ import HeaderComponent from './HeaderComponent';
 
 import {faEdit} from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome edit icon
 
-import image1 from '../assets/mock-feed-assets/mock-image5.png';
+import image1 from '../assets/mock-feed-assets/mock-image6.png';
 
 const UserProfile: React.FC = () => {
   return (
@@ -35,9 +35,10 @@ const UserProfile: React.FC = () => {
               <Text style={styles.completionText}>40% Complete</Text>
             </View>
           </View>
-          <Text style={styles.profileName}>John, 27</Text>
+          <Text style={styles.profileName}>Caitlyn, 31</Text>
         </View>
 
+        {/* Image Gallery */}
         <Text style={styles.photoUploadInstructions}>
           Tap on the camera icon to upload your photos.
         </Text>
@@ -48,45 +49,6 @@ const UserProfile: React.FC = () => {
             </TouchableOpacity>
           ))}
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About Me</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Describe yourself"
-            multiline
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Interests</Text>
-          <View style={styles.tagContainer}>
-            {/* Render interest tags here */}
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>Hiking</Text>
-            </View>
-            {/* Add more tags */}
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Looking For</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Relationship, Friendship, etc."
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Match Preferences</Text>
-          <TextInput style={styles.input} placeholder="Age Range" />
-          <TextInput style={styles.input} placeholder="Distance" />
-          {/* Add more preferences */}
-        </View>
-
-        <TouchableOpacity style={styles.saveButton}>
-          <Text style={styles.saveButtonText}>Save Profile</Text>
-        </TouchableOpacity>
       </ScrollView>
     </>
   );
