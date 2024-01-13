@@ -253,21 +253,9 @@ const UserProfile: React.FC = () => {
             onValueChange={itemValue => setZodiac(itemValue)}
             style={styles.picker}>
             <Picker.Item label="Aries" value="aries" />
-            {/* ... other zodiac signs ... */}
+            <Picker.Item label="Gemini" value="aries" />
+            <Picker.Item label="Taurus" value="aries" />
           </Picker>
-        </View>
-
-        {/* Control Your Profile Section */}
-        <View style={styles.inputSection}>
-          <Text style={styles.inputHeader}>Control your profile</Text>
-          <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Don't show my age</Text>
-            <Switch onValueChange={setShowAge} value={showAge} />
-          </View>
-          <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Don't show my distance</Text>
-            <Switch onValueChange={setShowDistance} value={showDistance} />
-          </View>
         </View>
 
         {/* About Me Section */}
