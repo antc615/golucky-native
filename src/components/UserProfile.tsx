@@ -1,5 +1,4 @@
 // UserProfile.tsx
-
 import React, {useState} from 'react';
 import {
   View,
@@ -35,7 +34,6 @@ const UserProfile: React.FC = () => {
   const [cannabis, setCannabis] = useState('');
   const [workout, setWorkout] = useState('');
   const [dietaryPreferences, setDietaryPreferences] = useState('');
-  // ... states for smoking, cannabis, workout, dietary preferences, etc.
   const [jobTitle, setJobTitle] = useState('');
   const [company, setCompany] = useState('');
   const [school, setSchool] = useState('');
@@ -50,7 +48,7 @@ const UserProfile: React.FC = () => {
     <>
       <HeaderComponent showIcons={true} />
       <ScrollView style={styles.container}>
-        {/* New Profile Section */}
+        {/*************************** Header Profile section *********************************/}
         <View style={styles.profileHeader}>
           <View style={styles.profilePicContainer}>
             <Image source={image1} style={styles.profilePic} />
@@ -64,7 +62,7 @@ const UserProfile: React.FC = () => {
           <Text style={styles.profileName}>Caitlyn, 31</Text>
         </View>
 
-        {/* Image Gallery */}
+        {/*************************** Image Gallery section *********************************/}
         <Text style={styles.photoUploadInstructions}>
           Tap on the camera icon to upload your photos.
         </Text>
@@ -76,7 +74,18 @@ const UserProfile: React.FC = () => {
           ))}
         </View>
 
-        {/* User Info section */}
+        {/*************************** User Info section *********************************/}
+        {/* Age Section */}
+        <View style={styles.inputSection}>
+          <Text style={styles.inputHeader}>Age *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Your age"
+            keyboardType="numeric"
+            value={age}
+            onChangeText={setAge}
+          />
+        </View>
 
         {/* Job Title Section */}
         <View style={styles.inputSection}>
@@ -357,18 +366,6 @@ const UserProfile: React.FC = () => {
             <Picker.Item label="Bisexual" value="bisexual" />
             {/* Additional options */}
           </Picker>
-        </View>
-
-        {/* Age Section */}
-        <View style={styles.inputSection}>
-          <Text style={styles.inputHeader}>Age *</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Your age"
-            keyboardType="numeric"
-            value={age}
-            onChangeText={setAge}
-          />
         </View>
 
         {/* Lifestyle Section */}
