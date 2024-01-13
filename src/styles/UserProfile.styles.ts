@@ -4,20 +4,23 @@ import {StyleSheet, Dimensions} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
   },
-  // HeaderProfile picture section
   profileHeader: {
     alignItems: 'center',
+    backgroundColor: '#FFF',
     marginBottom: 20,
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+  profilePicContainer: {
+    position: 'relative',
   },
   profilePic: {
-    width: Dimensions.get('window').width * 0.4, // 40% of screen width
-    height: Dimensions.get('window').width * 0.4, // Equal width and height for a circle
-    borderRadius: Dimensions.get('window').width * 0.2, // Half the width and height
+    width: Dimensions.get('window').width * 0.4,
+    height: Dimensions.get('window').width * 0.4,
+    borderRadius: Dimensions.get('window').width * 0.2,
     borderWidth: 3,
     borderColor: '#FFF',
-    position: 'relative', // Needed to position edit button
   },
   profileName: {
     fontSize: 20,
@@ -28,24 +31,33 @@ export const styles = StyleSheet.create({
   editButton: {
     position: 'absolute',
     top: 10,
-    right: 10,
-    backgroundColor: '#E91E63', // Theme color
-    borderRadius: 20,
-    padding: 5,
+    right: -5,
+    backgroundColor: '#FFF', // Off-white color
+    borderRadius: 15,
+    padding: 10,
+    // Add shadow if needed for better visibility
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 2,
   },
   completionStatus: {
     position: 'absolute',
-    bottom: -10, // Adjust as needed
-    backgroundColor: '#000',
-    paddingVertical: 5,
-    paddingHorizontal: 15,
+    bottom: 0, // Adjust to align with the base of the image
+    width: Dimensions.get('window').width * 0.4, // Stretch across the container
+    backgroundColor: '#E91E63',
+    paddingVertical: 3,
+    paddingHorizontal: 10,
     borderRadius: 20,
   },
   completionText: {
     color: '#FFF',
     fontSize: 14,
+    textAlign: 'center', // Center the text within the status
   },
 
+  // start of upload images
   imagesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

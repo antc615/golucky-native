@@ -26,14 +26,16 @@ const UserProfile: React.FC = () => {
       <ScrollView style={styles.container}>
         {/* New Profile Section */}
         <View style={styles.profileHeader}>
-          <Image source={image1} style={styles.profilePic} />
-          <Text style={styles.profileName}>John, 27</Text>
-          <TouchableOpacity style={styles.editButton}>
-            <FontAwesomeIcon icon={faEdit} size={20} color="#FFF" />
-          </TouchableOpacity>
-          <View style={styles.completionStatus}>
-            <Text style={styles.completionText}>40% Complete</Text>
+          <View style={styles.profilePicContainer}>
+            <Image source={image1} style={styles.profilePic} />
+            <TouchableOpacity style={styles.editButton}>
+              <FontAwesomeIcon icon={faEdit} size={14} color="#808080" />
+            </TouchableOpacity>
+            <View style={styles.completionStatus}>
+              <Text style={styles.completionText}>40% Complete</Text>
+            </View>
           </View>
+          <Text style={styles.profileName}>John, 27</Text>
         </View>
 
         <Text style={styles.photoUploadInstructions}>
