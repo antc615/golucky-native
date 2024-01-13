@@ -8,8 +8,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Explore from './Notifications';
-import Profile from '../components/Profile';
 import UserProfile from '../components/UserProfile';
+import PublicProfile from './PublicProfile';
 
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 import SalesComponent from './Sales';
@@ -60,11 +60,9 @@ const BottomTabNavigator: React.FC = () => {
         tabBarLabel: () => null,
         tabBarLabelStyle: styles.tabLabel,
         tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: '#000', // Pinkish color for active tab
+        tabBarActiveTintColor: '#000',
         tabBarInactiveTintColor: 'gray',
-        // Add other tabBarOptions as needed
       })}>
-      {/* <Tab.Screen name="Home" component={SplashScreen} /> */}
       <Tab.Screen
         name="Feed"
         component={FeedContainer}
@@ -85,11 +83,6 @@ const BottomTabNavigator: React.FC = () => {
         component={Explore}
         options={{headerShown: false}}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{headerShown: false}}
-      /> */}
       <Tab.Screen
         name="Profile"
         component={UserProfile}

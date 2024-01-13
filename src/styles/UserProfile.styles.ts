@@ -1,170 +1,123 @@
+// Profile.styles.ts
 import {StyleSheet, Dimensions} from 'react-native';
-
-const screenWidth = Dimensions.get('window').width;
-const buttonWidth = screenWidth / 3; // Divide the screen width by 3 to get 33%
-
-const facebookBlue = 'color: rgb(72, 146, 243)'; // golucky blue color
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    padding: 10,
   },
-  userInfoSection: {
-    flexDirection: 'row',
-    padding: 20,
-    backgroundColor: '#ffffff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
+  // HeaderProfile picture section
+  profileHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   profilePic: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    borderWidth: 2,
-    borderColor: '#e0e0e0',
+    width: Dimensions.get('window').width * 0.4, // 40% of screen width
+    height: Dimensions.get('window').width * 0.4, // Equal width and height for a circle
+    borderRadius: Dimensions.get('window').width * 0.2, // Half the width and height
+    borderWidth: 3,
+    borderColor: '#FFF',
+    position: 'relative', // Needed to position edit button
   },
-  statsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginLeft: 20,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statNumber: {
-    fontSize: 18,
+  profileName: {
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-  aboutMe: {
-    backgroundColor: '#FFF',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 1},
-    // shadowOpacity: 0.22,
-    // shadowRadius: 2.22,
-    // elevation: 3,
-  },
-  firstName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: '#333',
-  },
-  aboutMeContent: {
-    // Additional styling if needed
-  },
-  aboutMeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  aboutMeLabel: {
-    fontSize: 13,
-    color: '#666',
-  },
-  seeMoreButton: {
-    // Additional styling if needed
-    marginBottom: 10,
-  },
-  seeMoreText: {
-    color: '#666',
-    fontWeight: '600',
-    fontSize: 12,
-  },
-  expandedAboutMeContent: {
-    // Additional styling if needed
-  },
-  aboutMeDescription: {
-    fontSize: 13,
-    color: '#666',
-  },
-  seeMore: {
-    color: 'gray',
     marginTop: 10,
-    fontWeight: '600',
   },
-  actionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginHorizontal: 10,
-    marginVertical: 20,
+  editButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: '#E91E63', // Theme color
+    borderRadius: 20,
+    padding: 5,
   },
-  actionbutton: {
-    backgroundColor: '#DDD',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+  completionStatus: {
+    position: 'absolute',
+    bottom: -10, // Adjust as needed
+    backgroundColor: '#000',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 20,
   },
-  actionButtonText: {
-    color: '#000',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  userInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  stats: {
-    justifyContent: 'space-around',
-    flex: 1,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    marginBottom: 5,
-  },
-  button: {
-    backgroundColor: '#DDD',
-    paddingHorizontal: 5, // Reduced horizontal padding
-    paddingVertical: 5, // Reduced vertical padding
-    borderRadius: 5,
-    justifyContent: 'center', // Centers the text vertically
-    alignItems: 'center', // Centers the text horizontally
-    width: buttonWidth, // Width set to 33% of screen width
-    marginRight: 10,
-  },
-  activeButton: {
-    backgroundColor: 'rgb(72, 146, 243)',
-    paddingHorizontal: 5, // Reduced horizontal padding
-    paddingVertical: 5, // Reduced vertical padding
-    borderRadius: 5,
-    justifyContent: 'center', // Centers the text vertically
-    alignItems: 'center', // Centers the text horizontally
-    width: buttonWidth, // Width set to 33% of screen width
-    marginRight: 10,
-  },
-  buttonText: {
-    color: '#000',
-  },
-  activeButtonText: {
+  completionText: {
     color: '#FFF',
+    fontSize: 14,
   },
-  gallery: {
-    marginBottom: 20,
-  },
-  tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-  },
-  galleryContent: {
+
+  imagesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  galleryItem: {
-    width: '48%', // Approximately two items per row
-    height: 200,
+  imagePlaceholder: {
+    width: '30%',
+    aspectRatio: 1,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 10,
+    backgroundColor: '#f0f0f0', // A light background color
+  },
+  photoUploadInstructions: {
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  section: {
+    backgroundColor: '#FFF', // Light background for each section
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3, // for Android
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#E91E63', // Theme color for section titles
+    marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: '#f7f7f7', // Light grey background for input fields
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 10,
+  },
+  tag: {
+    backgroundColor: '#FFC107', // A warm color for tags
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginRight: 5,
+    marginBottom: 5,
+  },
+  tagText: {
+    color: '#FFF', // White text for tags
+    fontSize: 14,
+  },
+  saveButton: {
+    backgroundColor: '#4CAF50', // Green color for the save button
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  saveButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
