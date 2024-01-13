@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center', // Center the text within the status
   },
 
-  // start of upload images
+  // image gallery
   imagesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -82,5 +82,59 @@ export const styles = StyleSheet.create({
   photoUploadInstructions: {
     textAlign: 'center',
     marginVertical: 20,
+  },
+
+  // User info section
+  inputSection: {
+    backgroundColor: '#FFF',
+    padding: 15,
+    marginBottom: 10,
+  },
+  inputHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    backgroundColor: '#f2f2f2',
+    padding: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 5,
+    backgroundColor: '#f7f7f7',
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  switchLabel: {
+    fontSize: 16,
+    color: '#333',
+  },
+  subSection: {
+    marginBottom: 15,
+  },
+  subInputHeader: {
+    fontSize: 16,
+    color: '#333',
+  },
+  addLabel: {
+    position: 'absolute',
+    right: 15,
+    top: 5,
+  },
+  addLabelText: {
+    color: '#E91E63',
+    fontSize: 16,
   },
 });
