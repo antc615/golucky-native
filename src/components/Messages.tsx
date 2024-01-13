@@ -91,7 +91,7 @@ const Messages: React.FC = () => {
       <HeaderComponent showIcons={false} />
       <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.headerText}>Matching</Text>
+          <Text style={styles.headerText}>Tryouts</Text>
         </View>
         <NewMatches />
         <View style={styles.textContainer}>

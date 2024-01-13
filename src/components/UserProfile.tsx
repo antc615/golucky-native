@@ -11,13 +11,15 @@ import image4 from '../assets/mock-feed-assets/mock-image7.png';
 import image5 from '../assets/mock-feed-assets/mock-image8.png';
 import image6 from '../assets/mock-feed-assets/mock-image9.png';
 import image7 from '../assets/mock-feed-assets/mock-image1.png';
+import image8 from '../assets/mock-feed-assets/mock-image2.png';
+import image9 from '../assets/mock-feed-assets/mock-image3.png';
 
 const dummyUserData = {
   profilePic: image2, // Replace with actual path
   posts: 120,
   followers: 350,
   following: 250,
-  firstName: 'John',
+  firstName: 'Cait',
   aboutMe: {
     location: 'New York, USA',
     age: 27,
@@ -25,8 +27,8 @@ const dummyUserData = {
     hobbies: 'Photography, Hiking',
     description: 'A short bio goes here...',
   },
-  photos: [image1, image3, image4],
-  videos: [image5, image6, image7],
+  photos: [image1, image3, image4, image2],
+  videos: [image5, image6, image7, image9, image8],
 };
 
 const UserProfile: React.FC = () => {
