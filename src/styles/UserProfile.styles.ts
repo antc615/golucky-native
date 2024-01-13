@@ -111,6 +111,23 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 5,
   },
+  subSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  subInputHeader: {
+    fontSize: 16,
+    color: '#333',
+  },
+  addLabel: {
+    padding: 5,
+  },
+  addLabelText: {
+    color: '#E91E63',
+    fontSize: 16,
+  },
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -120,21 +137,5 @@ export const styles = StyleSheet.create({
   switchLabel: {
     fontSize: 16,
     color: '#333',
-  },
-  subSection: {
-    marginBottom: 15,
-  },
-  subInputHeader: {
-    fontSize: 16,
-    color: '#333',
-  },
-  addLabel: {
-    position: 'absolute',
-    right: 15,
-    top: 5,
-  },
-  addLabelText: {
-    color: '#E91E63',
-    fontSize: 16,
   },
 });
