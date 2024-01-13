@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     height: 110,
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: '#E91E63', // Use your theme color
+    borderColor: '#E91E63', //borderColor: 'color: rgb(52, 103, 164)'
   },
   matchUsername: {
     marginTop: 5,

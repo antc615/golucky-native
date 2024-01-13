@@ -63,72 +63,61 @@ const UserProfile: React.FC = () => {
           </View>
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{dummyUserData.followers}</Text>
-            <Text style={styles.statLabel}>Followers</Text>
+            <Text style={styles.statLabel}>Pictures</Text>
           </View>
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{dummyUserData.following}</Text>
-            <Text style={styles.statLabel}>Following</Text>
+            <Text style={styles.statLabel}>Media</Text>
           </View>
         </View>
       </View>
       {/* About Me Section */}
       <View style={styles.aboutMe}>
         <Text style={styles.firstName}>{dummyUserData.firstName}</Text>
-        {isAboutMeExpanded && (
-          <View>
-            <Text>{`Location: ${dummyUserData.aboutMe.location}`}</Text>
-            <Text>{`Age: ${dummyUserData.aboutMe.age}`}</Text>
-            <Text>{`Job: ${dummyUserData.aboutMe.job}`}</Text>
-            <Text>{`Hobbies: ${dummyUserData.aboutMe.hobbies}`}</Text>
-            <Text>{dummyUserData.aboutMe.description}</Text>
-          </View>
-        )}
-        <TouchableOpacity onPress={toggleAboutMe}>
-          <Text style={styles.seeMore}>
-            {isAboutMeExpanded ? 'Collapse' : 'See More'}
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <View>
+          <Text
+            style={
+              styles.aboutMeLabel
+            }>{`Location: ${dummyUserData.aboutMe.location}`}</Text>
+          <Text
+            style={
+              styles.aboutMeLabel
+            }>{`Age: ${dummyUserData.aboutMe.age}`}</Text>
+          <Text
+            style={
+              styles.aboutMeLabel
+            }>{`Job: ${dummyUserData.aboutMe.job}`}</Text>
+          {isAboutMeExpanded && (
+            <>
+              <Text
+                style={
+                  styles.aboutMeLabel
+                }>{`Hobbies: ${dummyUserData.aboutMe.hobbies}`}</Text>
+              <Text style={styles.aboutMeDescription}>
+                {dummyUserData.aboutMe.description}
+              </Text>
+            </>
+          )}
+        </View>
 
-      {/* Action Buttons Section */}
-      <View style={styles.actionButtons}>
-        <TouchableOpacity
-          style={activeTab === 'follow' ? styles.activeButton : styles.button}>
-          <Text
-            style={
-              activeTab === 'follow'
-                ? styles.activeButtonText
-                : styles.buttonText
-            }>
-            Follow
+        <TouchableOpacity onPress={toggleAboutMe} style={styles.seeMoreButton}>
+          <Text style={styles.seeMoreText}>
+            {isAboutMeExpanded ? 'Less' : 'See More'}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          //   onPress={setActiveTabToPhotos}
-          style={activeTab === 'photos' ? styles.activeButton : styles.button}>
-          <Text
-            style={
-              activeTab === 'photos'
-                ? styles.activeButtonText
-                : styles.buttonText
-            }>
-            Pictures
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          //   onPress={setActiveTabToVideos}
-          style={activeTab === 'videos' ? styles.activeButton : styles.button}>
-          <Text
-            style={
-              activeTab === 'videos'
-                ? styles.activeButtonText
-                : styles.buttonText
-            }>
-            Message
-          </Text>
-        </TouchableOpacity>
-      </View>
 
+        {/* Action Buttons Section */}
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.activeButton}>
+            <Text style={styles.buttonText}>Follow</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            //   onPress={setActiveTabToVideos}
+            style={styles.button}>
+            <Text style={styles.buttonText}>Message</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       {/* Gallery Section */}
       <View style={styles.gallery}>
         <View style={styles.tabBar}>

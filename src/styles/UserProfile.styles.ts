@@ -1,9 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
+const buttonWidth = screenWidth / 3; // Divide the screen width by 3 to get 33%
+
+const facebookBlue = 'color: rgb(72, 146, 243)'; // golucky blue color
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
   },
   userInfoSection: {
     flexDirection: 'row',
@@ -43,31 +48,58 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     padding: 15,
     borderRadius: 10,
-    marginVertical: 20,
-    marginHorizontal: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    marginBottom: 15,
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 1},
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.22,
+    // elevation: 3,
   },
   firstName: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     color: '#333',
   },
+  aboutMeContent: {
+    // Additional styling if needed
+  },
+  aboutMeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  aboutMeLabel: {
+    fontSize: 13,
+    color: '#666',
+  },
+  seeMoreButton: {
+    // Additional styling if needed
+    marginBottom: 10,
+  },
+  seeMoreText: {
+    color: '#666',
+    fontWeight: '600',
+    fontSize: 12,
+  },
+  expandedAboutMeContent: {
+    // Additional styling if needed
+  },
+  aboutMeDescription: {
+    fontSize: 13,
+    color: '#666',
+  },
   seeMore: {
-    color: '#007BFF',
+    color: 'gray',
     marginTop: 10,
     fontWeight: '600',
   },
-  actionButtonsContainer: {
+  actionsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginHorizontal: 10,
     marginVertical: 20,
   },
-  actionButton: {
+  actionbutton: {
     backgroundColor: '#DDD',
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -89,18 +121,27 @@ export const styles = StyleSheet.create({
   },
   actionButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
+    marginBottom: 5,
   },
   button: {
     backgroundColor: '#DDD',
-    padding: 10,
+    paddingHorizontal: 5, // Reduced horizontal padding
+    paddingVertical: 5, // Reduced vertical padding
     borderRadius: 5,
+    justifyContent: 'center', // Centers the text vertically
+    alignItems: 'center', // Centers the text horizontally
+    width: buttonWidth, // Width set to 33% of screen width
+    marginRight: 10,
   },
   activeButton: {
-    backgroundColor: '#007BFF',
-    padding: 10,
+    backgroundColor: 'rgb(72, 146, 243)',
+    paddingHorizontal: 5, // Reduced horizontal padding
+    paddingVertical: 5, // Reduced vertical padding
     borderRadius: 5,
+    justifyContent: 'center', // Centers the text vertically
+    alignItems: 'center', // Centers the text horizontally
+    width: buttonWidth, // Width set to 33% of screen width
+    marginRight: 10,
   },
   buttonText: {
     color: '#000',

@@ -9,6 +9,8 @@ const subTextColor = '#666'; // Subtext color
 const borderColor = '#ddd'; // Border color
 const shadowColor = '#000'; // Shadow color
 const white = '#fff'; // Shadow color
+const goluckyblue = 'color: rgb(52, 103, 164)'; // golucky blue color
+const facebookBlue = 'color: rgb(72, 146, 243)'; // golucky blue color
 
 export const styles = StyleSheet.create({
   container: {
