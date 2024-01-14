@@ -29,6 +29,8 @@ import {faBell as farBell} from '@fortawesome/free-regular-svg-icons/faBell';
 import {faCheckCircle as farCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
 import {faGem as farGem} from '@fortawesome/free-regular-svg-icons/faGem';
 import {faThumbsUp as farThumbsUp} from '@fortawesome/free-regular-svg-icons/faThumbsUp';
+import {faEdit as farEdit} from '@fortawesome/free-regular-svg-icons/faEdit';
+import PublicProfile from './src/components/PublicProfile';
 
 library.add(
   faThumbsUp,
@@ -51,6 +53,7 @@ library.add(
   farCheckCircle,
   farGem,
   farThumbsUp,
+  farEdit,
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();
@@ -70,6 +73,7 @@ function App(): React.JSX.Element {
           <RootStack.Screen name="SplashScreen" component={SplashScreen} />
           <RootStack.Screen name="MainApp" component={BottomTabNavigator} />
           <RootStack.Screen name="ChatScreen" component={ChatScreen} />
+          <RootStack.Screen name="PublicProfile" component={PublicProfile} />
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

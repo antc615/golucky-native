@@ -37,7 +37,6 @@ export const styles = StyleSheet.create({
     fontSize: 12, // Small size for the verified icon
   },
   ellipsisIcon: {},
-  // ... other styles
   iconsSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -12,10 +12,10 @@ import {
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../styles/UserProfile.styles'; // Define your styles
+import {styles} from '../styles/UserProfile.styles';
 import HeaderComponent from './HeaderComponent';
-import {Picker} from '@react-native-picker/picker'; // Assuming you're using @react-native-picker/picker
-import {faEdit} from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome edit icon
+import {Picker} from '@react-native-picker/picker';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import image1 from '../assets/mock-feed-assets/mock-image6.png';
 
 const UserProfile: React.FC = () => {
@@ -53,7 +53,11 @@ const UserProfile: React.FC = () => {
           <View style={styles.profilePicContainer}>
             <Image source={image1} style={styles.profilePic} />
             <TouchableOpacity style={styles.editButton}>
-              <FontAwesomeIcon icon={faEdit} size={14} color="#808080" />
+              <FontAwesomeIcon
+                icon={['far', 'edit']}
+                size={14}
+                color="#808080"
+              />
             </TouchableOpacity>
             <View style={styles.completionStatus}>
               <Text style={styles.completionText}>40% Complete</Text>

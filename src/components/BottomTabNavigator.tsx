@@ -4,13 +4,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-
 import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Explore from './Notifications';
 import UserProfile from '../components/UserProfile';
-import PublicProfile from './PublicProfile';
-
 import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
 import SalesComponent from './Sales';
 

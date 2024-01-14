@@ -1,11 +1,18 @@
 // Messages.tsx
 
 import React from 'react';
-import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
-import {styles} from '..//styles/Messages.styles.ts'; // Import or define your styles
-import {useNavigation} from '@react-navigation/native';
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import {styles} from '..//styles/Messages.styles.ts';
 import HeaderComponent from './HeaderComponent';
 import {SwipeListView} from 'react-native-swipe-list-view';
+import {useNavigation} from '@react-navigation/native';
 
 import image1 from '../assets/mock-feed-assets/mock-image5.png';
 import image2 from '../assets/mock-feed-assets/mock-image6.png';
@@ -45,14 +52,18 @@ const newMatchesData = [
 
 const NewMatches: React.FC = () => (
   <View style={styles.newMatchesContainer}>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {newMatchesData.map(match => (
-        <View key={match.id} style={styles.matchItem}>
-          <Image source={match.imageUrl} style={styles.matchImage} />
-          <Text style={styles.matchUsername}>{match.userName}</Text>
+    <FlatList
+      horizontal
+      data={newMatchesData}
+      keyExtractor={item => item.id}
+      renderItem={({item}) => (
+        <View style={styles.matchItem}>
+          <Image source={item.imageUrl} style={styles.matchImage} />
+          <Text style={styles.matchUsername}>{item.userName}</Text>
         </View>
-      ))}
-    </ScrollView>
+      )}
+      showsHorizontalScrollIndicator={false}
+    />
   </View>
 );
 
@@ -93,6 +104,8 @@ const Messages: React.FC = () => {
         <View style={styles.textContainer}>
           <Text style={styles.headerText}>New Matches</Text>
         </View>
+
+        {/* new matches component */}
         <NewMatches />
         <View style={styles.textContainer}>
           <Text style={styles.headerText}>Auto Chat</Text>

@@ -3,12 +3,25 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import SnapCarousel from 'react-native-snap-carousel';
 import {Dimensions} from 'react-native';
-
 import {styles} from '../styles/UserFeed.styles';
+import {StackNavigationProp} from '@react-navigation/stack';
+
+// Define your Stack Params based on your navigation setup
+type StackParams = {
+  PublicProfile: undefined; // Add other screen params as needed
+};
 
 interface UserFeedProps {
   userName: string;
-  profilePic: number; // Image require( number )
+  profilePic: number;
+  postImages: number[];
+  isVerified: boolean;
+  navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
+}
+
+interface UserFeedProps {
+  userName: string;
+  profilePic: number;
   postImages: number[];
   isVerified: boolean;
 }
@@ -42,26 +55,37 @@ const UserFeed: React.FC<UserFeedProps> = ({
   userName,
   profilePic,
   postImages,
-  isVerified, // Add this boolean prop for verified status
+  isVerified,
+  navigation,
 }) => {
   const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide
   const likes = Math.floor(Math.random() * 100);
 
+  const navigateToPublicProfile = () => {
+    navigation.navigate('PublicProfile');
+  };
+
   return (
     <View style={styles.feedBlock}>
       <View style={styles.profileSection}>
-        <Image source={profilePic} style={styles.profilePic} />
-        <View style={styles.userNameContainer}>
-          <Text style={styles.userName}>{userName}</Text>
-          {isVerified && (
-            <FontAwesomeIcon
-              icon={['fas', 'check-circle']}
-              size={12}
-              color="#4892f3"
-              style={styles.verifiedIcon}
-            />
-          )}
-        </View>
+        <TouchableOpacity onPress={navigateToPublicProfile}>
+          <Image source={profilePic} style={styles.profilePic} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={navigateToPublicProfile}
+          style={styles.userNameContainer}>
+          <View style={styles.userNameContainer}>
+            <Text style={styles.userName}>{userName}</Text>
+            {isVerified && (
+              <FontAwesomeIcon
+                icon={['fas', 'check-circle']}
+                size={12}
+                color="#4892f3"
+                style={styles.verifiedIcon}
+              />
+            )}
+          </View>
+        </TouchableOpacity>
         <View>
           <FontAwesomeIcon
             icon="ellipsis"

@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
   },
   photoUploadInstructions: {
     textAlign: 'center',
-    marginVertical: 20,
+    marginBottom: 20,
   },
 
   // User info section

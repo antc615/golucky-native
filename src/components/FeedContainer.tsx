@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import UserFeed from './UserFeed';
 import HeaderComponent from './HeaderComponent';
+import {useNavigation} from '@react-navigation/native';
 
 import {styles} from '../styles/FeedContainer.styles';
 
@@ -41,6 +42,8 @@ const dummyData = [
 ];
 
 const FeedContainer: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <HeaderComponent showIcons={false} />
@@ -52,6 +55,7 @@ const FeedContainer: React.FC = () => {
             profilePic={item.profilePic}
             postImages={item.postImages}
             isVerified={item.isVerified}
+            navigation={navigation} // Assuming 'navigation' is available in this scope
           />
         ))}
       </ScrollView>

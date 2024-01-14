@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera, faVideo} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../styles/PublicProfile.styles'; // Assuming styles are in this file
+import {useNavigation} from '@react-navigation/native';
 
 import image1 from '../assets/mock-feed-assets/mock-image5.png';
 import image2 from '../assets/mock-feed-assets/mock-image6.png';
@@ -29,9 +30,12 @@ const dummyUserData = {
   },
   photos: [image1, image3, image4, image2],
   videos: [image5, image6, image7, image9, image8],
+  userName: 'caitjonesxo123',
 };
 
 const PublicProfile: React.FC = () => {
+  const navigation = useNavigation();
+
   const [isAboutMeExpanded, setIsAboutMeExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('photos'); // 'photos' or 'videos'
 
@@ -52,93 +56,108 @@ const PublicProfile: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* User Info Section */}
-      <View style={styles.userInfoSection}>
-        <Image source={dummyUserData.profilePic} style={styles.profilePic} />
-        <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{dummyUserData.posts}</Text>
-            <Text style={styles.statLabel}>Posts</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{dummyUserData.followers}</Text>
-            <Text style={styles.statLabel}>Pictures</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{dummyUserData.following}</Text>
-            <Text style={styles.statLabel}>Media</Text>
-          </View>
-        </View>
-      </View>
-      {/* About Me Section */}
-      <View style={styles.aboutMe}>
-        <Text style={styles.firstName}>{dummyUserData.firstName}</Text>
-        <View>
-          <Text
-            style={
-              styles.aboutMeLabel
-            }>{`Location: ${dummyUserData.aboutMe.location}`}</Text>
-          <Text
-            style={
-              styles.aboutMeLabel
-            }>{`Age: ${dummyUserData.aboutMe.age}`}</Text>
-          <Text
-            style={
-              styles.aboutMeLabel
-            }>{`Job: ${dummyUserData.aboutMe.job}`}</Text>
-          {isAboutMeExpanded && (
-            <>
-              <Text
-                style={
-                  styles.aboutMeLabel
-                }>{`Hobbies: ${dummyUserData.aboutMe.hobbies}`}</Text>
-              <Text style={styles.aboutMeDescription}>
-                {dummyUserData.aboutMe.description}
-              </Text>
-            </>
-          )}
-        </View>
-
-        <TouchableOpacity onPress={toggleAboutMe} style={styles.seeMoreButton}>
-          <Text style={styles.seeMoreText}>
-            {isAboutMeExpanded ? 'Less' : 'See More'}
-          </Text>
+    <View style={styles.container}>
+      {/* header container */}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>{'< Back'}</Text>
         </TouchableOpacity>
+        <Text style={styles.userName}>@{dummyUserData.userName}</Text>
+        <FontAwesomeIcon icon="ellipsis" size={16} color="#949494" />
+      </View>
 
-        {/* Action Buttons Section */}
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={styles.activeButton}>
-            <Text style={styles.buttonText}>Follow</Text>
-          </TouchableOpacity>
+      {/* User Info Section */}
+      <ScrollView>
+        <View style={styles.userInfoSection}>
+          <Image source={dummyUserData.profilePic} style={styles.profilePic} />
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{dummyUserData.posts}</Text>
+              <Text style={styles.statLabel}>Posts</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{dummyUserData.followers}</Text>
+              <Text style={styles.statLabel}>Pictures</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{dummyUserData.following}</Text>
+              <Text style={styles.statLabel}>Media</Text>
+            </View>
+          </View>
+        </View>
+        {/* About Me Section */}
+        <View style={styles.aboutMe}>
+          <Text style={styles.firstName}>{dummyUserData.firstName}</Text>
+          <View>
+            <Text
+              style={
+                styles.aboutMeLabel
+              }>{`Location: ${dummyUserData.aboutMe.location}`}</Text>
+            <Text
+              style={
+                styles.aboutMeLabel
+              }>{`Age: ${dummyUserData.aboutMe.age}`}</Text>
+            <Text
+              style={
+                styles.aboutMeLabel
+              }>{`Job: ${dummyUserData.aboutMe.job}`}</Text>
+            {isAboutMeExpanded && (
+              <>
+                <Text
+                  style={
+                    styles.aboutMeLabel
+                  }>{`Hobbies: ${dummyUserData.aboutMe.hobbies}`}</Text>
+                <Text style={styles.aboutMeDescription}>
+                  {dummyUserData.aboutMe.description}
+                </Text>
+              </>
+            )}
+          </View>
+
           <TouchableOpacity
-            //   onPress={setActiveTabToVideos}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Message</Text>
+            onPress={toggleAboutMe}
+            style={styles.seeMoreButton}>
+            <Text style={styles.seeMoreText}>
+              {isAboutMeExpanded ? 'Less' : 'See More'}
+            </Text>
           </TouchableOpacity>
+
+          {/* Action Buttons Section */}
+          <View style={styles.actionButtons}>
+            <TouchableOpacity style={styles.activeButton}>
+              <Text style={styles.buttonText}>Follow</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              //   onPress={setActiveTabToVideos}
+              style={styles.button}>
+              <Text style={styles.buttonText}>Message</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {/* Gallery Section */}
-      <View style={styles.gallery}>
-        <View style={styles.tabBar}>
-          <TouchableOpacity onPress={setActiveTabToPhotos}>
-            <FontAwesomeIcon
-              icon={faCamera}
-              size={24}
-              color={activeTab === 'photos' ? '#000' : '#ccc'}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={setActiveTabToVideos}>
-            <FontAwesomeIcon
-              icon={faVideo}
-              size={24}
-              color={activeTab === 'videos' ? '#000' : '#ccc'}
-            />
-          </TouchableOpacity>
+        {/* Gallery Section */}
+        <View style={styles.gallery}>
+          <View style={styles.tabBar}>
+            <TouchableOpacity onPress={setActiveTabToPhotos}>
+              <FontAwesomeIcon
+                icon={faCamera}
+                size={24}
+                color={activeTab === 'photos' ? '#000' : '#ccc'}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={setActiveTabToVideos}>
+              <FontAwesomeIcon
+                icon={faVideo}
+                size={24}
+                color={activeTab === 'videos' ? '#000' : '#ccc'}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.galleryContent}>{renderGalleryItems()}</View>
         </View>
-        <View style={styles.galleryContent}>{renderGalleryItems()}</View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

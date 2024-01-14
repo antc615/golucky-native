@@ -6,6 +6,36 @@ const buttonWidth = screenWidth / 3; // Divide the screen width by 3 to get 33%
 const facebookBlue = 'color: rgb(72, 146, 243)'; // golucky blue color
 
 export const styles = StyleSheet.create({
+  // Header that needs to be refactored out
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+    backgroundColor: '#FFF',
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: '#007bff',
+  },
+  headerImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  cameraIcon: {
+    color: '#000',
+  },
+  userName: {
+    paddingTop: 3,
+  },
+
+  // Begin userFeed Container\
   container: {
     flex: 1,
     backgroundColor: '#fff',
