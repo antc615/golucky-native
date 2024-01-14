@@ -24,12 +24,12 @@ export const styles = StyleSheet.create({
     padding: 5,
   },
   backButtonText: {
-    fontSize: 16,
-    color: '#007bff', // A standard link color
+    fontSize: 21,
+    color: 'black', // A standard link color
   },
   headerImage: {
-    width: 40, // Adjust size as needed
-    height: 40,
+    width: 35, // Adjust size as needed
+    height: 35,
     borderRadius: 20,
   },
   cameraIcon: {

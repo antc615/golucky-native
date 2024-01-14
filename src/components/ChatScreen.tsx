@@ -12,6 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {styles} from '../styles/ChatScreen.styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import image1 from '../assets/mock-feed-assets/mock-image6.png';
 
 const now = new Date();
 const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
@@ -98,13 +99,10 @@ const ChatScreen: React.FC = () => {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}>
-          <Text style={styles.backButtonText}>{'< Back'}</Text>
+          <Text style={styles.backButtonText}>{'<'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={navigateToPublicProfile}>
-          <Image
-            source={{uri: 'https://via.placeholder.com/50'}}
-            style={styles.headerImage}
-          />
+          <Image source={image1} style={styles.headerImage} />
         </TouchableOpacity>
         <FontAwesomeIcon icon="camera" style={styles.cameraIcon} size={24} />
       </View>

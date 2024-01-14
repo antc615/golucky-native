@@ -50,28 +50,34 @@ const newMatchesData = [
   {id: '7', userName: 'Alice', imageUrl: image1},
 ];
 
-const NewMatches: React.FC = () => (
-  <View style={styles.newMatchesContainer}>
-    <FlatList
-      horizontal
-      data={newMatchesData}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <View style={styles.matchItem}>
-          <Image source={item.imageUrl} style={styles.matchImage} />
-          <Text style={styles.matchUsername}>{item.userName}</Text>
-        </View>
-      )}
-      showsHorizontalScrollIndicator={false}
-    />
-  </View>
-);
+// const NewMatches: React.FC = () => (
+//   <View style={styles.newMatchesContainer}>
+//     <FlatList
+//       horizontal
+//       data={newMatchesData}
+//       keyExtractor={item => item.id}
+//       renderItem={({item}) => (
+//         <TouchableOpacity onPress={navigateToPublicProfile}>
+//           <View style={styles.matchItem}>
+//             <Image source={item.imageUrl} style={styles.matchImage} />
+//             <Text style={styles.matchUsername}>{item.userName}</Text>
+//           </View>
+//         </TouchableOpacity>
+//       )}
+//       showsHorizontalScrollIndicator={false}
+//     />
+//   </View>
+// );
 
 const Messages: React.FC = () => {
   const navigation = useNavigation();
 
   const openChat = () => {
     navigation.navigate('ChatScreen'); // Add any parameters if needed
+  };
+
+  const navigateToPublicProfile = () => {
+    navigation.navigate('PublicProfile'); // Add any parameters if needed
   };
 
   const renderHiddenItem = (data, rowMap) => (
@@ -106,7 +112,24 @@ const Messages: React.FC = () => {
         </View>
 
         {/* new matches component */}
-        <NewMatches />
+        {/* <NewMatches /> */}
+        <View style={styles.newMatchesContainer}>
+          <FlatList
+            horizontal
+            data={newMatchesData}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (
+              <TouchableOpacity onPress={navigateToPublicProfile}>
+                <View style={styles.matchItem}>
+                  <Image source={item.imageUrl} style={styles.matchImage} />
+                  <Text style={styles.matchUsername}>{item.userName}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+
         <View style={styles.textContainer}>
           <Text style={styles.headerText}>Auto Chat</Text>
         </View>
