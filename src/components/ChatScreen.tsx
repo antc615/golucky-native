@@ -88,6 +88,10 @@ const ChatScreen: React.FC = () => {
     setMessage(''); // Reset input field after sending
   };
 
+  const navigateToPublicProfile = () => {
+    navigation.navigate('PublicProfile');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -96,10 +100,12 @@ const ChatScreen: React.FC = () => {
           onPress={() => navigation.goBack()}>
           <Text style={styles.backButtonText}>{'< Back'}</Text>
         </TouchableOpacity>
-        <Image
-          source={{uri: 'https://via.placeholder.com/50'}}
-          style={styles.headerImage}
-        />
+        <TouchableOpacity onPress={navigateToPublicProfile}>
+          <Image
+            source={{uri: 'https://via.placeholder.com/50'}}
+            style={styles.headerImage}
+          />
+        </TouchableOpacity>
         <FontAwesomeIcon icon="camera" style={styles.cameraIcon} size={24} />
       </View>
 

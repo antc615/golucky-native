@@ -2,7 +2,6 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 const buttonWidth = screenWidth / 3; // Divide the screen width by 3 to get 33%
-
 const facebookBlue = 'color: rgb(72, 146, 243)'; // golucky blue color
 
 export const styles = StyleSheet.create({

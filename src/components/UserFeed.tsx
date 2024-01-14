@@ -19,13 +19,6 @@ interface UserFeedProps {
   navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
 }
 
-interface UserFeedProps {
-  userName: string;
-  profilePic: number;
-  postImages: number[];
-  isVerified: boolean;
-}
-
 interface PaginatorProps {
   postImages: number[];
   activeSlide: number;
