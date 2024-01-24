@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera, faVideo} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../styles/PublicProfile.styles'; // Assuming styles are in this file
+import {styles} from '../styles/PublicProfile.styles';
 import {useNavigation} from '@react-navigation/native';
 
 import image1 from '../assets/mock-feed-assets/mock-image5.png';
