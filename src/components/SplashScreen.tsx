@@ -48,7 +48,7 @@ const SplashScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.signInButton}
-          onPress={navigateToMainApp}>
+          onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.signInButtonText}>Sign In</Text>
         </TouchableOpacity>
         <Text style={styles.footerText}>Trouble signing in?</Text>
