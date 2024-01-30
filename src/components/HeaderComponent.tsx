@@ -1,10 +1,20 @@
 // HeaderComponent.tsx
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import logoStandaloneBlack from '../assets/logo-custom-blue.png';
+import {useNavigation} from '@react-navigation/native';
 
 const HeaderComponent = ({icons = []}) => {
+  const navigation = useNavigation();
+
+  const handleIconClick = iconName => {
+    if (iconName === 'cog') {
+      navigation.navigate('AccountSettings');
+    }
+    // Handle other icons as needed
+  };
+
   const iconCount = icons.length;
 
   let containerStyle = styles.headerContainer;
@@ -27,7 +37,9 @@ const HeaderComponent = ({icons = []}) => {
       {iconCount > 0 && (
         <View style={styles.iconsContainer}>
           {icons.map((icon, index) => (
-            <FontAwesomeIcon key={index} icon={icon} style={styles.icon} />
+            <TouchableOpacity key={index} onPress={() => handleIconClick(icon)}>
+              <FontAwesomeIcon icon={icon} style={styles.icon} />
+            </TouchableOpacity>
           ))}
         </View>
       )}

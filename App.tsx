@@ -32,6 +32,7 @@ import {faGem as farGem} from '@fortawesome/free-regular-svg-icons/faGem';
 import {faThumbsUp as farThumbsUp} from '@fortawesome/free-regular-svg-icons/faThumbsUp';
 import {faEdit as farEdit} from '@fortawesome/free-regular-svg-icons/faEdit';
 import PublicProfile from './src/components/PublicProfile';
+import AccountSettings from './src/components/AccountSettings';
 
 library.add(
   faThumbsUp,
@@ -76,6 +77,10 @@ function App(): React.JSX.Element {
           <RootStack.Screen name="MainApp" component={BottomTabNavigator} />
           <RootStack.Screen name="ChatScreen" component={ChatScreen} />
           <RootStack.Screen name="PublicProfile" component={PublicProfile} />
+          <RootStack.Screen
+            name="AccountSettings"
+            component={AccountSettings}
+          />
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
