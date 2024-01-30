@@ -67,7 +67,7 @@ const SalesComponent = () => {
 
   return (
     <>
-      <HeaderComponent showIcons={false} />
+      <HeaderComponent icons={[]} />
       <ScrollView style={styles.container}>
         <View style={styles.messageSection}>
           <Text style={styles.messagesText}>

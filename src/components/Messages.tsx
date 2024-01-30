@@ -105,7 +105,7 @@ const Messages: React.FC = () => {
 
   return (
     <>
-      <HeaderComponent showIcons={false} />
+      <HeaderComponent icons={[]} />
       <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.headerText}>New Matches</Text>

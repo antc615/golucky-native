@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import HeaderComponent from './HeaderComponent';
 
 import {styles} from '../styles/Notifications.styles';
 
@@ -66,15 +67,42 @@ const NotificationsComponent = () => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.section}>
-        {likedMessages.map(msg => (
-          <View key={msg.id} style={styles.row}>
-            <Image source={msg.userImg} style={styles.profilePic} />
-            <View style={styles.content}>
-              <Text style={styles.userName}>{msg.userName}</Text>
-              <Text style={styles.text}>{msg.message}</Text>
-              <View style={styles.icons}>
+    <>
+      <HeaderComponent icons={[]} />
+      <ScrollView style={styles.container}>
+        <View style={styles.section}>
+          {likedMessages.map(msg => (
+            <View key={msg.id} style={styles.row}>
+              <Image source={msg.userImg} style={styles.profilePic} />
+              <View style={styles.content}>
+                <Text style={styles.userName}>{msg.userName}</Text>
+                <Text style={styles.text}>{msg.message}</Text>
+                <View style={styles.icons}>
+                  <TouchableOpacity style={styles.icon}>
+                    <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.icon}>
+                    <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.section}>
+          {likedPhotos.map(item => (
+            <View key={item.id}>
+              <View style={styles.row}>
+                <Image source={item.photo} style={styles.photo} />
+              </View>
+              <View style={styles.contentRow}>
+                <Image source={item.userImg} style={styles.profilePic} />
+                <Text style={styles.text}>
+                  {item.userName} and {item.others} others liked this photo
+                </Text>
+              </View>
+              <View style={styles.iconsRow}>
                 <TouchableOpacity style={styles.icon}>
                   <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
                 </TouchableOpacity>
@@ -83,68 +111,44 @@ const NotificationsComponent = () => {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
 
-      <View style={styles.section}>
-        {likedPhotos.map(item => (
-          <View key={item.id}>
-            <View style={styles.row}>
-              <Image source={item.photo} style={styles.photo} />
-            </View>
-            <View style={styles.contentRow}>
-              <Image source={item.userImg} style={styles.profilePic} />
-              <Text style={styles.text}>
-                {item.userName} and {item.others} others liked this photo
-              </Text>
-            </View>
-            <View style={styles.iconsRow}>
-              <TouchableOpacity style={styles.icon}>
-                <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.icon}>
-                <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        {commentedPhotos.map(item => (
-          <View key={item.id}>
-            <View style={styles.row}>
-              <Image source={item.photo} style={styles.photo} />
-            </View>
-            <View style={styles.commentContentRow}>
-              <Image source={item.userImg} style={styles.profilePic} />
-              <View style={styles.commentTextContainer}>
-                <Text style={styles.userName}>{item.userName}</Text>
-                <Text style={styles.commentText}>{item.comment}</Text>
+        <View style={styles.section}>
+          {commentedPhotos.map(item => (
+            <View key={item.id}>
+              <View style={styles.row}>
+                <Image source={item.photo} style={styles.photo} />
+              </View>
+              <View style={styles.commentContentRow}>
+                <Image source={item.userImg} style={styles.profilePic} />
+                <View style={styles.commentTextContainer}>
+                  <Text style={styles.userName}>{item.userName}</Text>
+                  <Text style={styles.commentText}>{item.comment}</Text>
+                </View>
+              </View>
+              <View style={styles.iconsRow}>
+                <TouchableOpacity style={styles.icon}>
+                  <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.icon}>
+                  <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.iconsRow}>
-              <TouchableOpacity style={styles.icon}>
-                <FontAwesomeIcon icon={['far', 'thumbs-up']} size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.icon}>
-                <FontAwesomeIcon icon={['far', 'comment-alt']} size={20} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
 
-      <View style={styles.section}>
-        {historyItems.map(item => (
-          <View key={item.id} style={styles.row}>
-            <Text style={styles.text}>{item.content}</Text>
-            <Text style={styles.date}>{item.date}</Text>
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+        <View style={styles.section}>
+          {historyItems.map(item => (
+            <View key={item.id} style={styles.row}>
+              <Text style={styles.text}>{item.content}</Text>
+              <Text style={styles.date}>{item.date}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

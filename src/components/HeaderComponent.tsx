@@ -4,23 +4,36 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import logoStandaloneBlack from '../assets/logo-custom-blue.png';
 
-const HeaderComponent = ({showIcons = true}) => {
+const HeaderComponent = ({icons = []}) => {
+  const iconCount = icons.length;
+
+  let containerStyle = styles.headerContainer;
+  if (iconCount === 0) {
+    containerStyle = [styles.headerContainer, styles.headerContainerCentered];
+  } else if (iconCount === 1) {
+    containerStyle = [styles.headerContainer, styles.headerContainerCentered];
+  } else {
+    containerStyle = [styles.headerContainer, styles.headerContainerSpaced];
+  }
+
   return (
-    <View style={[styles.headerContainer, !showIcons && styles.centerContent]}>
+    <View style={containerStyle}>
+      {(iconCount === 0 || iconCount === 1) && <View style={{flex: 1}} />}
       <View style={styles.logoContainer}>
         <Image source={logoStandaloneBlack} style={styles.logo} />
-        <Text style={styles.logoText}>golucky</Text>
+        <Text style={styles.logoText}>goLucky</Text>
       </View>
-      {showIcons && (
+      {(iconCount === 0 || iconCount === 1) && <View style={{flex: 1}} />}
+      {iconCount > 0 && (
         <View style={styles.iconsContainer}>
-          <FontAwesomeIcon icon="bars" style={styles.icon} />
-          <FontAwesomeIcon icon="bell" style={styles.icon} />
+          {icons.map((icon, index) => (
+            <FontAwesomeIcon key={index} icon={icon} style={styles.icon} />
+          ))}
         </View>
       )}
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
@@ -30,6 +43,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderBottomWidth: 0.25,
     borderBottomColor: '#dcdcdc',
+  },
+  headerContainerCentered: {
+    justifyContent: 'center',
+  },
+  headerContainerSpaced: {
+    justifyContent: 'space-between',
   },
   centerContent: {
     justifyContent: 'center',
@@ -52,6 +71,7 @@ const styles = StyleSheet.create({
   },
   iconsContainer: {
     flexDirection: 'row',
+    justifyContent: 'flex-end', // Align icons to the right
   },
   icon: {
     marginLeft: 10,

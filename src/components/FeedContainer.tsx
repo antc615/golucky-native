@@ -46,7 +46,7 @@ const FeedContainer: React.FC = () => {
 
   return (
     <>
-      <HeaderComponent showIcons={false} />
+      <HeaderComponent icons={['bars', 'bell']} />
       <ScrollView style={styles.container}>
         {dummyData.map(item => (
           <UserFeed

@@ -46,7 +46,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <>
-      <HeaderComponent showIcons={true} />
+      <HeaderComponent icons={['cog']} />
       <ScrollView style={styles.container}>
         {/*************************** Header Profile section *********************************/}
         <View style={styles.profileHeader}>
