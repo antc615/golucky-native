@@ -30,3 +30,13 @@ export const authenticateUser = async (
     throw error;
   }
 };
+
+export const logoutUser = async (refreshToken: string): Promise<void> => {
+  try {
+    await apiClient.post('/api/auth/logout', {refresh: refreshToken});
+    // You can handle any additional logic post-logout here if needed
+  } catch (error) {
+    console.error('Logout error:', error);
+    throw error;
+  }
+};

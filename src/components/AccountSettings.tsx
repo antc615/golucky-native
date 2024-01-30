@@ -1,8 +1,26 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {logoutUser} from '../services/apiServices.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AccountSettings: React.FC = () => {
+  const handleLogout = async () => {
+    try {
+      const refreshToken = await AsyncStorage.getItem('refreshToken');
+      if (refreshToken) {
+        await logoutUser(refreshToken);
+      }
+      await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('refreshToken');
+      // Navigate to the login screen or splash screen after logout
+      navigation.navigate('SplashScreen');
+    } catch (e) {
+      console.error('Logout error', e);
+      // Handle logout error
+    }
+  };
+
   const navigation = useNavigation();
 
   return (
@@ -18,7 +36,7 @@ const AccountSettings: React.FC = () => {
       <TouchableOpacity
         style={styles.optionButton}
         onPress={() => {
-          /* Handle logout logic */
+          handleLogout();
         }}>
         <Text style={styles.optionText}>Logout</Text>
       </TouchableOpacity>
