@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
+import {registerUser} from '../../services/apiServices.ts';
 
 const UsernamePasswordRegistration: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -19,15 +20,40 @@ const UsernamePasswordRegistration: React.FC = () => {
   const route = useRoute();
   const email = route.params?.email;
 
-  const handleNext = () => {
-    if (password !== confirmPassword) {
-      setPasswordError('Passwords do not match');
-      return;
-    }
-    setPasswordError('');
-    // Proceed if username and passwords are valid
-    if (username.length > 0 && password.length > 0) {
-      // Logic to go to next screen
+  const updatePassword = (newPassword: string) => {
+    setPassword(newPassword);
+    // Reset the error if the user starts correcting the password
+    if (confirmPassword) setPasswordError('');
+  };
+
+  const updateConfirmPassword = (newPassword: string) => {
+    setConfirmPassword(newPassword);
+    // Check if passwords match and update error state
+    setPasswordError(
+      newPassword && password !== newPassword ? 'Passwords do not match' : '',
+    );
+  };
+
+  const handleNext = async () => {
+    if (
+      username.length > 0 &&
+      password.length > 0 &&
+      password === confirmPassword
+    ) {
+      try {
+        const registrationResponse = await registerUser(
+          username,
+          email,
+          password,
+        );
+        console.log('Registration successful:', registrationResponse);
+
+        // TODO: Navigate to next component and pass the user credentials
+        // navigation.navigate('NextComponent', { userData: registrationResponse });
+      } catch (apiError) {
+        console.error('Registration error:', apiError);
+        // Handle registration error (e.g., show an error message)
+      }
     }
   };
 
@@ -55,14 +81,14 @@ const UsernamePasswordRegistration: React.FC = () => {
           style={styles.input}
           placeholder="Password"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={updatePassword}
           secureTextEntry
         />
         <TextInput
           style={[styles.input, passwordError ? styles.inputError : null]}
           placeholder="Confirm Password"
           value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          onChangeText={updateConfirmPassword}
           secureTextEntry
         />
         {passwordError ? (

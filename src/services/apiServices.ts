@@ -40,3 +40,31 @@ export const logoutUser = async (refreshToken: string): Promise<void> => {
     throw error;
   }
 };
+
+interface RegistrationResponse {
+  id: number;
+  username: string;
+  email: string;
+}
+
+export const registerUser = async (
+  username: string,
+  email: string,
+  password: string,
+): Promise<RegistrationResponse> => {
+  try {
+    const response: AxiosResponse<RegistrationResponse> = await axios.post(
+      'http://127.0.0.1:8000/api/auth/register',
+      {username, email, password},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Registration error:', error);
+    throw error;
+  }
+};
