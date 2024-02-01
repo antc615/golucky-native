@@ -14,7 +14,9 @@ import logo from '../assets/logo3.png';
 
 type RootStackParamList = {
   SplashScreen: undefined;
-  MainApp: undefined; // Added MainApp
+  MainApp: undefined;
+  EmailRegistration: undefined;
+  SignIn: undefined;
   // ... other routes
 };
 
@@ -43,7 +45,9 @@ const SplashScreen: React.FC = () => {
           By tapping 'Sign in' you agree to our Terms. Learn how we process your
           data in our Privacy Policy
         </Text>
-        <TouchableOpacity style={styles.button} onPress={navigateToMainApp}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('EmailRegistration')}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <TouchableOpacity
