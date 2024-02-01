@@ -16,6 +16,10 @@ const UsernamePasswordRegistration: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  // Error states
+  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+
   const navigation = useNavigation();
   const route = useRoute();
   const email = route.params?.email;
@@ -36,23 +40,38 @@ const UsernamePasswordRegistration: React.FC = () => {
 
   const handleNext = async () => {
     if (
-      username.length > 0 &&
-      password.length > 0 &&
-      password === confirmPassword
+      username.length === 0 ||
+      password.length === 0 ||
+      password !== confirmPassword
     ) {
-      try {
-        const registrationResponse = await registerUser(
-          username,
-          email,
-          password,
-        );
-        console.log('Registration successful:', registrationResponse);
+      // Set error messages if fields are invalid
+      setUsernameError(
+        username.length === 0 ? 'Username cannot be blank.' : '',
+      );
+      setEmailError(email.length === 0 ? 'Email cannot be blank.' : '');
+      setPasswordError(
+        password !== confirmPassword ? 'Passwords do not match' : '',
+      );
+      return;
+    }
 
-        // TODO: Navigate to next component and pass the user credentials
-        // navigation.navigate('NextComponent', { userData: registrationResponse });
-      } catch (apiError) {
-        console.error('Registration error:', apiError);
-        // Handle registration error (e.g., show an error message)
+    try {
+      const registrationResponse = await registerUser(
+        username,
+        email,
+        password,
+      );
+      console.log('Registration successful:', registrationResponse);
+
+      // TODO: Navigate to next component and pass the user credentials
+      // navigation.navigate('NextComponent', { userData: registrationResponse });
+    } catch (apiError) {
+      console.error('Registration error:', apiError);
+      if (apiError.response && apiError.response.data) {
+        const errors = apiError.response.data;
+        setUsernameError(errors.username ? errors.username[0] : '');
+        setEmailError(errors.email ? errors.email[0] : '');
+        // Assuming similar error handling for password
       }
     }
   };
@@ -70,6 +89,10 @@ const UsernamePasswordRegistration: React.FC = () => {
       <View style={styles.content}>
         <Text style={styles.welcomeText}>Almost there!</Text>
         {/* <Text style={styles.subWelcomeText}>Email: {email}</Text> */}
+
+        {usernameError ? (
+          <Text style={styles.errorText}>{usernameError}</Text>
+        ) : null}
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -84,6 +107,7 @@ const UsernamePasswordRegistration: React.FC = () => {
           onChangeText={updatePassword}
           secureTextEntry
         />
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <TextInput
           style={[styles.input, passwordError ? styles.inputError : null]}
           placeholder="Confirm Password"
