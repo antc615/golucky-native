@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {isValidEmail} from '../../utils/Validation.ts'; // Assume a utility function for email validation
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types/navigationTypes'; // Adjust the import path as necessary
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
+import {isValidEmail} from '../../utils/Validation.ts';
+
+// Define the navigation prop type based on the param list
+type EmailRegistrationNavProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'EmailRegistration'
+>;
 
 const EmailRegistration: React.FC = () => {
   const [email, setEmail] = useState('');
-  const navigation = useNavigation();
-
-  const isValidEmail = (email: string) => {
-    // Simple regex for validating an email
-    const emailRegex = /\S+@\S+\.\S+/;
-    return emailRegex.test(email);
-  };
+  const navigation = useNavigation<EmailRegistrationNavProp>();
 
   return (
     <View style={styles.container}>
