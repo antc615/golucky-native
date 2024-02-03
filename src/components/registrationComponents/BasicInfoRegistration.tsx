@@ -4,13 +4,20 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  // Add Picker from either 'react-native' or a library like 'react-native-picker-select'
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
 
+import {RootStackParamList} from '../../types/navigationTypes'; // Adjust the import path as necessary
+type BasicInfoRegistrationRouteProp = RouteProp<
+  RootStackParamList,
+  'BasicInfoRegistration'
+>;
+
 const BasicInfoRegistration: React.FC = () => {
+  const route = useRoute<BasicInfoRegistrationRouteProp>();
+  const {accessToken, refreshToken} = route.params; // Destructure the needed parameters
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [location, setLocation] = useState('');

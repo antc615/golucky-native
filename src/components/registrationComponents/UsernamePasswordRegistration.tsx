@@ -8,10 +8,23 @@ import {
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
-import {registerUser} from '../../services/apiServices.ts';
-import {loginUser} from '../../services/apiServices.ts';
+import {authenticateUser} from '../../services/apiServices.ts';
+import axios from 'axios';
+
+// Types
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types//navigationTypes.ts';
+import {AuthResponse, ApiErrorResponse} from '../../types/apiResponses'; // Adjust import path as necessary
+
+// Define the navigation prop type based on the param list
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'UsernamePasswordRegistration'
+>;
 
 const UsernamePasswordRegistration: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,7 +34,6 @@ const UsernamePasswordRegistration: React.FC = () => {
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
 
-  const navigation = useNavigation();
   const route = useRoute();
   const email = route.params?.email;
 
@@ -65,21 +77,28 @@ const UsernamePasswordRegistration: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const loginResponse = await loginUser(username, password);
-      console.log('Login successful:', loginResponse);
+      const authResponse = await authenticateUser(username, password);
+      console.log('Login successful:', authResponse);
 
       // Assuming loginUser function resolves with an object that includes accessToken and refreshToken
       navigation.navigate('BasicInfoRegistration', {
-        accessToken: loginResponse.accessToken,
-        refreshToken: loginResponse.refreshToken,
-        // Pass other user data if necessary
+        accessToken: authResponse.access,
+        refreshToken: authResponse.refresh,
       });
-    } catch (apiError) {
-      console.error('Login error:', apiError);
-      // Handle specific API errors if necessary
-      if (apiError.response && apiError.response.data) {
-        const errors = apiError.response.data;
-        // Update state with API errors if needed
+    } catch (error) {
+      console.error('Login error:', error);
+
+      if (axios.isAxiosError(error)) {
+        // Here we check if the error is an Axios error
+        const serverError = error.response?.data as ApiErrorResponse;
+        // Use serverError.detail for user feedback or logging
+        console.error('Error detail:', serverError.detail);
+
+        // Optionally, update the component state to display the error
+        // setError(serverError.detail); // Assuming you have a state named `error` to store the error message
+      } else {
+        // Handle non-Axios errors
+        console.error('Non-Axios error:', error);
       }
     }
   };
