@@ -47,6 +47,11 @@ interface RegistrationResponse {
   email: string;
 }
 
+interface LoginResponse {
+  refresh: string;
+  access: string;
+}
+
 export const registerUser = async (
   username: string,
   email: string,
@@ -65,6 +70,27 @@ export const registerUser = async (
     return response.data;
   } catch (error) {
     console.error('Registration error:', error);
+    throw error;
+  }
+};
+
+export const loginUser = async (
+  username: string,
+  password: string,
+): Promise<LoginResponse> => {
+  try {
+    const response: AxiosResponse<LoginResponse> = await axios.post(
+      'http://127.0.0.1:8000/api/token/',
+      {username, password},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Login error:', error);
     throw error;
   }
 };

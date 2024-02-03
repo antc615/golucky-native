@@ -9,6 +9,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
 import {registerUser} from '../../services/apiServices.ts';
+import {loginUser} from '../../services/apiServices.ts';
 
 const UsernamePasswordRegistration: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -39,39 +40,46 @@ const UsernamePasswordRegistration: React.FC = () => {
   };
 
   const handleNext = async () => {
-    if (
-      username.length === 0 ||
-      password.length === 0 ||
-      password !== confirmPassword
-    ) {
-      // Set error messages if fields are invalid
-      setUsernameError(
-        username.length === 0 ? 'Username cannot be blank.' : '',
-      );
-      setEmailError(email.length === 0 ? 'Email cannot be blank.' : '');
-      setPasswordError(
-        password !== confirmPassword ? 'Passwords do not match' : '',
-      );
-      return;
-    }
+    // Initialize error states to empty
+    let newUsernameError = '';
+    let newEmailError = '';
+    let newPasswordError = '';
 
+    // Check for validation errors
+    if (!username) newUsernameError = 'Username cannot be blank.';
+    if (!email) newEmailError = 'Email cannot be blank.';
+    if (password !== confirmPassword)
+      newPasswordError = 'Passwords do not match';
+
+    // Update state only once, reducing the number of renders
+    setUsernameError(newUsernameError);
+    setEmailError(newEmailError);
+    setPasswordError(newPasswordError);
+
+    // If any errors exist, return early
+    if (newUsernameError || newEmailError || newPasswordError) return;
+
+    // Proceed with login if validation passes
+    await handleLogin();
+  };
+
+  const handleLogin = async () => {
     try {
-      const registrationResponse = await registerUser(
-        username,
-        email,
-        password,
-      );
-      console.log('Registration successful:', registrationResponse);
+      const loginResponse = await loginUser(username, password);
+      console.log('Login successful:', loginResponse);
 
-      // TODO: Navigate to next component and pass the user credentials
-      // navigation.navigate('NextComponent', { userData: registrationResponse });
+      // Assuming loginUser function resolves with an object that includes accessToken and refreshToken
+      navigation.navigate('BasicInfoRegistration', {
+        accessToken: loginResponse.accessToken,
+        refreshToken: loginResponse.refreshToken,
+        // Pass other user data if necessary
+      });
     } catch (apiError) {
-      console.error('Registration error:', apiError);
+      console.error('Login error:', apiError);
+      // Handle specific API errors if necessary
       if (apiError.response && apiError.response.data) {
         const errors = apiError.response.data;
-        setUsernameError(errors.username ? errors.username[0] : '');
-        setEmailError(errors.email ? errors.email[0] : '');
-        // Assuming similar error handling for password
+        // Update state with API errors if needed
       }
     }
   };

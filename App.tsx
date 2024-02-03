@@ -9,6 +9,7 @@ import ChatScreen from './src/components/ChatScreen';
 import SignIn from './src/components/SignIn';
 import EmailRegistration from './src/components/registrationComponents/EmailRegistration';
 import UsernamePasswordRegistration from './src/components/registrationComponents/UsernamePasswordRegistration';
+import BasicInfoRegistration from './src/components/registrationComponents/BasicInfoRegistration';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons/faThumbsUp';
@@ -90,6 +91,10 @@ function App(): React.JSX.Element {
           <RootStack.Screen
             name="UsernamePasswordRegistration"
             component={UsernamePasswordRegistration}
+          />
+          <RootStack.Screen
+            name="BasicInfoRegistration"
+            component={BasicInfoRegistration}
           />
         </RootStack.Navigator>
       </NavigationContainer>
