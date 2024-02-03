@@ -1,10 +1,5 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
 
@@ -30,6 +25,11 @@ const BasicInfoRegistration: React.FC = () => {
   });
 
   const navigation = useNavigation();
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    validateFields();
+  }, [firstName, lastName, location, occupation]); // Add other dependencies as needed
 
   const validateFields = () => {
     let newErrors = {firstName: '', lastName: '', location: '', occupation: ''};
@@ -53,13 +53,12 @@ const BasicInfoRegistration: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return isValid;
+    setIsFormValid(isValid); // Update the form validity state
   };
 
   const handleNext = () => {
-    if (validateFields()) {
-      // Proceed with the next steps
-    }
+    // Proceed with the next steps
+    console.log('success in basic info');
   };
 
   return (
@@ -138,9 +137,9 @@ const BasicInfoRegistration: React.FC = () => {
         ) : null}
       </View>
       <TouchableOpacity
-        style={[styles.button, !validateFields() && styles.buttonDisabled]}
+        style={[styles.button, !isFormValid && styles.buttonDisabled]}
         onPress={handleNext}
-        disabled={!validateFields()}>
+        disabled={!isFormValid}>
         <Text style={styles.buttonText}>NEXT</Text>
       </TouchableOpacity>
     </View>
