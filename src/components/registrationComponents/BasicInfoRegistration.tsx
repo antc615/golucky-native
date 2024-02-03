@@ -7,9 +7,11 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
-import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
 
-import {RootStackParamList} from '../../types/navigationTypes'; // Adjust the import path as necessary
+// Adjust the import path as necessary for styles and types
+import {styles} from '../../styles/registrationStyles/BasicInfoRegistration.styles';
+import {RootStackParamList} from '../../types/navigationTypes';
+
 type BasicInfoRegistrationRouteProp = RouteProp<
   RootStackParamList,
   'BasicInfoRegistration'
@@ -17,7 +19,7 @@ type BasicInfoRegistrationRouteProp = RouteProp<
 
 const BasicInfoRegistration: React.FC = () => {
   const route = useRoute<BasicInfoRegistrationRouteProp>();
-  const {accessToken, refreshToken} = route.params; // Destructure the needed parameters
+  const {accessToken, refreshToken} = route.params;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -31,122 +33,119 @@ const BasicInfoRegistration: React.FC = () => {
   });
 
   const navigation = useNavigation();
-  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    validateFields();
-  }, [firstName, lastName, location, occupation]); // Add other dependencies as needed
+    // Initially, no fields are in error state
+    setErrors({
+      firstName: '',
+      lastName: '',
+      location: '',
+      occupation: '',
+    });
+  }, []);
 
   const validateFields = () => {
-    let newErrors = {firstName: '', lastName: '', location: '', occupation: ''};
     let isValid = true;
+    let newErrors = {...errors};
 
-    if (!firstName) {
+    if (!firstName.trim()) {
       newErrors.firstName = 'First Name is required';
       isValid = false;
     }
-    if (!lastName) {
+
+    if (!lastName.trim()) {
       newErrors.lastName = 'Last Name is required';
       isValid = false;
     }
-    if (!location) {
+
+    if (!location.trim()) {
       newErrors.location = 'Location is required';
       isValid = false;
     }
-    if (!occupation) {
+
+    if (!occupation.trim()) {
       newErrors.occupation = 'Occupation is required';
       isValid = false;
     }
 
     setErrors(newErrors);
-    setIsFormValid(isValid); // Update the form validity state
+    return isValid;
   };
 
   const handleNext = () => {
-    // Proceed with the next steps
-    console.log('success in basic info');
+    if (validateFields()) {
+      console.log('Navigating to the next screen');
+      // Add navigation logic here
+    }
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backArrowContainer}
             onPress={() => navigation.goBack()}>
-            <Text style={styles.backArrow}>←</Text>
+            <Text style={styles.backArrow}>← Back</Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>Basic Info</Text>
         </View>
 
-        {/* Content */}
         <View style={styles.content}>
-          <Text style={styles.welcomeText}>
-            Thanks for creating your account!
-          </Text>
-          <Text style={styles.subWelcomeText}>Now tell us about you</Text>
-
-          {/* First Name */}
+          <Text style={styles.label}>First Name</Text>
           <TextInput
             style={[styles.input, errors.firstName ? styles.inputError : {}]}
-            placeholder="Enter your First Name"
+            placeholder="John"
             value={firstName}
-            onChangeText={text => {
-              setFirstName(text);
-              setErrors(prev => ({...prev, firstName: ''}));
-            }}
+            onChangeText={setFirstName}
           />
-          {errors.firstName ? (
+          {errors.firstName && (
             <Text style={styles.errorText}>{errors.firstName}</Text>
-          ) : null}
+          )}
 
-          {/* Last Name Input */}
+          <Text style={styles.label}>Last Name</Text>
           <TextInput
             style={[styles.input, errors.lastName ? styles.inputError : {}]}
-            placeholder="Enter your Last Name"
+            placeholder="Doe"
             value={lastName}
-            onChangeText={text => {
-              setLastName(text);
-              setErrors(prev => ({...prev, lastName: ''}));
-            }}
+            onChangeText={setLastName}
           />
-          {errors.lastName ? (
+          {errors.lastName && (
             <Text style={styles.errorText}>{errors.lastName}</Text>
-          ) : null}
+          )}
 
-          {/* Location Input */}
-          {/* Assuming you want a simple text input for the location; for a picker, you'd use a different component */}
+          <Text style={styles.label}>Location</Text>
           <TextInput
             style={[styles.input, errors.location ? styles.inputError : {}]}
-            placeholder="Where do you live?"
+            placeholder="New York, USA"
             value={location}
-            onChangeText={text => {
-              setLocation(text);
-              setErrors(prev => ({...prev, location: ''}));
-            }}
+            onChangeText={setLocation}
           />
-          {errors.location ? (
+          {errors.location && (
             <Text style={styles.errorText}>{errors.location}</Text>
-          ) : null}
+          )}
 
-          {/* Occupation Input */}
+          <Text style={styles.label}>Occupation</Text>
           <TextInput
             style={[styles.input, errors.occupation ? styles.inputError : {}]}
-            placeholder="What do you do for work?"
+            placeholder="Software Developer"
             value={occupation}
-            onChangeText={text => {
-              setOccupation(text);
-              setErrors(prev => ({...prev, occupation: ''}));
-            }}
+            onChangeText={setOccupation}
           />
-          {errors.occupation ? (
+          {errors.occupation && (
             <Text style={styles.errorText}>{errors.occupation}</Text>
-          ) : null}
+          )}
         </View>
+
         <TouchableOpacity
-          style={[styles.button, !isFormValid && styles.buttonDisabled]}
+          style={[
+            styles.button,
+            Object.values(errors).some(error => error)
+              ? styles.buttonDisabled
+              : {},
+          ]}
           onPress={handleNext}
-          disabled={!isFormValid}>
+          disabled={Object.values(errors).some(error => error)}>
           <Text style={styles.buttonText}>NEXT</Text>
         </TouchableOpacity>
       </View>
