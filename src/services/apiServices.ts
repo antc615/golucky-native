@@ -1,8 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
-import {
-  RegistrationResponse,
-  AuthResponse,
-} from '../types/apiResponses';
+import {RegistrationResponse, AuthResponse} from '../types/apiResponses';
 
 const API_BASE_URL = 'http://127.0.0.1:8000'; // Replace with your actual base URL
 
@@ -21,6 +18,24 @@ export const authenticateUser = async (
     const response: AxiosResponse<AuthResponse> = await apiClient.post(
       '/api/token/',
       {username, password},
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Authentication error:', error);
+    // You can throw a custom error or the original error based on your error handling strategy
+    throw error;
+  }
+};
+
+export const registerAndLogin = async (
+  username: string,
+  email: string,
+  password: string,
+): Promise<AuthResponse> => {
+  try {
+    const response: AxiosResponse<AuthResponse> = await apiClient.post(
+      '/api/auth/registerLogin/',
+      {username, email, password},
     );
     return response.data;
   } catch (error) {

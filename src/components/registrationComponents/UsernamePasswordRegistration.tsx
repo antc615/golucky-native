@@ -1,20 +1,15 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
-import {authenticateUser} from '../../services/apiServices.ts';
+import {registerAndLogin} from '../../services/apiServices.ts';
 import axios from 'axios';
 
-// Types
+// Additional imports...
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types//navigationTypes.ts';
-import {AuthResponse, ApiErrorResponse} from '../../types/apiResponses'; // Adjust import path as necessary
+import {ApiErrorResponse} from '../../types/apiResponses'; // Adjust import path as necessary
+import {AuthResponse} from '../../types/apiResponses'; // Adjust import path as necessary
 
 // Define the navigation prop type based on the param list
 type NavigationProp = NativeStackNavigationProp<
@@ -24,13 +19,13 @@ type NavigationProp = NativeStackNavigationProp<
 
 const UsernamePasswordRegistration: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [authResponse, setAuthResponse] = useState<AuthResponse | null>(null);
 
-  // Error states
+  // Error states...
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
 
@@ -75,16 +70,12 @@ const UsernamePasswordRegistration: React.FC = () => {
     await handleLogin();
   };
 
+  // Assume route and email extraction remains the same...
   const handleLogin = async () => {
     try {
-      const authResponse = await authenticateUser(username, password);
-      console.log('Login successful:', authResponse);
-
-      // Assuming loginUser function resolves with an object that includes accessToken and refreshToken
-      navigation.navigate('BasicInfoRegistration', {
-        accessToken: authResponse.access,
-        refreshToken: authResponse.refresh,
-      });
+      const response = await registerAndLogin(username, email, password);
+      setAuthResponse(response); // Store the login response
+      console.log('Login successful:', response);
     } catch (error) {
       console.error('Login error:', error);
 
@@ -102,6 +93,15 @@ const UsernamePasswordRegistration: React.FC = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (authResponse) {
+      navigation.navigate('BasicInfoRegistration', {
+        accessToken: authResponse.access,
+        refreshToken: authResponse.refresh,
+      });
+    }
+  }, [authResponse, navigation]);
 
   return (
     <View style={styles.container}>
