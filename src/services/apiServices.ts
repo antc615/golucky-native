@@ -104,3 +104,27 @@ export const updateUserProfile = async (
     throw error; // Rethrow to handle it in the calling function
   }
 };
+
+// Adjust the parameter types as needed based on your actual form data and API requirements
+export const updatePhoneNumber = async (
+  accessToken: string,
+  profileData: {
+    phone_number: string;
+  },
+) => {
+  const url = 'http://127.0.0.1:8000/api/profile/';
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const response = await axios.patch(url, profileData, {headers});
+    console.log('Profile update successful', response.data);
+    // Optionally return something here, e.g., response data
+    return response.data;
+  } catch (error) {
+    console.error('Error updating profile:', error.response || error);
+    throw error; // Rethrow to handle it in the calling function
+  }
+};

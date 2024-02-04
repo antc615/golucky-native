@@ -6,6 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 import {authenticateUser} from '../services/apiServices.ts';
 import {ActivityIndicator} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../types/navigationTypes';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,14 +16,6 @@ const SignIn: React.FC = () => {
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
-  // Navigation requirements
-  type RootStackParamList = {
-    SplashScreen: undefined;
-    SignIn: undefined;
-    MainApp: undefined;
-    // ... other routes
-  };
 
   type SignInNavigationProp = NativeStackNavigationProp<
     RootStackParamList,

@@ -7,59 +7,66 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
     padding: 16,
     backgroundColor: '#f4f4f8',
   },
   header: {
-    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 10,
-    paddingHorizontal: 10,
+    width: '100%',
+    marginBottom: 20,
   },
   backArrowContainer: {
-    marginRight: 'auto',
+    marginRight: 10,
   },
   backArrow: {
     fontSize: 24,
     fontWeight: 'bold',
   },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
+  },
+  formGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  picker: {
+    flex: 1,
+    marginRight: 10,
+    minWidth: 60,
+  },
+  input: {
+    flex: 2,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    fontSize: 16,
+  },
+
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
-    flex: 1,
   },
   content: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: 32,
   },
-  message: {
-    fontSize: 20,
+  label: {
+    alignSelf: 'center',
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
   },
-  input: {
-    width: '95%',
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginBottom: 20,
-    fontSize: 16,
+  inputError: {
+    borderColor: 'red',
   },
-  disclaimer: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: '#888',
-    marginBottom: 20,
+  errorText: {
+    color: 'red',
   },
   button: {
     width: '85%',
@@ -78,4 +85,5 @@ export const styles = StyleSheet.create({
   buttonDisabled: {
     backgroundColor: '#cccccc',
   },
+  // Adjust or add more styles as needed
 });
