@@ -8,6 +8,7 @@ export type RootStackParamList = {
     accessToken: string;
     refreshToken: string;
   };
+  PhoneNumberRegistration: undefined;
   ChatScreen: undefined;
   PublicProfile: undefined;
   AccountSettings: undefined;

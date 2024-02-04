@@ -11,28 +11,32 @@ import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 // Adjust the import path as necessary for styles and types
 import {styles} from '../../styles/registrationStyles/BasicInfoRegistration.styles';
 import {RootStackParamList} from '../../types/navigationTypes';
+import {getAccessTokens} from '../../utils/appUtils.ts';
+import {updateUserProfile} from '../../services/apiServices.ts';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-type BasicInfoRegistrationRouteProp = RouteProp<
+// Define the navigation prop type
+type BasicInfoNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'BasicInfoRegistration'
 >;
 
 const BasicInfoRegistration: React.FC = () => {
-  const route = useRoute<BasicInfoRegistrationRouteProp>();
-  const {accessToken, refreshToken} = route.params;
+  const navigation = useNavigation<BasicInfoNavigationProp>();
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [location, setLocation] = useState('');
   const [occupation, setOccupation] = useState('');
+  const [age, setAge] = useState('');
   const [errors, setErrors] = useState({
     firstName: '',
     lastName: '',
     location: '',
     occupation: '',
+    age: '',
   });
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     // Initially, no fields are in error state
@@ -41,6 +45,7 @@ const BasicInfoRegistration: React.FC = () => {
       lastName: '',
       location: '',
       occupation: '',
+      age: '',
     });
   }, []);
 
@@ -68,16 +73,40 @@ const BasicInfoRegistration: React.FC = () => {
       isValid = false;
     }
 
+    if (!age.trim()) {
+      newErrors.occupation = 'Age is required';
+      isValid = false;
+    }
+
     setErrors(newErrors);
     return isValid;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateFields()) {
-      console.log('Navigating to the next screen');
-      // Add navigation logic here
+      try {
+        const tokens = await getAccessTokens(); // Ensure this function is correctly implemented to fetch tokens
+        if (tokens && tokens.accessToken) {
+          const formData = {firstName, lastName, location, occupation, age};
+          await updateUserProfile(tokens.accessToken, formData);
+          setIsUpdateSuccess(true); // Indicate successful profile update
+        } else {
+          console.error('Access token not found');
+        }
+      } catch (error) {
+        console.error('Error in handleNext:', error);
+        setIsUpdateSuccess(false); // Optionally handle failure
+      }
     }
   };
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      // Navigate to PhoneNumberRegistration after successful profile update
+      navigation.navigate('PhoneNumberRegistration');
+      setIsUpdateSuccess(false); // Reset the state if needed
+    }
+  }, [isUpdateSuccess, navigation]);
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -86,7 +115,7 @@ const BasicInfoRegistration: React.FC = () => {
           <TouchableOpacity
             style={styles.backArrowContainer}
             onPress={() => navigation.goBack()}>
-            <Text style={styles.backArrow}>← Back</Text>
+            <Text style={styles.backArrow}> ← </Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>Basic Info</Text>
         </View>
@@ -113,6 +142,15 @@ const BasicInfoRegistration: React.FC = () => {
           {errors.lastName && (
             <Text style={styles.errorText}>{errors.lastName}</Text>
           )}
+
+          <Text style={styles.label}>Age</Text>
+          <TextInput
+            style={[styles.input, errors.age ? styles.inputError : {}]}
+            placeholder="25"
+            value={age}
+            onChangeText={setAge}
+          />
+          {errors.age && <Text style={styles.errorText}>{errors.age}</Text>}
 
           <Text style={styles.label}>Location</Text>
           <TextInput

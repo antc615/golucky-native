@@ -1,6 +1,6 @@
 // SignIn.tsx
-import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState,} from 'react';
+import {View, Text, TextInput, TouchableOpacity,} from 'react-native';
 import {styles} from '../styles/SignIn.styles.ts';
 import {useNavigation} from '@react-navigation/native';
 import {authenticateUser} from '../services/apiServices.ts';

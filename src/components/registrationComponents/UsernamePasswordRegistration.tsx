@@ -10,6 +10,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {styles} from '../../styles/registrationStyles/EmailRegistration.styles.ts';
 import {registerAndLogin} from '../../services/apiServices.ts';
 import axios from 'axios';
+import {storeTokens} from '../../utils/appUtils.ts';
 
 // Additional imports...
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -102,6 +103,9 @@ const UsernamePasswordRegistration: React.FC = () => {
 
   useEffect(() => {
     if (authResponse) {
+      storeTokens(authResponse.access, authResponse.refresh);
+      console.log('Login successful:', authResponse);
+
       navigation.navigate('BasicInfoRegistration', {
         accessToken: authResponse.access,
         refreshToken: authResponse.refresh,
