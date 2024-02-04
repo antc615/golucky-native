@@ -11,6 +11,7 @@ import EmailRegistration from './src/components/registrationComponents/EmailRegi
 import UsernamePasswordRegistration from './src/components/registrationComponents/UsernamePasswordRegistration';
 import BasicInfoRegistration from './src/components/registrationComponents/BasicInfoRegistration';
 import PhoneNumberRegistration from './src/components/registrationComponents/PhoneNumberRegistration';
+import ImageRegistration from './src/components/registrationComponents/ImageRegistration';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons/faThumbsUp';
@@ -100,6 +101,10 @@ function App(): React.JSX.Element {
           <RootStack.Screen
             name="PhoneNumberRegistration"
             component={PhoneNumberRegistration}
+          />
+          <RootStack.Screen
+            name="ImageRegistration"
+            component={ImageRegistration}
           />
         </RootStack.Navigator>
       </NavigationContainer>

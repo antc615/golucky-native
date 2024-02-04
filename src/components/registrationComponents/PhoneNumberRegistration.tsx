@@ -59,10 +59,7 @@ const PhoneNumberRegistration = () => {
   useEffect(() => {
     if (isUpdateSuccess) {
       // Reset the navigation stack and navigate to the MainApp
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'MainApp'}],
-      });
+      navigation.navigate('ImageRegistration');
       setIsUpdateSuccess(false); // Reset the state if needed
     }
   }, [isUpdateSuccess, navigation]);

@@ -12,5 +12,5 @@ export type RootStackParamList = {
   ChatScreen: undefined;
   PublicProfile: undefined;
   AccountSettings: undefined;
-  // Add other routes as needed
+  ImageRegistration: undefined;
 };
