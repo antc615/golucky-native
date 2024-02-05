@@ -128,3 +128,27 @@ export const updatePhoneNumber = async (
     throw error; // Rethrow to handle it in the calling function
   }
 };
+
+// Assuming you have a function to get the auth token, adjust the types as needed
+export const uploadImage = async (imageUri: string) => {
+  const formData = new FormData();
+  formData.append('image_url', imageUri);
+  formData.append('description', null); // Set description to null
+  formData.append('is_profile_picture', 'false'); // Set isProfilePicture to false
+
+  try {
+    const response = await axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/api/profiles/6/upload-image/',
+      data: formData,
+      headers: {
+        Authorization: `Bearer YOUR_TOKEN_HERE`, // Replace with actual token retrieval
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+};
