@@ -5,12 +5,27 @@ const imagePlaceholderSize = windowWidth / 3 - 20; // Dynamic size based on scre
 
 export default StyleSheet.create({
   scrollView: {
-    backgroundColor: '#ffffff', // Bright background
+    backgroundColor: '#f4f4f8',
   },
   container: {
-    flex: 1,
     padding: 16,
-    alignItems: 'center', // Center align the content
+  },
+  // imageGrid: {
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-between',
+  // },
+  // imagePlaceholder: {
+  //   width: '30%',
+  //   aspectRatio: 1, // Keep the aspect ratio of the placeholders to 1:1
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: '#e4e4e7',
+  //   marginBottom: 10,
+  // },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   header: {
     flexDirection: 'row',

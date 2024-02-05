@@ -2,7 +2,14 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from '../../styles/registrationStyles/ImageRegistration.styles';
-import {launchImageLibrary} from 'react-native-image-picker'; // Updated import
+
+// Image selector
+import {
+  launchImageLibrary,
+  ImageLibraryOptions,
+  MediaType,
+} from 'react-native-image-picker';
+
 import uuid from 'react-native-uuid';
 
 // Assuming FontAwesomeIcon and other imports are correctly set up
@@ -20,11 +27,14 @@ type ImageRegistrationProp = NativeStackNavigationProp<
 
 const ImageUploadComponent: React.FC = () => {
   const navigation = useNavigation<ImageRegistrationProp>();
-  const [images, setImages] = useState<Array<string>>([]); // Use an array of strings to store image URIs
+  const [images, setImages] = useState([]);
+
+  const totalPlaceholders = 6; // Total placeholders for the 3x2 grid
 
   const handleSelectImage = () => {
-    const options = {
-      mediaType: 'photo',
+    // Specify options with correct types
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo', // Use 'photo' as string literal
       quality: 1,
     };
 
@@ -72,20 +82,18 @@ const ImageUploadComponent: React.FC = () => {
         </Text>
 
         <View style={styles.imageGrid}>
-          {images.map((imageUri, index) => (
-            <Image
-              key={index}
-              source={{uri: imageUri}}
-              style={styles.imagePlaceholder}
-            />
-          ))}
-          {images.length < 6 && (
+          {Array.from({length: totalPlaceholders}).map((_, index) => (
             <TouchableOpacity
+              key={index}
               style={styles.imagePlaceholder}
               onPress={handleSelectImage}>
-              <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
+              {index < images.length ? (
+                <Image source={{uri: images[index]}} style={styles.image} />
+              ) : (
+                <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
+              )}
             </TouchableOpacity>
-          )}
+          ))}
         </View>
 
         <Text style={styles.subText}>Tap to edit, drag to reorder</Text>
