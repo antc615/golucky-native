@@ -27,11 +27,11 @@ type ImageRegistrationProp = NativeStackNavigationProp<
 
 const ImageUploadComponent: React.FC = () => {
   const navigation = useNavigation<ImageRegistrationProp>();
-  const [images, setImages] = useState<string[]>([]);
+  const initialPlaceholders = Array(6).fill({localUri: null, uploaded: false});
 
-  const totalPlaceholders = 6; // Total placeholders for the 3x2 grid
+  const [images, setImages] = useState(initialPlaceholders);
 
-  const handleSelectImage = async () => {
+  const handleSelectImage = async index => {
     const options = {
       mediaType: 'photo',
       quality: 1,
@@ -45,12 +45,21 @@ const ImageUploadComponent: React.FC = () => {
       } else if (response.assets && response.assets.length > 0) {
         const asset = response.assets[0];
         if (asset.uri) {
+          // Update the state with the local URI to display the image immediately
+          setImages(prevImages =>
+            prevImages.map((img, idx) =>
+              idx === index
+                ? {...img, localUri: asset.uri, uploaded: false}
+                : img,
+            ),
+          );
+
           try {
             // Retrieve the access token
             const tokens = await getAccessTokens();
             if (tokens && tokens.accessToken) {
-              // Upload the image immediately after selection
-              const uploadResult = await uploadImage(
+              // Continue to upload the image to the backend
+              await uploadImage(
                 {
                   uri: asset.uri,
                   type: asset.type,
@@ -59,20 +68,14 @@ const ImageUploadComponent: React.FC = () => {
                 tokens.accessToken,
               );
 
-              // Check the response from your backend to get the URL of the uploaded image
-              // Assuming the backend responds with the URL in uploadResult.image
-              if (uploadResult && uploadResult.image) {
-                // Update the UI to display the uploaded image
-                setImages(prevImages => [
-                  ...prevImages,
-                  {localUri: uploadResult.image, uploaded: true},
-                ]);
-              }
+              // Optionally update the state to mark the image as uploaded
+              // if you need to track upload status in the UI
             } else {
               console.error('Access token not found');
             }
           } catch (error) {
             console.error('Error uploading image:', error);
+            // Optionally handle failed upload state here
           }
         }
       }
@@ -80,36 +83,11 @@ const ImageUploadComponent: React.FC = () => {
   };
 
   const handleNext = async () => {
-    const tokens = await getAccessTokens(); // Ensure this function is correctly implemented to fetch tokens
-    if (tokens && tokens.accessToken) {
-      // Implement the logic to upload images or navigate
-      const uploadPromises = images.map(imageUri =>
-        uploadImage(imageUri, tokens.accessToken),
-      );
-      try {
-        const responses = await Promise.all(
-          uploadPromises.map(p => p.catch(e => e)),
-        );
-        // Filter out errors if needed, or handle them individually
-        responses.forEach(response => {
-          if (response instanceof Error) {
-            console.error('Error uploading an image:', response);
-          } else {
-            console.log('Image uploaded:', response);
-          }
-        });
-      } catch (error) {
-        console.error('An unexpected error occurred:', error);
-      }
-    } else {
-      console.error('Access token not found');
-    }
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'MainApp'}],
+    });
   };
-
-  // navigation.reset({
-  //   index: 0,
-  //   routes: [{name: 'MainApp'}],
-  // });
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -128,17 +106,17 @@ const ImageUploadComponent: React.FC = () => {
 
         <View style={styles.imageGrid}>
           {images.map((image, index) => (
-            <View key={index} style={styles.imagePlaceholder}>
-              <Image source={{uri: image.localUri}} style={styles.image} />
-            </View>
-          ))}
-          {images.length < totalPlaceholders && (
             <TouchableOpacity
+              key={index}
               style={styles.imagePlaceholder}
-              onPress={handleSelectImage}>
-              <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
+              onPress={() => handleSelectImage(index)}>
+              {image.localUri ? (
+                <Image source={{uri: image.localUri}} style={styles.image} />
+              ) : (
+                <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
+              )}
             </TouchableOpacity>
-          )}
+          ))}
         </View>
 
         <Text style={styles.subText}>Tap to edit, drag to reorder</Text>
