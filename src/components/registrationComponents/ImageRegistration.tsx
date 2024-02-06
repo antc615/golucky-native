@@ -31,26 +31,49 @@ const ImageUploadComponent: React.FC = () => {
 
   const totalPlaceholders = 6; // Total placeholders for the 3x2 grid
 
-  const handleSelectImage = () => {
-    // Specify options with correct types
-    const options: ImageLibraryOptions = {
-      mediaType: 'photo', // Use 'photo' as string literal
+  const handleSelectImage = async () => {
+    const options = {
+      mediaType: 'photo',
       quality: 1,
     };
 
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorMessage) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
-        // Ensure assets exist and have at least one item
-        const asset = response.assets[0]; // Extract the first asset
+        const asset = response.assets[0];
         if (asset.uri) {
-          // Make sure the asset has a URI
-          const fileExtension = asset.uri.substring(asset.uri.lastIndexOf('.')); // Extract the file extension
-          const newImageUri = `http://localhost:9001/${uuid.v4()}${fileExtension}`;
-          setImages(prevImages => [...prevImages, newImageUri]);
+          try {
+            // Retrieve the access token
+            const tokens = await getAccessTokens();
+            if (tokens && tokens.accessToken) {
+              // Upload the image immediately after selection
+              const uploadResult = await uploadImage(
+                {
+                  uri: asset.uri,
+                  type: asset.type,
+                  name: asset.fileName || `upload_${new Date().getTime()}`,
+                },
+                tokens.accessToken,
+              );
+
+              // Check the response from your backend to get the URL of the uploaded image
+              // Assuming the backend responds with the URL in uploadResult.image
+              if (uploadResult && uploadResult.image) {
+                // Update the UI to display the uploaded image
+                setImages(prevImages => [
+                  ...prevImages,
+                  {localUri: uploadResult.image, uploaded: true},
+                ]);
+              }
+            } else {
+              console.error('Access token not found');
+            }
+          } catch (error) {
+            console.error('Error uploading image:', error);
+          }
         }
       }
     });
@@ -60,30 +83,33 @@ const ImageUploadComponent: React.FC = () => {
     const tokens = await getAccessTokens(); // Ensure this function is correctly implemented to fetch tokens
     if (tokens && tokens.accessToken) {
       // Implement the logic to upload images or navigate
+      const uploadPromises = images.map(imageUri =>
+        uploadImage(imageUri, tokens.accessToken),
+      );
       try {
-        // Iterate through the images array and upload each image
-        for (const imageUri of images) {
-          const response = await uploadImage(imageUri, tokens.accessToken);
-
-          // Handle the response if needed
-          console.log('Image uploaded:', response);
-        }
-
-        // Clear the images array after uploading
-        setImages([]);
+        const responses = await Promise.all(
+          uploadPromises.map(p => p.catch(e => e)),
+        );
+        // Filter out errors if needed, or handle them individually
+        responses.forEach(response => {
+          if (response instanceof Error) {
+            console.error('Error uploading an image:', response);
+          } else {
+            console.log('Image uploaded:', response);
+          }
+        });
       } catch (error) {
-        // Handle any errors that occur during image upload
-        console.error('Error uploading images:', error);
+        console.error('An unexpected error occurred:', error);
       }
     } else {
       console.error('Access token not found');
     }
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{name: 'MainApp'}],
-    // });
   };
 
+  // navigation.reset({
+  //   index: 0,
+  //   routes: [{name: 'MainApp'}],
+  // });
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -101,18 +127,18 @@ const ImageUploadComponent: React.FC = () => {
         </Text>
 
         <View style={styles.imageGrid}>
-          {Array.from({length: totalPlaceholders}).map((_, index) => (
+          {images.map((image, index) => (
+            <View key={index} style={styles.imagePlaceholder}>
+              <Image source={{uri: image.localUri}} style={styles.image} />
+            </View>
+          ))}
+          {images.length < totalPlaceholders && (
             <TouchableOpacity
-              key={index}
               style={styles.imagePlaceholder}
               onPress={handleSelectImage}>
-              {index < images.length ? (
-                <Image source={{uri: images[index]}} style={styles.image} />
-              ) : (
-                <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
-              )}
+              <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
             </TouchableOpacity>
-          ))}
+          )}
         </View>
 
         <Text style={styles.subText}>Tap to edit, drag to reorder</Text>

@@ -130,11 +130,13 @@ export const updatePhoneNumber = async (
 };
 
 // Assuming you have a function to get the auth token, adjust the types as needed
-export const uploadImage = async (imageUri: string, accessToken: string) => {
+export const uploadImage = async (file, accessToken) => {
   const formData = new FormData();
-  formData.append('image_url', imageUri);
-  formData.append('description', 'description'); // Set description to null
-  formData.append('is_profile_picture', 'false'); // Set isProfilePicture to false
+  formData.append('file', {
+    uri: file.uri,
+    type: file.type,
+    name: file.name,
+  });
 
   try {
     const response = await axios({
