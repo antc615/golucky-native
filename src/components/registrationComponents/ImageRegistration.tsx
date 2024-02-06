@@ -7,11 +7,9 @@ import styles from '../../styles/registrationStyles/ImageRegistration.styles';
 import {
   launchImageLibrary,
   ImageLibraryOptions,
-  MediaType,
 } from 'react-native-image-picker';
 
 import uuid from 'react-native-uuid';
-
 // Assuming FontAwesomeIcon and other imports are correctly set up
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera} from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +17,8 @@ import {faCamera} from '@fortawesome/free-solid-svg-icons';
 // Assuming RootStackParamList is correctly defined
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types/navigationTypes';
+import {uploadImage} from '../../services/apiServices.ts';
+import {getAccessTokens} from '../../utils/appUtils.ts';
 
 type ImageRegistrationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -27,7 +27,7 @@ type ImageRegistrationProp = NativeStackNavigationProp<
 
 const ImageUploadComponent: React.FC = () => {
   const navigation = useNavigation<ImageRegistrationProp>();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const totalPlaceholders = 6; // Total placeholders for the 3x2 grid
 
@@ -51,18 +51,37 @@ const ImageUploadComponent: React.FC = () => {
           const fileExtension = asset.uri.substring(asset.uri.lastIndexOf('.')); // Extract the file extension
           const newImageUri = `http://localhost:9001/${uuid.v4()}${fileExtension}`;
           setImages(prevImages => [...prevImages, newImageUri]);
-          // Proceed to upload the image or handle it as needed
         }
       }
     });
   };
 
-  const handleNext = () => {
-    // Implement the logic to upload images or navigate
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'MainApp'}],
-    });
+  const handleNext = async () => {
+    const tokens = await getAccessTokens(); // Ensure this function is correctly implemented to fetch tokens
+    if (tokens && tokens.accessToken) {
+      // Implement the logic to upload images or navigate
+      try {
+        // Iterate through the images array and upload each image
+        for (const imageUri of images) {
+          const response = await uploadImage(imageUri, tokens.accessToken);
+
+          // Handle the response if needed
+          console.log('Image uploaded:', response);
+        }
+
+        // Clear the images array after uploading
+        setImages([]);
+      } catch (error) {
+        // Handle any errors that occur during image upload
+        console.error('Error uploading images:', error);
+      }
+    } else {
+      console.error('Access token not found');
+    }
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{name: 'MainApp'}],
+    // });
   };
 
   return (
