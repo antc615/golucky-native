@@ -154,3 +154,22 @@ export const uploadImage = async (file, accessToken) => {
     throw error;
   }
 };
+
+export const fetchMatchRecommendations = async (
+  accessToken: string,
+): Promise<any> => {
+  try {
+    const response: AxiosResponse = await apiClient.get(
+      '/matches/match-recommendations/',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching match recommendations:', error);
+    throw error;
+  }
+};
