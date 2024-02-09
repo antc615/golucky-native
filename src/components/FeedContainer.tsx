@@ -5,12 +5,14 @@ import UserFeed from './UserFeed';
 import HeaderComponent from './HeaderComponent';
 import {styles} from '../styles/FeedContainer.styles';
 import {fetchMatchRecommendations} from '../services/apiServices';
-import {getAccessTokens} from '../utils/appUtils'; // Adjust the import path as necessary
+import {getAccessTokens} from '../utils/appUtils';
+import {useNavigation} from '@react-navigation/native';
 
 const FeedContainer: React.FC = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadRecommendations = async () => {
@@ -61,6 +63,7 @@ const FeedContainer: React.FC = () => {
             } // Fallback URL if needed
             postImages={item.images.map(img => img.url)} // Adjust based on your actual data structure
             isVerified={item.isVerified} // Assuming this is part of your data
+            navigation={navigation} // Assuming 'navigation' is available in this scope
           />
         ))}
       </ScrollView>

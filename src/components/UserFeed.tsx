@@ -4,6 +4,7 @@ import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import SnapCarousel from 'react-native-snap-carousel';
 import {styles} from '../styles/UserFeed.styles';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 type StackParams = {
   PublicProfile: undefined; // Adjust based on your navigation setup
@@ -15,6 +16,7 @@ interface UserFeedProps {
   profilePic: string; // URL as string
   postImages: string[]; // Array of image URLs
   isVerified: boolean;
+  navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
 }
 
 const screenWidth = Dimensions.get('window').width;
@@ -41,14 +43,20 @@ const UserFeed: React.FC<UserFeedProps> = ({
   profilePic,
   postImages,
   isVerified,
+  navigation,
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const likes = Math.floor(Math.random() * 100);
 
+  const navigateToPublicProfile = () => {
+    console.log('Navigating to PublicProfile');
+    navigation.navigate('PublicProfile');
+  };
+
   return (
     <View style={styles.feedBlock}>
       <View style={styles.profileSection}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToPublicProfile}>
           <Image source={{uri: profilePic}} style={styles.profilePic} />
         </TouchableOpacity>
         <View style={styles.userNameContainer}>
