@@ -1,61 +1,66 @@
-import React from 'react';
-import {ScrollView} from 'react-native';
+// FeedContainer.tsx
+import React, {useEffect, useState} from 'react';
+import {ScrollView, View, Text, ActivityIndicator} from 'react-native';
 import UserFeed from './UserFeed';
 import HeaderComponent from './HeaderComponent';
-import {useNavigation} from '@react-navigation/native';
-
 import {styles} from '../styles/FeedContainer.styles';
-
-import image1 from '../assets/mock-feed-assets/mock-image1.png';
-import image2 from '../assets/mock-feed-assets/mock-image2.png';
-import image3 from '../assets/mock-feed-assets/mock-image3.png';
-import image4 from '../assets/mock-feed-assets/mock-image4.png';
-import image5 from '../assets/mock-feed-assets/mock-image5.png';
-import image6 from '../assets/mock-feed-assets/mock-image6.png';
-import image7 from '../assets/mock-feed-assets/mock-image7.png';
-import image8 from '../assets/mock-feed-assets/mock-image8.png';
-import image9 from '../assets/mock-feed-assets/mock-image9.png';
-
-const dummyData = [
-  {
-    id: '2',
-    userName: 'User1',
-    profilePic: image4,
-    postImages: [image6, image5],
-    isVerified: true,
-  },
-  // Add more users as needed
-  {
-    id: '3',
-    userName: 'User2',
-    profilePic: image7,
-    postImages: [image8, image9],
-    isVerified: true,
-  },
-  {
-    id: '1',
-    userName: 'User3',
-    profilePic: image1,
-    postImages: [image2, image3],
-    isVerified: true,
-  },
-];
+import {fetchMatchRecommendations} from '../services/apiServices';
+import {getAccessTokens} from '../utils/appUtils'; // Adjust the import path as necessary
 
 const FeedContainer: React.FC = () => {
-  const navigation = useNavigation();
+  const [recommendations, setRecommendations] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const loadRecommendations = async () => {
+      setIsLoading(true);
+      try {
+        const tokens = await getAccessTokens();
+        if (tokens?.accessToken) {
+          const data = await fetchMatchRecommendations(tokens.accessToken);
+          // Assuming the response structure matches your example
+          setRecommendations(data.recommendations || []);
+        } else {
+          throw new Error('No access token available');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load recommendations.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadRecommendations();
+  }, []);
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
 
   return (
     <>
       <HeaderComponent icons={['bars', 'bell']} />
       <ScrollView style={styles.container}>
-        {dummyData.map(item => (
+        {recommendations.map(item => (
           <UserFeed
-            key={item.id}
-            userName={item.userName}
-            profilePic={item.profilePic}
-            postImages={item.postImages}
-            isVerified={item.isVerified}
-            navigation={navigation} // Assuming 'navigation' is available in this scope
+            key={item.username} // Assuming usernames are unique
+            userName={item.username}
+            profilePic={
+              item.images.find(img => img.is_profile_image)?.url ||
+              'defaultProfilePicURL'
+            } // Fallback URL if needed
+            postImages={item.images.map(img => img.url)} // Adjust based on your actual data structure
+            isVerified={item.isVerified} // Assuming this is part of your data
           />
         ))}
       </ScrollView>
