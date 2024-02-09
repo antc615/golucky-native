@@ -8,8 +8,25 @@ import {fetchMatchRecommendations} from '../services/apiServices';
 import {getAccessTokens} from '../utils/appUtils';
 import {useNavigation} from '@react-navigation/native';
 
+interface Image {
+  url: string;
+  is_profile_image: boolean;
+  description: string | null;
+}
+
+interface Recommendation {
+  username: string;
+  images: Image[];
+  isVerified: boolean; // Ensure this aligns with your actual data. You might need to adjust based on the backend response.
+}
+
+interface RecommendationsArray extends Array<Recommendation> {}
+
 const FeedContainer: React.FC = () => {
-  const [recommendations, setRecommendations] = useState([]);
+  const [recommendations, setRecommendations] = useState<RecommendationsArray>(
+    [],
+  );
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigation = useNavigation();
