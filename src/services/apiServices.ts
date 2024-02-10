@@ -3,7 +3,8 @@ import {RegistrationResponse, AuthResponse} from '../types/apiResponses';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Base64} from 'js-base64';
 
-const API_BASE_URL = 'http://127.0.0.1:8000'; // Replace with your actual base URL
+// ************ CONSTANTS **************************
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -12,6 +13,52 @@ const apiClient = axios.create({
   },
 });
 
+// ************ BEGIN UTILITY **************************
+apiClient.interceptors.request.use(
+  // Request Interceptor for Proactive Token Refresh
+  async config => {
+    // Attempt to retrieve the access token from storage
+    const accessToken = await AsyncStorage.getItem('accessToken');
+
+    // Proceed only if an access token exists
+    if (accessToken) {
+      const {exp} = decodeJWT(accessToken);
+      const currentTime = Date.now() / 1000;
+
+      // Check if the token is about to expire
+      if (exp < currentTime + 30) {
+        try {
+          // Attempt to refresh the token
+          const newAccessToken = await refreshToken();
+          config.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        } catch (error) {
+          // Handle errors (e.g., refresh token expired or network issues)
+          console.error('Error refreshing token:', error);
+          // Optional: Redirect to login or perform other error handling
+        }
+      } else {
+        // If the token is not about to expire, use it as is
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
+      }
+    }
+
+    // For requests without an access token (e.g., login, registration),
+    // no Authorization header is added, and the request proceeds as normal
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
+
+function decodeJWT(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const payload = JSON.parse(Base64.decode(base64));
+  return payload;
+}
+
+// ************ BEGIN API CALLS **************************
 export const authenticateUser = async (
   username: string,
   password: string,
@@ -176,43 +223,6 @@ export const fetchMatchRecommendations = async (
   }
 };
 
-// Request Interceptor for Proactive Token Refresh
-apiClient.interceptors.request.use(
-  async config => {
-    // Attempt to retrieve the access token from storage
-    const accessToken = await AsyncStorage.getItem('accessToken');
-
-    // Proceed only if an access token exists
-    if (accessToken) {
-      const {exp} = decodeJWT(accessToken);
-      const currentTime = Date.now() / 1000;
-
-      // Check if the token is about to expire
-      if (exp < currentTime + 30) {
-        try {
-          // Attempt to refresh the token
-          const newAccessToken = await refreshToken();
-          config.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        } catch (error) {
-          // Handle errors (e.g., refresh token expired or network issues)
-          console.error('Error refreshing token:', error);
-          // Optional: Redirect to login or perform other error handling
-        }
-      } else {
-        // If the token is not about to expire, use it as is
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-      }
-    }
-
-    // For requests without an access token (e.g., login, registration),
-    // no Authorization header is added, and the request proceeds as normal
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  },
-);
-
 // Assuming refreshToken() is already correctly updating AsyncStorage:
 async function refreshToken() {
   const refreshToken = await AsyncStorage.getItem('refreshToken');
@@ -229,9 +239,16 @@ async function refreshToken() {
   return access; // Return the new access token to update the Authorization header
 }
 
-function decodeJWT(token: string) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const payload = JSON.parse(Base64.decode(base64));
-  return payload;
-}
+export const fetchUserProfile = async (accessToken: string): Promise<any> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/profile/`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    throw error;
+  }
+};

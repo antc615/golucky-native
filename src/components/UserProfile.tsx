@@ -1,5 +1,5 @@
 // UserProfile.tsx
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,14 +11,34 @@ import {
 } from 'react-native';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faCamera} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../styles/UserProfile.styles';
 import HeaderComponent from './HeaderComponent';
 import {Picker} from '@react-native-picker/picker';
-import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import image1 from '../assets/mock-feed-assets/mock-image6.png';
+import ReusableImageUploader from './reusable/ReusableImageUploader';
+import {fetchUserProfile} from '../services/apiServices';
+import {getAccessTokens} from '../utils/appUtils';
 
 const UserProfile: React.FC = () => {
+  // State for user images
+  const [userImages, setUserImages] = useState([]);
+
+  useEffect(() => {
+    const loadUserProfile = async () => {
+      try {
+        const tokens = await getAccessTokens();
+        if (tokens && tokens.accessToken) {
+          const profileData = await fetchUserProfile(tokens.accessToken);
+          setUserImages(profileData.images || []);
+        }
+      } catch (error) {
+        console.error('Failed to load user profile:', error);
+      }
+    };
+
+    loadUserProfile();
+  }, []);
+
   // State hooks for each field
   const [pronouns, setPronouns] = useState('');
   const [zodiac, setZodiac] = useState('');
@@ -43,6 +63,11 @@ const UserProfile: React.FC = () => {
   const [showDistance, setShowDistance] = useState(true);
   const [aboutMe, setAboutMe] = useState('');
   const [age, setAge] = useState('');
+
+  const handleImageUploadComplete = () => {
+    // Handle state update or any callback action after image upload
+    console.log('Image upload complete');
+  };
 
   return (
     <>
@@ -70,14 +95,10 @@ const UserProfile: React.FC = () => {
         <Text style={styles.photoUploadInstructions}>
           Tap on the camera icon to upload your photos.
         </Text>
-        <View style={styles.imagesContainer}>
-          {[...Array(9)].map((_, index) => (
-            <TouchableOpacity key={index} style={styles.imagePlaceholder}>
-              <FontAwesomeIcon icon={faCamera} size={20} color="#000" />
-            </TouchableOpacity>
-          ))}
-        </View>
-
+        <ReusableImageUploader
+          initialImages={userImages}
+          onUploadComplete={handleImageUploadComplete}
+        />
         {/*************************** User Info section *********************************/}
         {/* Age Section */}
         <View style={styles.inputSection}>
