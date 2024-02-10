@@ -7,6 +7,7 @@ import {styles} from '../styles/FeedContainer.styles';
 import {fetchMatchRecommendations} from '../services/apiServices';
 import {getAccessTokens} from '../utils/appUtils';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Image {
   url: string;
@@ -20,6 +21,15 @@ interface Recommendation {
   isVerified: boolean; // Ensure this aligns with your actual data. You might need to adjust based on the backend response.
 }
 
+export type RootParamList = {
+  PublicProfile: undefined; // Add other screens as necessary
+};
+
+export type StackParams = {
+  // If you have different stacks, define their params here, including PublicProfile if it's part of a specific stack
+  PublicProfile: undefined;
+};
+
 interface RecommendationsArray extends Array<Recommendation> {}
 
 const FeedContainer: React.FC = () => {
@@ -29,7 +39,8 @@ const FeedContainer: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<StackNavigationProp<RootParamList, 'PublicProfile'>>();
 
   useEffect(() => {
     const loadRecommendations = async () => {
