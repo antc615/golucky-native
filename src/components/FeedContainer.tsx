@@ -18,7 +18,7 @@ interface Image {
 interface Recommendation {
   username: string;
   images: Image[];
-  isVerified: boolean; // Ensure this aligns with your actual data. You might need to adjust based on the backend response.
+  isVerified: boolean;
 }
 
 export type RootParamList = {
