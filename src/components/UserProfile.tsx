@@ -29,6 +29,7 @@ const UserProfile: React.FC = () => {
         const tokens = await getAccessTokens();
         if (tokens && tokens.accessToken) {
           const profileData = await fetchUserProfile(tokens.accessToken);
+          console.error('Were 200ing but whats going on to load user profile:');
           setUserImages(profileData.images || []);
         }
       } catch (error) {
