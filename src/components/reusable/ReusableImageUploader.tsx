@@ -1,7 +1,11 @@
 // ReusableImageUploader.js
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  launchImageLibrary,
+  ImageLibraryOptions,
+  MediaType,
+} from 'react-native-image-picker';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera} from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/reusable/ReusableImageUploader.styles';
@@ -39,7 +43,10 @@ const ReusableImageUploader: React.FC<ReusableImageUploaderProps> = ({
   );
 
   const handleSelectImage = async (index: number) => {
-    const options = {mediaType: 'photo', quality: 1};
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo' as MediaType, // Correctly typed as MediaType
+      quality: 1,
+    };
     launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
