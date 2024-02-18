@@ -1,5 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import React, {useState, useEffect, FC} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  ImageSourcePropType,
+} from 'react-native';
 import {
   launchImageLibrary,
   ImageLibraryOptions,
@@ -11,35 +18,38 @@ import styles from '../../styles/reusable/ReusableImageUploader.styles';
 import {uploadImage} from '../../services/apiServices';
 import {getAccessTokens} from '../../utils/appUtils';
 
-// Define the props and image type for the uploader component
-type ImageType = {
-  id: number | string; // Adjusted to handle temporary IDs
+interface ImageType {
+  id: number;
   localUri: string | null;
   uploaded: boolean;
   description: string | null;
-};
+}
 
-type ReusableImageUploaderProps = {
-  initialImages: Array<{
-    id: number;
-    image: string | null;
-    description: string | null;
-  }>;
+interface InitialImageType {
+  id: number;
+  url: string | null;
+  description: string | null;
+}
+
+interface ReusableImageUploaderProps {
+  initialImages: InitialImageType[];
   onUploadComplete: () => void;
-};
+}
 
-const ReusableImageUploader = ({initialImages, onUploadComplete}) => {
-  // Map initialImages to component's state, using 'url' as 'localUri'
-  const [images, setImages] = useState(
+const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
+  initialImages,
+  onUploadComplete,
+}) => {
+  const [images, setImages] = useState<ImageType[]>(
     initialImages
       .map(img => ({
-        ...img,
-        localUri: img.url, // Use 'url' from initialImages as 'localUri'
-        uploaded: true, // Assume initial images are already uploaded
+        id: img.id,
+        localUri: img.url,
+        uploaded: img.url ? true : false,
+        description: img.description,
       }))
       .concat(
         Array(6 - initialImages.length).fill({
-          // Ensure there are always 6 image slots
           id: -1,
           localUri: null,
           uploaded: false,
@@ -48,8 +58,8 @@ const ReusableImageUploader = ({initialImages, onUploadComplete}) => {
       ),
   );
 
-  const handleSelectImage = async index => {
-    const options = {
+  const handleSelectImage = async (index: number) => {
+    const options: ImageLibraryOptions = {
       mediaType: 'photo',
       quality: 1,
     };
@@ -64,26 +74,23 @@ const ReusableImageUploader = ({initialImages, onUploadComplete}) => {
         const updatedImages = [...images];
         updatedImages[index] = {
           ...updatedImages[index],
-          localUri: asset.uri,
-          uploaded: false, // Mark as not uploaded yet
+          localUri: asset.uri ?? null, // Use null as fallback if asset.uri is undefined
+          uploaded: false,
         };
-
         setImages(updatedImages);
 
-        // Proceed with uploading the image, then mark it as uploaded
         try {
           const tokens = await getAccessTokens();
           if (tokens && tokens.accessToken) {
-            const uploadResponse = await uploadImage(
+            await uploadImage(
               {
                 uri: asset.uri,
-                type: asset.type,
-                name: asset.fileName || `upload_${Date.now()}`,
+                type: asset.type ?? 'image/jpeg',
+                name: asset.fileName ?? `upload_${Date.now()}`,
               },
               tokens.accessToken,
             );
 
-            // After successful upload, mark the image as uploaded
             updatedImages[index].uploaded = true;
             setImages([...updatedImages]);
             onUploadComplete();
