@@ -1,5 +1,4 @@
-// ReusableImageUploader.js
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {
   launchImageLibrary,
@@ -12,94 +11,85 @@ import styles from '../../styles/reusable/ReusableImageUploader.styles';
 import {uploadImage} from '../../services/apiServices';
 import {getAccessTokens} from '../../utils/appUtils';
 
-// Add a prop for initial images
+// Define the props and image type for the uploader component
+type ImageType = {
+  id: number | string; // Adjusted to handle temporary IDs
+  localUri: string | null;
+  uploaded: boolean;
+  description: string | null;
+};
+
 type ReusableImageUploaderProps = {
-  onUploadComplete: () => void;
-  initialImages?: Array<{
+  initialImages: Array<{
     id: number;
     image: string | null;
     description: string | null;
   }>;
+  onUploadComplete: () => void;
 };
 
-const ReusableImageUploader: React.FC<ReusableImageUploaderProps> = ({
-  onUploadComplete,
-  initialImages = [],
-}) => {
+const ReusableImageUploader = ({initialImages, onUploadComplete}) => {
+  // Map initialImages to component's state, using 'url' as 'localUri'
   const [images, setImages] = useState(
-    () =>
-      initialImages
-        .map(img => ({
-          ...img,
-          localUri: img.image,
-          uploaded: !!img.image, // Mark as uploaded if there's an image URL
-        }))
-        .concat(
-          Array(6 - initialImages.length).fill({
-            localUri: null,
-            uploaded: false,
-          }),
-        ), // Fill the rest with placeholders
+    initialImages
+      .map(img => ({
+        ...img,
+        localUri: img.url, // Use 'url' from initialImages as 'localUri'
+        uploaded: true, // Assume initial images are already uploaded
+      }))
+      .concat(
+        Array(6 - initialImages.length).fill({
+          // Ensure there are always 6 image slots
+          id: -1,
+          localUri: null,
+          uploaded: false,
+          description: null,
+        }),
+      ),
   );
 
-  const handleSelectImage = async (index: number) => {
-    const options: ImageLibraryOptions = {
-      mediaType: 'photo' as MediaType, // Correctly typed as MediaType
+  const handleSelectImage = async index => {
+    const options = {
+      mediaType: 'photo',
       quality: 1,
     };
+
     launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorMessage) {
-        console.log('ImagePicker Error: ', response.errorMessage);
-      } else if (response.assets && response.assets[0]) {
+        console.log('ImagePicker Error:', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
         const asset = response.assets[0];
-        const newImage = {
-          // Assuming your backend expects an id for new images, you might need to handle this differently
-          id: asset.fileName || `temp_${Date.now()}`, // Temporary ID for new images
+        const updatedImages = [...images];
+        updatedImages[index] = {
+          ...updatedImages[index],
           localUri: asset.uri,
-          uploaded: false,
-          description: '', // Add any default or selected description for new images
-          is_profile_picture: false, // Set based on your logic or user selection
+          uploaded: false, // Mark as not uploaded yet
         };
 
-        // Update images state to show the new/updated image immediately in the UI
-        setImages(prevImages => {
-          // If replacing an existing image, update it; otherwise, add as a new image
-          const updatedImages = [...prevImages];
-          updatedImages[index] = newImage;
-          return updatedImages;
-        });
+        setImages(updatedImages);
 
-        // Upload the image
+        // Proceed with uploading the image, then mark it as uploaded
         try {
           const tokens = await getAccessTokens();
           if (tokens && tokens.accessToken) {
             const uploadResponse = await uploadImage(
               {
                 uri: asset.uri,
-                type: asset.type || 'image/jpeg', // Default to JPEG if type is not available
-                name: asset.fileName || `upload_${Date.now()}.jpg`, // Ensure a filename is always provided
+                type: asset.type,
+                name: asset.fileName || `upload_${Date.now()}`,
               },
               tokens.accessToken,
             );
 
-            // Handle the response from the image upload
-            // For example, if your backend returns the final image URL or ID, update the state accordingly
-            console.log('Upload response:', uploadResponse);
-
-            // Mark the image as uploaded in the state
-            setImages(prevImages =>
-              prevImages.map((img, idx) =>
-                idx === index ? {...img, uploaded: true} : img,
-              ),
-            );
-
-            onUploadComplete(); // Notify parent component or perform additional actions
+            // After successful upload, mark the image as uploaded
+            updatedImages[index].uploaded = true;
+            setImages([...updatedImages]);
+            onUploadComplete();
           }
         } catch (error) {
           console.error('Error uploading image:', error);
-          // Optionally handle image upload errors (e.g., show an error message)
         }
       }
     });

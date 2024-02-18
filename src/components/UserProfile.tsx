@@ -22,6 +22,7 @@ import {getAccessTokens} from '../utils/appUtils';
 const UserProfile: React.FC = () => {
   // State for user images
   const [userImages, setUserImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Initialize loading state to true
 
   useEffect(() => {
     const loadUserProfile = async () => {
@@ -29,11 +30,12 @@ const UserProfile: React.FC = () => {
         const tokens = await getAccessTokens();
         if (tokens && tokens.accessToken) {
           const profileData = await fetchUserProfile(tokens.accessToken);
-          console.error('Were 200ing but whats going on to load user profile:');
           setUserImages(profileData.images || []);
+          setIsLoading(false); // Set loading to false once data is fetched
         }
       } catch (error) {
-        console.error('Failed to load user profile:', error);
+        console.log('Failed to load user profile:', error);
+        setIsLoading(false); // Also set loading to false if an error occurs
       }
     };
 
@@ -96,10 +98,15 @@ const UserProfile: React.FC = () => {
         <Text style={styles.photoUploadInstructions}>
           Tap on the camera icon to upload your photos.
         </Text>
-        <ReusableImageUploader
-          initialImages={userImages}
-          onUploadComplete={handleImageUploadComplete}
-        />
+
+        {isLoading ? (
+          <Text>Loading your images...</Text> // Or a spinner/loading indicator
+        ) : (
+          <ReusableImageUploader
+            initialImages={userImages}
+            onUploadComplete={handleImageUploadComplete}
+          />
+        )}
         {/*************************** User Info section *********************************/}
         {/* Age Section */}
         <View style={styles.inputSection}>
