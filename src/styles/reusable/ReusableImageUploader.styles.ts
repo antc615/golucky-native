@@ -61,4 +61,12 @@ export default StyleSheet.create({
     fontSize: 16, // Size of the button text
     fontWeight: '600', // Semi-bold weight for the button text
   },
+  deleteIcon: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.6)', // Semi-transparent background
+    borderRadius: 15, // Rounded edges
+    padding: 5,
+  },
 });

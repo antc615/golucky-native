@@ -17,6 +17,7 @@ import {faCamera} from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/reusable/ReusableImageUploader.styles';
 import {uploadImage} from '../../services/apiServices';
 import {getAccessTokens} from '../../utils/appUtils';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 interface ImageType {
   id: number;
@@ -102,6 +103,18 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
     });
   };
 
+  const handleDeleteImage = (index: number) => {
+    const updatedImages = [...images];
+    updatedImages[index] = {
+      id: -1,
+      localUri: null,
+      uploaded: false,
+      description: null,
+    };
+    setImages(updatedImages);
+  };
+
+  // Inside the return statement, update the JSX for image rendering
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -112,7 +125,14 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
               style={styles.imagePlaceholder}
               onPress={() => handleSelectImage(index)}>
               {image.localUri ? (
-                <Image source={{uri: image.localUri}} style={styles.image} />
+                <>
+                  <Image source={{uri: image.localUri}} style={styles.image} />
+                  <TouchableOpacity
+                    style={styles.deleteIcon}
+                    onPress={() => handleDeleteImage(index)}>
+                    <FontAwesomeIcon icon={faTrash} size={20} color="#FF0000" />
+                  </TouchableOpacity>
+                </>
               ) : (
                 <FontAwesomeIcon icon={faCamera} size={24} color="#000" />
               )}
@@ -123,5 +143,4 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
     </ScrollView>
   );
 };
-
 export default ReusableImageUploader;
