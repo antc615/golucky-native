@@ -95,10 +95,6 @@ const UserProfile: React.FC = () => {
         </View>
 
         {/*************************** Image Gallery section *********************************/}
-        <Text style={styles.photoUploadInstructions}>
-          Tap on the camera icon to upload your photos.
-        </Text>
-
         {isLoading ? (
           <Text>Loading your images...</Text> // Or a spinner/loading indicator
         ) : (

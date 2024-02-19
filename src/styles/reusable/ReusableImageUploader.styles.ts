@@ -1,99 +1,64 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
-const imagePlaceholderSize = windowWidth / 3 - 20; // Dynamic size based on screen width
+const numColumns = 2; // Two images per row
+const numRows = 3; // Three rows
+const padding = 4; // 4 pixels padding around each image
+
+// Account for padding around each image
+const imageSize = (windowWidth - padding * (numColumns + 1)) / numColumns;
 
 export default StyleSheet.create({
   scrollView: {
-    backgroundColor: '#f4f4f8',
+    backgroundColor: '#ffffff',
   },
   container: {
-    padding: 16,
+    padding: padding,
+  },
+  imageGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between', // Space images evenly across the container
+    marginBottom: padding, // Add some space below the grid for scrolling
+  },
+  imagePlaceholder: {
+    width: imageSize,
+    height: imageSize, // Square images
+    justifyContent: 'center',
+    alignItems: 'center',
+    // margin: padding / 2, // Half padding around each image
+    borderRadius: 10, // Slightly rounded corners for aesthetics
+    borderWidth: 1, // Thin border for each placeholder
+    borderColor: '#eaeaea', // Light grey border color
+    overflow: 'hidden', // Hide anything that goes outside the placeholder bounds
+    backgroundColor: '#f7f7f7', // Light grey background for the placeholder
   },
   image: {
     width: '100%',
     height: '100%',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 20,
-  },
-  backArrowContainer: {
-    marginRight: 'auto', // Push everything else to the right
-  },
-  backArrow: {
+  cameraIcon: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007bff', // Colorful accent for back arrow
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '600', // Less boldness for a modern look
-    color: '#333', // Darker text for better readability
-    flex: 1,
-    textAlign: 'center', // Ensure title is centered
+    color: '#cccccc', // Light grey color for the camera icon
   },
   title: {
     fontSize: 18,
-    fontWeight: '500', // Slightly bold for importance
-    textAlign: 'center',
-    color: '#444', // Dark grey for subtle emphasis
-    marginBottom: 30, // Increase spacing for better separation
-  },
-  imageGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around', // Evenly spread on all sides
-    marginBottom: 20,
-  },
-  imagePlaceholder: {
-    width: imagePlaceholderSize,
-    height: imagePlaceholderSize,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f5', // Lighter background for placeholders
-    borderRadius: 10, // Rounded corners for modern look
-    marginBottom: 10,
-    borderWidth: 2, // Subtle border
-    borderColor: '#e0e0e0', // Soft border color
-    overflow: 'hidden', // Ensure contents do not bleed out
-  },
-  cameraIcon: {
-    width: 40, // Slightly smaller for balance
-    height: 40, // Match width for consistency
-    opacity: 0.6, // Slightly transparent for a softer look
-  },
-  subText: {
-    fontSize: 14, // Smaller font size for subtlety
-    color: '#666', // Soft color for instructions
-    marginBottom: 5,
+    fontWeight: 'bold',
+    color: '#222', // Dark color for text for better readability
+    textAlign: 'center', // Center align the title text
+    marginBottom: 16, // Margin at the bottom for spacing
   },
   nextButton: {
-    backgroundColor: '#007bff',
-    borderRadius: 20, // More pronounced rounded corners
-    paddingVertical: 12, // Adjusted padding for better touch area
-    paddingHorizontal: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    width: '90%', // Make button wider for easier tapping
-    shadowColor: '#000', // Shadow for depth
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1, // Soft shadow
-    shadowRadius: 4,
-    elevation: 4, // Elevation for Android
+    backgroundColor: '#007bff', // A bright blue color for the button
+    borderRadius: 25, // Fully rounded corners for a pill-shaped button
+    paddingVertical: 12, // Vertical padding for the button's height
+    paddingHorizontal: 30, // Horizontal padding for the button's width
+    alignSelf: 'center', // Center the button in the container
+    marginTop: 20, // Space at the top
   },
   nextButtonText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  buttonDisabled: {
-    backgroundColor: '#cccccc', // Dull color for disabled state
+    color: '#ffffff', // White color for the button text
+    fontSize: 16, // Size of the button text
+    fontWeight: '600', // Semi-bold weight for the button text
   },
 });

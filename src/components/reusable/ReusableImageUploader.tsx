@@ -105,7 +105,6 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.title}>Upload your photos</Text>
         <View style={styles.imageGrid}>
           {images.map((image, index) => (
             <TouchableOpacity
