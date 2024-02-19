@@ -18,6 +18,7 @@ import styles from '../../styles/reusable/ReusableImageUploader.styles';
 import {uploadImage} from '../../services/apiServices';
 import {getAccessTokens} from '../../utils/appUtils';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {markImageAsInactive} from '../../services/apiServices';
 
 interface ImageType {
   id: number;
@@ -103,7 +104,27 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
     });
   };
 
-  const handleDeleteImage = (index: number) => {
+  const handleDeleteImage = async (index: number) => {
+    const targetImage = images[index];
+
+    if (targetImage.id !== -1 && targetImage.uploaded) {
+      const tokens = await getAccessTokens();
+      if (!tokens || !tokens.accessToken) {
+        console.error('Access token not available');
+        return;
+      }
+
+      try {
+        await markImageAsInactive(tokens.accessToken, targetImage.id);
+        console.log(`Image ${targetImage.id} marked as inactive successfully.`);
+      } catch (error) {
+        console.error('Failed to mark image as inactive:', error);
+        // Optionally handle the error, such as displaying a message to the user
+        return;
+      }
+    }
+
+    // Update the local UI to remove the image and replace it with a placeholder
     const updatedImages = [...images];
     updatedImages[index] = {
       id: -1,
