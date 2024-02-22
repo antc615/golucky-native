@@ -257,6 +257,10 @@ export const fetchUserProfile = async (accessToken: string): Promise<any> => {
  * Marks an image as inactive.
  */
 export const markImageAsInactive = async (accessToken, imageId) => {
+  console.error(
+    `Request URL: ${API_BASE_URL}/api/images/${imageId}/mark-inactive/`,
+  );
+
   try {
     const response = await axios({
       method: 'patch',

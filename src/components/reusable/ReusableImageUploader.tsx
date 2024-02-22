@@ -107,6 +107,7 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
   const handleDeleteImage = async (index: number) => {
     const targetImage = images[index];
 
+    console.error(`targetImage:`, targetImage);
     if (targetImage.id !== -1 && targetImage.uploaded) {
       const tokens = await getAccessTokens();
       if (!tokens || !tokens.accessToken) {
@@ -123,6 +124,8 @@ const ReusableImageUploader: FC<ReusableImageUploaderProps> = ({
         return;
       }
     }
+
+    console.error('dddddddddd token sssss asdf');
 
     // Update the local UI to remove the image and replace it with a placeholder
     const updatedImages = [...images];
