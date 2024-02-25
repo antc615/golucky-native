@@ -36,6 +36,7 @@ interface UserFeedProps {
 // }
 
 const screenWidth = Dimensions.get('window').width;
+const carouselHeight = Dimensions.get('window').height * 0.6;
 
 const Paginator: React.FC<{
   postImages: {url: string}[];
@@ -105,10 +106,13 @@ const UserFeed: React.FC<UserFeedProps> = ({
       <SnapCarousel
         data={postImages}
         renderItem={({item}) => (
-          <Image source={{uri: item}} style={styles.postImage} />
+          <Image
+            source={{uri: item}}
+            style={[styles.postImage, {height: carouselHeight}]}
+          />
         )}
-        sliderWidth={screenWidth}
-        itemWidth={screenWidth}
+        sliderWidth={Dimensions.get('window').width}
+        itemWidth={Dimensions.get('window').width}
         onSnapToItem={index => setActiveSlide(index)}
       />
       <View style={styles.iconsSection}>
