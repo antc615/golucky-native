@@ -16,17 +16,29 @@ interface Image {
 }
 
 interface Recommendation {
-  username: string;
-  images: Image[];
+  userName: string;
+  firstName: string;
+  lastName: string;
+  profilePic: string;
+  postImages: string[];
   isVerified: boolean;
+  navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
+  age: number;
+  location: string;
+  height: string;
+  biography: string;
+  education: string;
+  occupation: string;
+  zodiacSign: string;
+  interests: string;
+  lookingFor: string;
 }
 
 export type RootParamList = {
-  PublicProfile: undefined; // Add other screens as necessary
+  PublicProfile: undefined;
 };
 
 export type StackParams = {
-  // If you have different stacks, define their params here, including PublicProfile if it's part of a specific stack
   PublicProfile: undefined;
 };
 
@@ -49,6 +61,8 @@ const FeedContainer: React.FC = () => {
         const tokens = await getAccessTokens();
         if (tokens?.accessToken) {
           const data = await fetchMatchRecommendations(tokens.accessToken);
+
+          console.error('data', data);
           // Assuming the response structure matches your example
           setRecommendations(data.recommendations || []);
         } else {
@@ -81,17 +95,26 @@ const FeedContainer: React.FC = () => {
     <>
       <HeaderComponent icons={['bars', 'bell']} />
       <ScrollView style={styles.container}>
-        {recommendations.map(item => (
+        {recommendations.map((item, index) => (
           <UserFeed
-            key={item.username} // Assuming usernames are unique
-            userName={item.username}
+            key={index} // Consider using a unique ID if available
+            userName={`${item.firstName} ${item.lastName[0]}.`} // Adjust according to your data structure
             profilePic={
               item.images.find(img => img.is_profile_image)?.url ||
-              'defaultProfilePicURL'
-            } // Fallback URL if needed
-            postImages={item.images.map(img => img.url)} // Adjust based on your actual data structure
-            isVerified={item.isVerified} // Assuming this is part of your data
-            navigation={navigation} // Assuming 'navigation' is available in this scope
+              'defaultProfilePicURL' // Adjust default URL as necessary
+            }
+            postImages={item.images.map(img => img.url)}
+            isVerified={item.isVerified}
+            navigation={navigation}
+            age={item.age}
+            location={item.location}
+            height={item.height}
+            biography={item.biography}
+            education={item.education}
+            occupation={item.occupation}
+            zodiacSign={item.zodiacSign}
+            interests={item.interests}
+            lookingFor={item.lookingFor}
           />
         ))}
       </ScrollView>

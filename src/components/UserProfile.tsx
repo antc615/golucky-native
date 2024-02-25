@@ -96,7 +96,7 @@ const UserProfile: React.FC = () => {
 
         {/*************************** Image Gallery section *********************************/}
         {isLoading ? (
-          <Text>Loading your images...</Text> // Or a spinner/loading indicator
+          <Text>Loading your images...</Text>
         ) : (
           <ReusableImageUploader
             initialImages={userImages}

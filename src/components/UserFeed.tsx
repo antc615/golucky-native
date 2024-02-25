@@ -7,17 +7,33 @@ import {styles} from '../styles/UserFeed.styles';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 type StackParams = {
-  PublicProfile: undefined; // Adjust based on your navigation setup
+  PublicProfile: undefined;
 };
 
 // Inside UserFeed.tsx
 interface UserFeedProps {
   userName: string;
-  profilePic: string; // URL as string
-  postImages: string[]; // Array of image URLs
+  profilePic: string;
+  postImages: string[];
   isVerified: boolean;
   navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
+  age: number;
+  location: string;
+  height: string;
+  biography: string;
+  education: string;
+  occupation: string;
+  zodiacSign: string;
+  interests: string;
+  lookingFor: string;
 }
+// interface UserFeedProps {
+//   userName: string;
+//   profilePic: string;
+//   postImages: string[];
+//   isVerified: boolean;
+//   navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
+// }
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -44,6 +60,15 @@ const UserFeed: React.FC<UserFeedProps> = ({
   postImages,
   isVerified,
   navigation,
+  age,
+  location,
+  height,
+  biography,
+  education,
+  occupation,
+  zodiacSign,
+  interests,
+  lookingFor,
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const likes = Math.floor(Math.random() * 100);
@@ -55,7 +80,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
 
   return (
     <View style={styles.feedBlock}>
-      <View style={styles.profileSection}>
+      {/* <View style={styles.profileSection}>
         <TouchableOpacity onPress={navigateToPublicProfile}>
           <Image source={{uri: profilePic}} style={styles.profilePic} />
         </TouchableOpacity>
@@ -76,7 +101,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
           color="#949494"
           style={styles.ellipsisIcon}
         />
-      </View>
+      </View> */}
       <SnapCarousel
         data={postImages}
         renderItem={({item}) => (
@@ -104,8 +129,52 @@ const UserFeed: React.FC<UserFeedProps> = ({
           <Text>{likes} likes</Text>
         </View>
       </View>
+      {/* Additional User Details Section */}
+      <View style={styles.additionalInfoSection}>
+        {/* User Header Block */}
+        <Text style={styles.headerBlock}>{`${userName.split(' ')[0]} ${
+          userName.split(' ')[1][0]
+        }. - ${age}, ${location}, ${height}`}</Text>
+
+        {/* Biography */}
+        <DetailRow icon="user" label="About Me" value={biography} />
+
+        {/* Education */}
+        <DetailRow icon="graduation-cap" label="Education" value={education} />
+
+        {/* Occupation */}
+        <DetailRow icon="briefcase" label="Occupation" value={occupation} />
+
+        {/* Zodiac Sign */}
+        <DetailRow icon="star" label="Zodiac Sign" value={zodiacSign} />
+
+        {/* Interests */}
+        <DetailRow icon="heart" label="Interests" value={interests} />
+
+        {/* Looking For */}
+        <DetailRow icon="search" label="Looking For" value={lookingFor} />
+      </View>
     </View>
   );
 };
+
+// DetailRow Component for rendering each row with an icon, label, and value
+const DetailRow: React.FC<{
+  icon: string;
+  label: string;
+  value: string;
+}> = ({icon, label, value}) => (
+  <View style={styles.detailRow}>
+    <FontAwesomeIcon
+      icon={['fas', icon]}
+      size={16}
+      color="#000"
+      style={styles.iconStyle}
+    />
+    <Text style={styles.detailLabel}>
+      {label}: <Text style={styles.detailValue}>{value}</Text>
+    </Text>
+  </View>
+);
 
 export default UserFeed;

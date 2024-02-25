@@ -88,4 +88,28 @@ export const styles = StyleSheet.create({
   activeNode: {
     backgroundColor: 'blue',
   },
+
+  // Biography Content
+  additionalInfoSection: {
+    padding: 10,
+  },
+  headerBlock: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  iconStyle: {
+    marginRight: 5,
+  },
+  detailLabel: {
+    fontWeight: 'bold',
+  },
+  detailValue: {
+    fontWeight: 'normal',
+  },
 });
