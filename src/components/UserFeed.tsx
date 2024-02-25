@@ -130,10 +130,12 @@ const UserFeed: React.FC<UserFeedProps> = ({
         </View>
         <Paginator postImages={postImages} activeSlide={activeSlide} />
         <View style={styles.likesSection}>
-          <Text>{likes} likes</Text>
+          <Text>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </Text>
         </View>
       </View>
-      {/* Additional User Details Section */}
+      {/* Additional User Details Section {likes} likes*/}
       <View style={styles.additionalInfoSection}>
         {/* User Header Block */}
         <View>
