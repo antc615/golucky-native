@@ -132,9 +132,15 @@ const UserFeed: React.FC<UserFeedProps> = ({
       {/* Additional User Details Section */}
       <View style={styles.additionalInfoSection}>
         {/* User Header Block */}
-        <Text style={styles.headerBlock}>{`${userName.split(' ')[0]} ${
-          userName.split(' ')[1][0]
-        }. - ${age}, ${location}, ${height}`}</Text>
+        <View>
+          <Text style={styles.userName}>
+            <Text style={{fontStyle: 'italic'}}>{userName.split(' ')[0]}</Text>
+            {` ${userName.split(' ')[1][0]}.`}
+          </Text>
+          <Text style={styles.userSubText}>
+            {`${age} ${location} ${height}`}
+          </Text>
+        </View>
 
         {/* Biography */}
         <DetailRow icon="user" label="About Me" value={biography} />
@@ -158,23 +164,34 @@ const UserFeed: React.FC<UserFeedProps> = ({
   );
 };
 
-// DetailRow Component for rendering each row with an icon, label, and value
+// Define a mapping from labels to FontAwesome icon names
+const iconMap = {
+  'About Me': 'user',
+  Education: 'graduation-cap',
+  Occupation: 'briefcase',
+  'Zodiac Sign': 'star',
+  Interests: 'heart',
+  'Looking For': 'search',
+};
+
 const DetailRow: React.FC<{
-  icon: string;
   label: string;
   value: string;
-}> = ({icon, label, value}) => (
-  <View style={styles.detailRow}>
-    <FontAwesomeIcon
-      icon={['fas', icon]}
-      size={16}
-      color="#000"
-      style={styles.iconStyle}
-    />
-    <Text style={styles.detailLabel}>
-      {label}: <Text style={styles.detailValue}>{value}</Text>
-    </Text>
-  </View>
-);
+}> = ({label, value}) => {
+  const icon = iconMap[label] || 'info-circle'; // Fallback to a generic icon
+
+  return (
+    <View style={styles.detailRow}>
+      <FontAwesomeIcon
+        icon={['fas', icon]}
+        size={18}
+        style={styles.iconStyle}
+      />
+      <Text style={styles.detailLabel}>
+        {label}:<Text style={styles.detailValue}> {value}</Text>
+      </Text>
+    </View>
+  );
+};
 
 export default UserFeed;

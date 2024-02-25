@@ -26,6 +26,10 @@ import {faCamera} from '@fortawesome/free-solid-svg-icons/faCamera';
 import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
 import {faEllipsisH} from '@fortawesome/free-solid-svg-icons/faEllipsisH';
 import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle';
+import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap';
+import {faBriefcase} from '@fortawesome/free-solid-svg-icons/faBriefcase';
+import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
+import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 
 import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons/faHeart';
 import {faComment as farComment} from '@fortawesome/free-regular-svg-icons/faComment';
@@ -37,6 +41,7 @@ import {faGem as farGem} from '@fortawesome/free-regular-svg-icons/faGem';
 import {faThumbsUp as farThumbsUp} from '@fortawesome/free-regular-svg-icons/faThumbsUp';
 import {faEdit as farEdit} from '@fortawesome/free-regular-svg-icons/faEdit';
 import {faTrashAlt as farTrash} from '@fortawesome/free-regular-svg-icons/faTrashAlt';
+
 import PublicProfile from './src/components/PublicProfile';
 import AccountSettings from './src/components/AccountSettings';
 
@@ -63,6 +68,10 @@ library.add(
   farThumbsUp,
   farEdit,
   farTrash,
+  faGraduationCap,
+  faBriefcase,
+  faStar,
+  faSearch,
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();
