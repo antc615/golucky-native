@@ -147,24 +147,35 @@ const UserFeed: React.FC<UserFeedProps> = ({
             {`${age} ${location} ${height}`}
           </Text>
         </View>
-
         {/* Biography */}
         <DetailRow icon="user" label="About Me" value={biography} />
-
         {/* Education */}
         <DetailRow icon="graduation-cap" label="Education" value={education} />
-
         {/* Occupation */}
         <DetailRow icon="briefcase" label="Occupation" value={occupation} />
-
         {/* Zodiac Sign */}
         <DetailRow icon="star" label="Zodiac Sign" value={zodiacSign} />
-
         {/* Interests */}
         <DetailRow icon="heart" label="Interests" value={interests} />
-
         {/* Looking For */}
         <DetailRow icon="search" label="Looking For" value={lookingFor} />
+
+        <View style={styles.bannerContainer}>
+          <TouchableOpacity
+            onPress={navigateToPublicProfile}
+            style={styles.fullWidthBanner}>
+            <FontAwesomeIcon
+              icon={['fas', 'user-circle']}
+              size={16}
+              color="#000"
+              style={styles.bannerIcon}
+            />
+            <Text style={styles.bannerText}>
+              More about{' '}
+              {`${userName.split(' ')[0]} ${userName.split(' ')[1][0]}.`}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

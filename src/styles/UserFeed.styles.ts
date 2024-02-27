@@ -139,6 +139,42 @@ export const styles = StyleSheet.create({
     color: '#4A4A4A',
     fontWeight: 'normal',
     marginLeft: 2, // Reduced spacing for a compact look
-    flex: 1, // Allow text wrapping for long values
+    flex: 1,
+  },
+
+  // BANNER
+  bannerContainer: {
+    marginTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: '#f0f0f0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fullWidthBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%', 
+  },
+  bannerIcon: {
+    marginRight: 8, // Space between icon and text
+  },
+  bannerText: {
+    marginLeft: 5,
+    fontSize: 16,
+    color: '#000', // Example text color
+  },
+  bannerTouchable: {
+    flexDirection: 'row', // Ensures icon and text are laid out horizontally
+    alignItems: 'center', // Aligns items vertically in the center
+  },
+  banner: {
+    marginTop: 10,
+    backgroundColor: '#f0f0f0', // Example background color
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
   },
 });
