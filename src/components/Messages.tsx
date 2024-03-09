@@ -49,6 +49,16 @@ const newMatchesData = [
   {id: '7', userName: 'Alice', imageUrl: image1},
 ];
 
+const theirTurnMatchData = [
+  {id: '8', userName: 'Alice', imageUrl: image1},
+  {id: '9', userName: 'Bob', imageUrl: image2},
+  {id: '10', userName: 'Charlie', imageUrl: image3},
+  {id: '11', userName: 'Ashley', imageUrl: image1},
+  {id: '12', userName: 'Stephanie', imageUrl: image2},
+  {id: '13', userName: 'Rose', imageUrl: image3},
+  {id: '14', userName: 'Alice', imageUrl: image1},
+];
+
 // const NewMatches: React.FC = () => (
 //   <View style={styles.newMatchesContainer}>
 //     <FlatList
@@ -150,7 +160,7 @@ const Messages: React.FC = () => {
             </View>
           )}
           renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-150} // Adjust as needed
+          rightOpenValue={-150}
           previewRowKey={'0'}
           previewOpenValue={-40}
           previewOpenDelay={3000}

@@ -1,5 +1,3 @@
-// Messages.styles.ts
-
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -9,17 +7,19 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    backgroundColor: '#FFF', // Consistent background color
+    backgroundColor: '#FFF', // Keep background consistent
   },
   headerText: {
     padding: 10,
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#000', // Use black for better contrast
   },
-  // new matches styles
   newMatchesContainer: {
     marginTop: 10,
     marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0', // Light gray divider
   },
   matchItem: {
     alignItems: 'center',
@@ -30,32 +30,24 @@ export const styles = StyleSheet.create({
     width: 90,
     height: 110,
     borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#E91E63', //borderColor: 'color: rgb(52, 103, 164)'
   },
   matchUsername: {
     marginTop: 5,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#333', // Darker gray for emphasis
   },
-
-  // Messages styles
   messageBlock: {
     flexDirection: 'row',
-    // backgroundColor: '#f7f7f7', // Light grey background for each message block
-    backgroundColor: '#fff', // Light grey background for each message block
+    backgroundColor: '#FFF', // Use white for message blocks
     padding: 10,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3, // for Android
+    borderRadius: 0, // Remove border radius for a more block-like appearance
     marginBottom: 10,
     alignItems: 'center', // Align items in the center vertically
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0', // Light gray divider instead of shadow
   },
   image: {
-    width: 60, // Adjust as needed
+    width: 60,
     height: 60,
     borderRadius: 30,
     marginRight: 10,
@@ -63,21 +55,20 @@ export const styles = StyleSheet.create({
   username: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#E91E63', // Theme color for username
+    color: '#000', // Black for username to stand out
   },
   description: {
-    color: '#666', // Subtle color for description
+    color: '#666', // Gray for description to be less prominent
     fontSize: 14,
   },
-  // Styles for SwipeListView
   rowFront: {
     backgroundColor: '#FFF',
-    // borderBottomColor: '#DDD', // subtle border color for separation
-    // borderBottomWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0', // Consistent with other dividers
   },
   rowBack: {
     alignItems: 'center',
-    backgroundColor: '#DDD',
+    backgroundColor: '#FFF', // Keep it white for consistency
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -92,14 +83,14 @@ export const styles = StyleSheet.create({
     width: 75,
   },
   backRightBtnLeft: {
-    backgroundColor: '#1E88E5', // Blue color for "Start Game" button
+    backgroundColor: '#757575', // Neutral gray for a minimalistic look
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: '#E91E63', // Pink color matching username for "Chat" button
+    backgroundColor: '#616161', // Slightly darker gray for distinction
     right: 0,
   },
   backTextWhite: {
-    color: '#FFF', // White text for buttons
+    color: '#FFF', // Keep text white for readability
   },
 });

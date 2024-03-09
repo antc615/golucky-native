@@ -141,7 +141,6 @@ export const styles = StyleSheet.create({
     marginLeft: 2, // Reduced spacing for a compact look
     flex: 1,
   },
-
   // BANNER
   bannerContainer: {
     marginTop: 10,

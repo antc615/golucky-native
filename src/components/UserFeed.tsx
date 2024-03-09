@@ -165,7 +165,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
             onPress={navigateToPublicProfile}
             style={styles.fullWidthBanner}>
             <FontAwesomeIcon
-              icon={['fas', 'user-circle']}
+              icon={['far', 'user']}
               size={16}
               color="#000"
               style={styles.bannerIcon}
