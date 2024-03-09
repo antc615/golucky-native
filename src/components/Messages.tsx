@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   ScrollView,
   View,
@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Animated,
 } from 'react-native';
 import {styles} from '../styles/Messages.styles';
 import HeaderComponent from './HeaderComponent';
@@ -61,22 +62,23 @@ const theirTurnMatchData = [
 
 const Messages: React.FC = () => {
   const navigation = useNavigation();
+
   const [isYourTurnCollapsed, setIsYourTurnCollapsed] = useState(false);
+  const maxHeight = useRef(new Animated.Value(0)).current; // Use a ref to persist the value across renders
+
   const [isTheirTurnCollapsed, setIsTheirTurnCollapsed] = useState(false);
   const [isHiddenCollapsed, setIsHiddenCollapsed] = useState(false);
+  const animatedHeightYourTurn = useState(new Animated.Value(0))[0];
+  const animatedHeightTheirTurn = useState(new Animated.Value(0))[0];
+  const animatedHeightHidden = useState(new Animated.Value(0))[0];
 
-  const toggleYourTurnCollapse = () =>
+  const toggleYourTurnCollapse = () => {
     setIsYourTurnCollapsed(!isYourTurnCollapsed);
-  const toggleTheirTurnCollapse = () =>
-    setIsTheirTurnCollapsed(!isTheirTurnCollapsed);
-  const toggleHiddenCollapse = () => setIsHiddenCollapsed(!isHiddenCollapsed);
-
-  const openChat = () => {
-    navigation.navigate('ChatScreen');
-  };
-
-  const navigateToPublicProfile = () => {
-    navigation.navigate('PublicProfile');
+    Animated.timing(maxHeight, {
+      toValue: isYourTurnCollapsed ? 0 : 200, // Assuming a fixed height, you may need to adjust this
+      duration: 500,
+      useNativeDriver: false, // 'height' doesn't support native driver
+    }).start();
   };
 
   const renderHiddenItem = (data, rowMap) => (
@@ -88,11 +90,23 @@ const Messages: React.FC = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
-        onPress={() => openChat(data.item)}>
+        onPress={() => console.log('Chat', data.item)}>
         <Text style={styles.backTextWhite}>Chat</Text>
       </TouchableOpacity>
     </View>
   );
+
+  const toggleTheirTurnCollapse = () =>
+    setIsTheirTurnCollapsed(!isTheirTurnCollapsed);
+  const toggleHiddenCollapse = () => setIsHiddenCollapsed(!isHiddenCollapsed);
+
+  const openChat = () => {
+    navigation.navigate('ChatScreen');
+  };
+
+  const navigateToPublicProfile = () => {
+    navigation.navigate('PublicProfile');
+  };
 
   return (
     <>
@@ -129,12 +143,13 @@ const Messages: React.FC = () => {
             />
           </TouchableOpacity>
         </View>
-        {!isYourTurnCollapsed && (
+        <Animated.View style={[styles.collapseContent, {height: maxHeight}]}>
           <SwipeListView
             data={dummyData}
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity onPress={() => openChat(data.item)}>
+                <TouchableOpacity
+                  onPress={() => console.log('Open Chat', data.item)}>
                   <View style={styles.messageBlock}>
                     <Image source={data.item.imageUrl} style={styles.image} />
                     <View style={styles.textContainer}>
@@ -150,7 +165,7 @@ const Messages: React.FC = () => {
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
           />
-        )}
+        </Animated.View>
 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Their Turn</Text>
