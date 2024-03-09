@@ -62,23 +62,42 @@ const theirTurnMatchData = [
 
 const Messages: React.FC = () => {
   const navigation = useNavigation();
-
   const [isYourTurnCollapsed, setIsYourTurnCollapsed] = useState(false);
-  const maxHeight = useRef(new Animated.Value(0)).current; // Use a ref to persist the value across renders
-
   const [isTheirTurnCollapsed, setIsTheirTurnCollapsed] = useState(false);
   const [isHiddenCollapsed, setIsHiddenCollapsed] = useState(false);
-  const animatedHeightYourTurn = useState(new Animated.Value(0))[0];
-  const animatedHeightTheirTurn = useState(new Animated.Value(0))[0];
-  const animatedHeightHidden = useState(new Animated.Value(0))[0];
+  const animatedHeightYourTurn = useState(new Animated.Value(1))[0];
+  const animatedHeightTheirTurn = useState(new Animated.Value(1))[0];
+  const animatedHeightHidden = useState(new Animated.Value(1))[0];
 
-  const toggleYourTurnCollapse = () => {
-    setIsYourTurnCollapsed(!isYourTurnCollapsed);
-    Animated.timing(maxHeight, {
-      toValue: isYourTurnCollapsed ? 0 : 200, // Assuming a fixed height, you may need to adjust this
-      duration: 500,
-      useNativeDriver: false, // 'height' doesn't support native driver
-    }).start();
+  const toggleSection = section => {
+    let animatedHeight, setCollapsedState;
+
+    switch (section) {
+      case 'YourTurn':
+        setCollapsedState = setIsYourTurnCollapsed;
+        animatedHeight = animatedHeightYourTurn;
+        break;
+      case 'TheirTurn':
+        setCollapsedState = setIsTheirTurnCollapsed;
+        animatedHeight = animatedHeightTheirTurn;
+        break;
+      case 'Hidden':
+        setCollapsedState = setIsHiddenCollapsed;
+        animatedHeight = animatedHeightHidden;
+        break;
+      default:
+        return;
+    }
+
+    setCollapsedState(prevState => {
+      const newValue = !prevState;
+      Animated.timing(animatedHeight, {
+        toValue: newValue ? 0 : 1, // 0 if collapsing, 1 if expanding
+        duration: 300,
+        useNativeDriver: false, // height animation does not support native driver
+      }).start();
+      return newValue;
+    });
   };
 
   const renderHiddenItem = (data, rowMap) => (
@@ -95,10 +114,6 @@ const Messages: React.FC = () => {
       </TouchableOpacity>
     </View>
   );
-
-  const toggleTheirTurnCollapse = () =>
-    setIsTheirTurnCollapsed(!isTheirTurnCollapsed);
-  const toggleHiddenCollapse = () => setIsHiddenCollapsed(!isHiddenCollapsed);
 
   const openChat = () => {
     navigation.navigate('ChatScreen');
@@ -135,7 +150,7 @@ const Messages: React.FC = () => {
 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Your Turn</Text>
-          <TouchableOpacity onPress={toggleYourTurnCollapse}>
+          <TouchableOpacity onPress={() => toggleSection('YourTurn')}>
             <FontAwesomeIcon
               icon={isYourTurnCollapsed ? faChevronDown : faChevronUp}
               size={12}
@@ -143,13 +158,19 @@ const Messages: React.FC = () => {
             />
           </TouchableOpacity>
         </View>
-        <Animated.View style={[styles.collapseContent, {height: maxHeight}]}>
+        <Animated.View
+          style={{
+            height: animatedHeightYourTurn.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 150],
+            }),
+            overflow: 'hidden',
+          }}>
           <SwipeListView
             data={dummyData}
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity
-                  onPress={() => console.log('Open Chat', data.item)}>
+                <TouchableOpacity onPress={() => openChat(data.item)}>
                   <View style={styles.messageBlock}>
                     <Image source={data.item.imageUrl} style={styles.image} />
                     <View style={styles.textContainer}>
@@ -169,7 +190,7 @@ const Messages: React.FC = () => {
 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Their Turn</Text>
-          <TouchableOpacity onPress={toggleTheirTurnCollapse}>
+          <TouchableOpacity onPress={() => toggleSection('TheirTurn')}>
             <FontAwesomeIcon
               icon={isTheirTurnCollapsed ? faChevronDown : faChevronUp}
               size={12}
@@ -177,7 +198,14 @@ const Messages: React.FC = () => {
             />
           </TouchableOpacity>
         </View>
-        {!isTheirTurnCollapsed && (
+        <Animated.View
+          style={{
+            height: animatedHeightTheirTurn.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 150],
+            }),
+            overflow: 'hidden',
+          }}>
           <SwipeListView
             data={theirTurnMatchData}
             renderItem={(data, rowMap) => (
@@ -198,11 +226,11 @@ const Messages: React.FC = () => {
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
           />
-        )}
+        </Animated.View>
 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Hidden</Text>
-          <TouchableOpacity onPress={toggleHiddenCollapse}>
+          <TouchableOpacity onPress={() => toggleSection('Hidden')}>
             <FontAwesomeIcon
               icon={isHiddenCollapsed ? faChevronDown : faChevronUp}
               size={12}
@@ -210,9 +238,16 @@ const Messages: React.FC = () => {
             />
           </TouchableOpacity>
         </View>
-        {!isHiddenCollapsed && (
+        <Animated.View
+          style={{
+            height: animatedHeightHidden.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 150],
+            }),
+            overflow: 'hidden',
+          }}>
           <SwipeListView
-            data={dummyData} // Assuming you use the same dummy data for illustration; replace as needed
+            data={dummyData} // Assuming this is the dataset for hidden items; adjust as necessary
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
                 <TouchableOpacity onPress={() => openChat(data.item)}>
@@ -231,7 +266,7 @@ const Messages: React.FC = () => {
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
           />
-        )}
+        </Animated.View>
       </ScrollView>
     </>
   );
