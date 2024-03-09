@@ -1,4 +1,3 @@
-// Messages.tsx
 import React, {useState} from 'react';
 import {
   ScrollView,
@@ -8,7 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import {styles} from '..//styles/Messages.styles.ts';
+import {styles} from '../styles/Messages.styles';
 import HeaderComponent from './HeaderComponent';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {useNavigation} from '@react-navigation/native';
@@ -27,18 +26,17 @@ const dummyData = [
     imageUrl: image1,
   },
   {
-    id: '',
-    userName: 'User1',
-    description: 'This is a short description of the message.',
+    id: '2',
+    userName: 'User2',
+    description: 'This is another message description.',
     imageUrl: image2,
   },
   {
     id: '3',
-    userName: 'User1',
-    description: 'This is a short description of the message.',
+    userName: 'User3',
+    description: 'More details about the message.',
     imageUrl: image3,
   },
-  // Add more dummy data as needed
 ];
 
 const newMatchesData = [
@@ -61,70 +59,40 @@ const theirTurnMatchData = [
   {id: '14', userName: 'Alice', imageUrl: image1},
 ];
 
-// const NewMatches: React.FC = () => (
-//   <View style={styles.newMatchesContainer}>
-//     <FlatList
-//       horizontal
-//       data={newMatchesData}
-//       keyExtractor={item => item.id}
-//       renderItem={({item}) => (
-//         <TouchableOpacity onPress={navigateToPublicProfile}>
-//           <View style={styles.matchItem}>
-//             <Image source={item.imageUrl} style={styles.matchImage} />
-//             <Text style={styles.matchUsername}>{item.userName}</Text>
-//           </View>
-//         </TouchableOpacity>
-//       )}
-//       showsHorizontalScrollIndicator={false}
-//     />
-//   </View>
-// );
-
 const Messages: React.FC = () => {
   const navigation = useNavigation();
-  const [isCollapsed, setIsCollapsed] = useState(false); // List is expanded by default
-  const [isTheirTurnCollapsed, setIsTheirTurnCollapsed] = useState(false); // "Their Turn" is expanded by default
-  const [isHiddenCollapsed, setIsHiddenCollapsed] = useState(false); // "Hidden" is expanded by default
+  const [isYourTurnCollapsed, setIsYourTurnCollapsed] = useState(false);
+  const [isTheirTurnCollapsed, setIsTheirTurnCollapsed] = useState(false);
+  const [isHiddenCollapsed, setIsHiddenCollapsed] = useState(false);
 
-  // Toggle function
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
+  const toggleYourTurnCollapse = () =>
+    setIsYourTurnCollapsed(!isYourTurnCollapsed);
   const toggleTheirTurnCollapse = () =>
     setIsTheirTurnCollapsed(!isTheirTurnCollapsed);
   const toggleHiddenCollapse = () => setIsHiddenCollapsed(!isHiddenCollapsed);
 
   const openChat = () => {
-    navigation.navigate('ChatScreen'); // Add any parameters if needed
+    navigation.navigate('ChatScreen');
   };
 
   const navigateToPublicProfile = () => {
-    navigation.navigate('PublicProfile'); // Add any parameters if needed
+    navigation.navigate('PublicProfile');
   };
 
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => initiateGame(data.item)}>
+        onPress={() => console.log('Start Game', data.item)}>
         <Text style={styles.backTextWhite}>Start Game</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
-        onPress={() => startChat(data.item)}>
+        onPress={() => openChat(data.item)}>
         <Text style={styles.backTextWhite}>Chat</Text>
       </TouchableOpacity>
     </View>
   );
-
-  const initiateGame = item => {
-    // Logic to initiate game
-  };
-
-  const startChat = item => {
-    // Logic to start chat
-  };
 
   return (
     <>
@@ -134,7 +102,6 @@ const Messages: React.FC = () => {
           <Text style={styles.headerText}>Matches</Text>
         </View>
 
-        {/* <NewMatches /> */}
         <View style={styles.newMatchesContainer}>
           <FlatList
             horizontal
@@ -154,40 +121,34 @@ const Messages: React.FC = () => {
 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Your Turn</Text>
-          <TouchableOpacity
-            onPress={toggleCollapse}
-            style={styles.collapseButton}>
+          <TouchableOpacity onPress={toggleYourTurnCollapse}>
             <FontAwesomeIcon
-              icon={isCollapsed ? faChevronDown : faChevronUp}
+              icon={isYourTurnCollapsed ? faChevronDown : faChevronUp}
               size={12}
               color="#000"
             />
           </TouchableOpacity>
         </View>
-
-        {!isCollapsed && (
+        {!isYourTurnCollapsed && (
           <SwipeListView
             data={dummyData}
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity
-                  onPress={() => openChat(data.item.userName)}
-                  style={styles.messageBlock}>
-                  <Image source={data.item.imageUrl} style={styles.image} />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.username}>{data.item.userName}</Text>
-                    <Text style={styles.description}>
-                      {data.item.description}
-                    </Text>
+                <TouchableOpacity onPress={() => openChat(data.item)}>
+                  <View style={styles.messageBlock}>
+                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <View style={styles.textContainer}>
+                      <Text style={styles.username}>{data.item.userName}</Text>
+                      <Text style={styles.description}>
+                        {data.item.description}
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               </View>
             )}
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
-            previewRowKey={'0'}
-            previewOpenValue={-40}
-            previewOpenDelay={3000}
           />
         )}
 
@@ -203,27 +164,24 @@ const Messages: React.FC = () => {
         </View>
         {!isTheirTurnCollapsed && (
           <SwipeListView
-            data={dummyData}
+            data={theirTurnMatchData}
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity
-                  onPress={() => openChat(data.item.userName)}
-                  style={styles.messageBlock}>
-                  <Image source={data.item.imageUrl} style={styles.image} />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.username}>{data.item.userName}</Text>
-                    <Text style={styles.description}>
-                      {data.item.description}
-                    </Text>
+                <TouchableOpacity onPress={() => openChat(data.item)}>
+                  <View style={styles.messageBlock}>
+                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <View style={styles.textContainer}>
+                      <Text style={styles.username}>{data.item.userName}</Text>
+                      <Text style={styles.description}>
+                        {data.item.description}
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               </View>
             )}
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
-            previewRowKey={'0'}
-            previewOpenValue={-40}
-            previewOpenDelay={3000}
           />
         )}
 
@@ -237,30 +195,26 @@ const Messages: React.FC = () => {
             />
           </TouchableOpacity>
         </View>
-
         {!isHiddenCollapsed && (
           <SwipeListView
-            data={dummyData}
+            data={dummyData} // Assuming you use the same dummy data for illustration; replace as needed
             renderItem={(data, rowMap) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity
-                  onPress={() => openChat(data.item.userName)}
-                  style={styles.messageBlock}>
-                  <Image source={data.item.imageUrl} style={styles.image} />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.username}>{data.item.userName}</Text>
-                    <Text style={styles.description}>
-                      {data.item.description}
-                    </Text>
+                <TouchableOpacity onPress={() => openChat(data.item)}>
+                  <View style={styles.messageBlock}>
+                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <View style={styles.textContainer}>
+                      <Text style={styles.username}>{data.item.userName}</Text>
+                      <Text style={styles.description}>
+                        {data.item.description}
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               </View>
             )}
             renderHiddenItem={renderHiddenItem}
             rightOpenValue={-150}
-            previewRowKey={'0'}
-            previewOpenValue={-40}
-            previewOpenDelay={3000}
           />
         )}
       </ScrollView>

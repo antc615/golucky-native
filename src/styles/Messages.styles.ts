@@ -13,13 +13,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    paddingLeft: 0,
+    paddingRight: 10,
   },
   headerText: {
     padding: 10,
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000', // Use black for better contrast
+    color: '#000',
   },
   newMatchesContainer: {
     marginTop: 10,
