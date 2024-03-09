@@ -1,5 +1,5 @@
 // Messages.tsx
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   View,
@@ -12,6 +12,8 @@ import {styles} from '..//styles/Messages.styles.ts';
 import HeaderComponent from './HeaderComponent';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons';
 
 import image1 from '../assets/mock-feed-assets/mock-image5.png';
 import image2 from '../assets/mock-feed-assets/mock-image6.png';
@@ -80,6 +82,12 @@ const theirTurnMatchData = [
 
 const Messages: React.FC = () => {
   const navigation = useNavigation();
+  const [isCollapsed, setIsCollapsed] = useState(false); // List is expanded by default
+
+  // Toggle function
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   const openChat = () => {
     navigation.navigate('ChatScreen'); // Add any parameters if needed
@@ -117,10 +125,9 @@ const Messages: React.FC = () => {
       <HeaderComponent icons={[]} />
       <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.headerText}>New Matches</Text>
+          <Text style={styles.headerText}>Matches</Text>
         </View>
 
-        {/* new matches component */}
         {/* <NewMatches /> */}
         <View style={styles.newMatchesContainer}>
           <FlatList
@@ -139,32 +146,44 @@ const Messages: React.FC = () => {
           />
         </View>
 
-        <View style={styles.textContainer}>
-          <Text style={styles.headerText}>Auto Chat</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Your Turn</Text>
+          <TouchableOpacity
+            onPress={toggleCollapse}
+            style={styles.collapseButton}>
+            <FontAwesomeIcon
+              icon={isCollapsed ? faChevronDown : faChevronUp}
+              size={12}
+              color="#000"
+            />
+          </TouchableOpacity>
         </View>
-        <SwipeListView
-          data={dummyData}
-          renderItem={(data, rowMap) => (
-            <View style={styles.rowFront}>
-              <TouchableOpacity
-                onPress={() => openChat(data.item.userName)}
-                style={styles.messageBlock}>
-                <Image source={data.item.imageUrl} style={styles.image} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.username}>{data.item.userName}</Text>
-                  <Text style={styles.description}>
-                    {data.item.description}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-          renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-150}
-          previewRowKey={'0'}
-          previewOpenValue={-40}
-          previewOpenDelay={3000}
-        />
+
+        {!isCollapsed && (
+          <SwipeListView
+            data={dummyData}
+            renderItem={(data, rowMap) => (
+              <View style={styles.rowFront}>
+                <TouchableOpacity
+                  onPress={() => openChat(data.item.userName)}
+                  style={styles.messageBlock}>
+                  <Image source={data.item.imageUrl} style={styles.image} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.username}>{data.item.userName}</Text>
+                    <Text style={styles.description}>
+                      {data.item.description}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            renderHiddenItem={renderHiddenItem}
+            rightOpenValue={-150}
+            previewRowKey={'0'}
+            previewOpenValue={-40}
+            previewOpenDelay={3000}
+          />
+        )}
       </ScrollView>
     </>
   );

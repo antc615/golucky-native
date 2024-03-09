@@ -9,6 +9,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF', // Keep background consistent
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // Add any additional styling as needed
+  },
   headerText: {
     padding: 10,
     fontSize: 16,
@@ -18,8 +24,6 @@ export const styles = StyleSheet.create({
   newMatchesContainer: {
     marginTop: 10,
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0', // Light gray divider
   },
   matchItem: {
     alignItems: 'center',
@@ -43,8 +47,6 @@ export const styles = StyleSheet.create({
     borderRadius: 0, // Remove border radius for a more block-like appearance
     marginBottom: 10,
     alignItems: 'center', // Align items in the center vertically
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0', // Light gray divider instead of shadow
   },
   image: {
     width: 60,
@@ -63,8 +65,8 @@ export const styles = StyleSheet.create({
   },
   rowFront: {
     backgroundColor: '#FFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0', // Consistent with other dividers
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0', // Consistent with other dividers
   },
   rowBack: {
     alignItems: 'center',
@@ -92,5 +94,11 @@ export const styles = StyleSheet.create({
   },
   backTextWhite: {
     color: '#FFF', // Keep text white for readability
+  },
+
+  collapseButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10, // Adjust as necessary for your layout
   },
 });
