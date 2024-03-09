@@ -83,11 +83,17 @@ const theirTurnMatchData = [
 const Messages: React.FC = () => {
   const navigation = useNavigation();
   const [isCollapsed, setIsCollapsed] = useState(false); // List is expanded by default
+  const [isTheirTurnCollapsed, setIsTheirTurnCollapsed] = useState(false); // "Their Turn" is expanded by default
+  const [isHiddenCollapsed, setIsHiddenCollapsed] = useState(false); // "Hidden" is expanded by default
 
   // Toggle function
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+
+  const toggleTheirTurnCollapse = () =>
+    setIsTheirTurnCollapsed(!isTheirTurnCollapsed);
+  const toggleHiddenCollapse = () => setIsHiddenCollapsed(!isHiddenCollapsed);
 
   const openChat = () => {
     navigation.navigate('ChatScreen'); // Add any parameters if needed
@@ -160,6 +166,79 @@ const Messages: React.FC = () => {
         </View>
 
         {!isCollapsed && (
+          <SwipeListView
+            data={dummyData}
+            renderItem={(data, rowMap) => (
+              <View style={styles.rowFront}>
+                <TouchableOpacity
+                  onPress={() => openChat(data.item.userName)}
+                  style={styles.messageBlock}>
+                  <Image source={data.item.imageUrl} style={styles.image} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.username}>{data.item.userName}</Text>
+                    <Text style={styles.description}>
+                      {data.item.description}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            renderHiddenItem={renderHiddenItem}
+            rightOpenValue={-150}
+            previewRowKey={'0'}
+            previewOpenValue={-40}
+            previewOpenDelay={3000}
+          />
+        )}
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Their Turn</Text>
+          <TouchableOpacity onPress={toggleTheirTurnCollapse}>
+            <FontAwesomeIcon
+              icon={isTheirTurnCollapsed ? faChevronDown : faChevronUp}
+              size={12}
+              color="#000"
+            />
+          </TouchableOpacity>
+        </View>
+        {!isTheirTurnCollapsed && (
+          <SwipeListView
+            data={dummyData}
+            renderItem={(data, rowMap) => (
+              <View style={styles.rowFront}>
+                <TouchableOpacity
+                  onPress={() => openChat(data.item.userName)}
+                  style={styles.messageBlock}>
+                  <Image source={data.item.imageUrl} style={styles.image} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.username}>{data.item.userName}</Text>
+                    <Text style={styles.description}>
+                      {data.item.description}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            renderHiddenItem={renderHiddenItem}
+            rightOpenValue={-150}
+            previewRowKey={'0'}
+            previewOpenValue={-40}
+            previewOpenDelay={3000}
+          />
+        )}
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Hidden</Text>
+          <TouchableOpacity onPress={toggleHiddenCollapse}>
+            <FontAwesomeIcon
+              icon={isHiddenCollapsed ? faChevronDown : faChevronUp}
+              size={12}
+              color="#000"
+            />
+          </TouchableOpacity>
+        </View>
+
+        {!isHiddenCollapsed && (
           <SwipeListView
             data={dummyData}
             renderItem={(data, rowMap) => (
