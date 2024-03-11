@@ -1,12 +1,12 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ScrollView,
   View,
   Text,
   Image,
   TouchableOpacity,
-  FlatList,
   Animated,
+  FlatList,
 } from 'react-native';
 import {styles} from '../styles/Messages.styles';
 import HeaderComponent from './HeaderComponent';
@@ -92,9 +92,9 @@ const Messages: React.FC = () => {
     setCollapsedState(prevState => {
       const newValue = !prevState;
       Animated.timing(animatedHeight, {
-        toValue: newValue ? 0 : 1, // 0 if collapsing, 1 if expanding
+        toValue: newValue ? 0 : 1, // Toggle between collapsed and expanded
         duration: 300,
-        useNativeDriver: false, // height animation does not support native driver
+        useNativeDriver: false,
       }).start();
       return newValue;
     });
@@ -148,6 +148,7 @@ const Messages: React.FC = () => {
           />
         </View>
 
+        {/* Your Turn Section */}
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Your Turn</Text>
           <TouchableOpacity onPress={() => toggleSection('YourTurn')}>
@@ -162,22 +163,20 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightYourTurn.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 150],
+              outputRange: [0, 560], // Adjust based on your dynamic content height
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
             data={dummyData}
-            renderItem={(data, rowMap) => (
+            renderItem={({item}) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity onPress={() => openChat(data.item)}>
+                <TouchableOpacity onPress={() => openChat(item)}>
                   <View style={styles.messageBlock}>
-                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <Image source={item.imageUrl} style={styles.image} />
                     <View style={styles.textContainer}>
-                      <Text style={styles.username}>{data.item.userName}</Text>
-                      <Text style={styles.description}>
-                        {data.item.description}
-                      </Text>
+                      <Text style={styles.username}>{item.userName}</Text>
+                      <Text style={styles.description}>{item.description}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -188,6 +187,7 @@ const Messages: React.FC = () => {
           />
         </Animated.View>
 
+        {/* Their Turn Section */}
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Their Turn</Text>
           <TouchableOpacity onPress={() => toggleSection('TheirTurn')}>
@@ -202,22 +202,20 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightTheirTurn.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 150],
+              outputRange: [0, 560], // Adjust based on the estimated height for this section
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
             data={theirTurnMatchData}
-            renderItem={(data, rowMap) => (
+            renderItem={({item}) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity onPress={() => openChat(data.item)}>
+                <TouchableOpacity onPress={() => openChat(item)}>
                   <View style={styles.messageBlock}>
-                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <Image source={item.imageUrl} style={styles.image} />
                     <View style={styles.textContainer}>
-                      <Text style={styles.username}>{data.item.userName}</Text>
-                      <Text style={styles.description}>
-                        {data.item.description}
-                      </Text>
+                      <Text style={styles.username}>{item.userName}</Text>
+                      <Text style={styles.description}>{item.description}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -228,6 +226,7 @@ const Messages: React.FC = () => {
           />
         </Animated.View>
 
+        {/* Hidden Section */}
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Hidden</Text>
           <TouchableOpacity onPress={() => toggleSection('Hidden')}>
@@ -242,22 +241,20 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightHidden.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 150],
+              outputRange: [0, 560], // Adjust based on the estimated height for this section
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
-            data={dummyData} // Assuming this is the dataset for hidden items; adjust as necessary
-            renderItem={(data, rowMap) => (
+            data={dummyData} // Assuming you use the same dummy data for illustration; adjust as needed
+            renderItem={({item}) => (
               <View style={styles.rowFront}>
-                <TouchableOpacity onPress={() => openChat(data.item)}>
+                <TouchableOpacity onPress={() => openChat(item)}>
                   <View style={styles.messageBlock}>
-                    <Image source={data.item.imageUrl} style={styles.image} />
+                    <Image source={item.imageUrl} style={styles.image} />
                     <View style={styles.textContainer}>
-                      <Text style={styles.username}>{data.item.userName}</Text>
-                      <Text style={styles.description}>
-                        {data.item.description}
-                      </Text>
+                      <Text style={styles.username}>{item.userName}</Text>
+                      <Text style={styles.description}>{item.description}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
