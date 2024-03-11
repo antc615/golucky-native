@@ -163,11 +163,12 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightYourTurn.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 560], // Adjust based on your dynamic content height
+              outputRange: [0, dummyData.length * 90],
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
+            scrollEnabled={false}
             data={dummyData}
             renderItem={({item}) => (
               <View style={styles.rowFront}>
@@ -202,11 +203,12 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightTheirTurn.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 560], // Adjust based on the estimated height for this section
+              outputRange: [0, theirTurnMatchData.length * 90],
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
+            scrollEnabled={false}
             data={theirTurnMatchData}
             renderItem={({item}) => (
               <View style={styles.rowFront}>
@@ -241,12 +243,13 @@ const Messages: React.FC = () => {
           style={{
             height: animatedHeightHidden.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 560], // Adjust based on the estimated height for this section
+              outputRange: [0, dummyData.length * 90],
             }),
             overflow: 'hidden',
           }}>
           <SwipeListView
-            data={dummyData} // Assuming you use the same dummy data for illustration; adjust as needed
+            scrollEnabled={false}
+            data={dummyData}
             renderItem={({item}) => (
               <View style={styles.rowFront}>
                 <TouchableOpacity onPress={() => openChat(item)}>
