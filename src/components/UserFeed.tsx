@@ -66,7 +66,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const likes = Math.floor(Math.random() * 100);
-  const [borderColor, setBorderColor] = useState('lightyellow'); // New state for border color
+  const [borderColor, setBorderColor] = useState('lightblue'); // New state for border color
 
   useEffect(() => {
     const colors = [
@@ -127,56 +127,48 @@ const UserFeed: React.FC<UserFeedProps> = ({
       <SnapCarousel
         data={postImages}
         renderItem={({item, index}) => (
-          <View>
+          <View style={styles.photoContainer}>
             <Image
-              source={{uri: item}} // Assuming postImages is an array of image URLs
+              source={{uri: item}}
               style={[
                 styles.postImage,
-                {height: carouselHeight},
-                index === 0 ? {borderColor: borderColor, borderWidth: 5} : {}, // Conditional border styling
+                {height: carouselHeight}, // Make sure carouselHeight is defined appropriately
+                index === 0
+                  ? {
+                      borderColor: borderColor, // Use the state variable that holds the random color
+                      borderWidth: 5, // Make the border thicker
+                      borderRadius: 5, // Optional: add some border radius for a more stylish look
+                      shadowColor: '#000', // Adding shadow for a more pronounced, stylish look
+                      shadowOffset: {
+                        width: 0,
+                        height: 2,
+                      },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5, // For Android elevation
+                    }
+                  : {},
               ]}
             />
-            {index === 0 && (
-              // Position Like, Dislike, and Message Icons for the first image only
-              <View style={styles.actionIconsContainer}>
-                <TouchableOpacity onPress={handleLike} style={styles.likeIcon}>
-                  <FontAwesomeIcon
-                    icon={['far', 'heart']}
-                    size={21}
-                    color="red"
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleDislike}
-                  style={styles.dislikeIcon}>
-                  <FontAwesomeIcon
-                    icon={['far', 'times-circle']}
-                    size={21}
-                    color="black"
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleMessage}
-                  style={styles.messageIcon}>
-                  <FontAwesomeIcon
-                    icon={['far', 'comment']}
-                    size={21}
-                    color="blue"
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
           </View>
         )}
-        sliderWidth={screenWidth}
-        itemWidth={screenWidth}
+        sliderWidth={Dimensions.get('window').width}
+        itemWidth={Dimensions.get('window').width}
         onSnapToItem={index => setActiveSlide(index)}
       />
       <View style={styles.iconsSection}>
+        <TouchableOpacity style={styles.icon}>
+          <FontAwesomeIcon
+            icon={['far', 'times-circle']}
+            size={21}
+            color="black"
+          />
+        </TouchableOpacity>
+        {/* Wrapper around Paginator for centering */}
+        <View style={styles.paginatorWrapper}>
+          <Paginator postImages={postImages} activeSlide={activeSlide} />
+        </View>
         <View style={styles.iconsGroup}>
-          <TouchableOpacity style={styles.icon}>
-            <FontAwesomeIcon icon={['far', 'heart']} size={21} color="black" />
-          </TouchableOpacity>
           <TouchableOpacity style={styles.icon}>
             <FontAwesomeIcon
               icon={['far', 'comment']}
@@ -184,12 +176,9 @@ const UserFeed: React.FC<UserFeedProps> = ({
               color="black"
             />
           </TouchableOpacity>
-        </View>
-        <Paginator postImages={postImages} activeSlide={activeSlide} />
-        <View style={styles.likesSection}>
-          <Text>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </Text>
+          <TouchableOpacity style={styles.icon}>
+            <FontAwesomeIcon icon={['far', 'heart']} size={21} color="black" />
+          </TouchableOpacity>
         </View>
       </View>
       {/* Additional User Details Section {likes} likes*/}

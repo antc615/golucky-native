@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-    paddingTop: 20,
     // Add additional styling for shadow, borders etc.
   },
   backButton: {
@@ -37,17 +36,28 @@ export const styles = StyleSheet.create({
     fontSize: 12, // Small size for the verified icon
   },
   ellipsisIcon: {},
+
   iconsSection: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'space-between',
+    padding: 10, // Adjust padding as needed for your layout
   },
+
   iconsGroup: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
+
   icon: {
-    marginRight: 10, // Spacing between icons
+    marginRight: 10, // Adjust the spacing between icons as needed
+  },
+
+  // New style for ensuring the paginator is centered directly
+  paginatorWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   paginator: {
     // Center your paginator styling
@@ -84,24 +94,23 @@ export const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
 
-  actionIconsContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 100, // Adjust based on your layout
-  },
-  likeIcon: {
-    // Style for the like icon
-  },
-  dislikeIcon: {
-    // Style for the dislike icon
-  },
-  messageIcon: {
-    // Style for the message icon
+  // START OF ACTION CONTAINER
+  photoContainer: {
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'visible', // This is key for allowing icons to show when positioned absolutely.
   },
 
+  iconStyle: {
+    fontSize: 30,
+    color: '#FFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+  },
+
+  // START of ADDITIONAL INFO
   additionalInfoSection: {
     backgroundColor: '#ffffff',
     marginVertical: 12,
@@ -142,10 +151,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 4, // Reduced spacing between rows
-  },
-  iconStyle: {
-    marginRight: 6, // Compact spacing next to the icon
-    fontSize: 14, // Smaller icons for a sleek look
   },
   detailLabel: {
     fontSize: 14, // Smaller font size for labels
