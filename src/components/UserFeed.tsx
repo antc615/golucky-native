@@ -1,5 +1,5 @@
 // UserFeed.tsx
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import SnapCarousel from 'react-native-snap-carousel';
@@ -27,13 +27,6 @@ interface UserFeedProps {
   interests: string;
   lookingFor: string;
 }
-// interface UserFeedProps {
-//   userName: string;
-//   profilePic: string;
-//   postImages: string[];
-//   isVerified: boolean;
-//   navigation: StackNavigationProp<StackParams, 'PublicProfile'>;
-// }
 
 const screenWidth = Dimensions.get('window').width;
 const carouselHeight = Dimensions.get('window').height * 0.6;
@@ -73,6 +66,34 @@ const UserFeed: React.FC<UserFeedProps> = ({
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const likes = Math.floor(Math.random() * 100);
+  const [borderColor, setBorderColor] = useState('lightyellow'); // New state for border color
+
+  useEffect(() => {
+    const colors = [
+      'lightgreen',
+      'lightblue',
+      'lightgold',
+      'lightyellow',
+      'lightrose',
+    ];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    setBorderColor(randomColor);
+  }, []);
+
+  const handleLike = () => {
+    console.log('Liked');
+    // Implement like functionality here
+  };
+
+  const handleDislike = () => {
+    console.log('Disliked');
+    // Implement dislike functionality here
+  };
+
+  const handleMessage = () => {
+    console.log('Message');
+    // Implement message functionality here
+  };
 
   const navigateToPublicProfile = () => {
     console.log('Navigating to PublicProfile');
@@ -105,14 +126,50 @@ const UserFeed: React.FC<UserFeedProps> = ({
       </View> */}
       <SnapCarousel
         data={postImages}
-        renderItem={({item}) => (
-          <Image
-            source={{uri: item}}
-            style={[styles.postImage, {height: carouselHeight}]}
-          />
+        renderItem={({item, index}) => (
+          <View>
+            <Image
+              source={{uri: item}} // Assuming postImages is an array of image URLs
+              style={[
+                styles.postImage,
+                {height: carouselHeight},
+                index === 0 ? {borderColor: borderColor, borderWidth: 5} : {}, // Conditional border styling
+              ]}
+            />
+            {index === 0 && (
+              // Position Like, Dislike, and Message Icons for the first image only
+              <View style={styles.actionIconsContainer}>
+                <TouchableOpacity onPress={handleLike} style={styles.likeIcon}>
+                  <FontAwesomeIcon
+                    icon={['far', 'heart']}
+                    size={21}
+                    color="red"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleDislike}
+                  style={styles.dislikeIcon}>
+                  <FontAwesomeIcon
+                    icon={['far', 'times-circle']}
+                    size={21}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleMessage}
+                  style={styles.messageIcon}>
+                  <FontAwesomeIcon
+                    icon={['far', 'comment']}
+                    size={21}
+                    color="blue"
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         )}
-        sliderWidth={Dimensions.get('window').width}
-        itemWidth={Dimensions.get('window').width}
+        sliderWidth={screenWidth}
+        itemWidth={screenWidth}
         onSnapToItem={index => setActiveSlide(index)}
       />
       <View style={styles.iconsSection}>

@@ -84,6 +84,24 @@ export const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
 
+  actionIconsContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 100, // Adjust based on your layout
+  },
+  likeIcon: {
+    // Style for the like icon
+  },
+  dislikeIcon: {
+    // Style for the dislike icon
+  },
+  messageIcon: {
+    // Style for the message icon
+  },
+
   additionalInfoSection: {
     backgroundColor: '#ffffff',
     marginVertical: 12,
@@ -154,7 +172,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%', 
+    width: '100%',
   },
   bannerIcon: {
     marginRight: 8, // Space between icon and text

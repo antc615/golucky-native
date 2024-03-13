@@ -34,6 +34,7 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons/faHeart';
 import {faComment as farComment} from '@fortawesome/free-regular-svg-icons/faComment';
 import {faMessage as farMessage} from '@fortawesome/free-regular-svg-icons/faMessage';
+import {faTimesCircle as farTimesCircle} from '@fortawesome/free-regular-svg-icons/faTimesCircle';
 import {faUser as farUser} from '@fortawesome/free-regular-svg-icons/faUser';
 import {faBell as farBell} from '@fortawesome/free-regular-svg-icons/faBell';
 import {faCheckCircle as farCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
@@ -72,6 +73,7 @@ library.add(
   faBriefcase,
   faStar,
   faSearch,
+  farTimesCircle
 ); // FA Library
 
 const RootStack = createNativeStackNavigator();
