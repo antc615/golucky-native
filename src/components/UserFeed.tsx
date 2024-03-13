@@ -241,15 +241,11 @@ const DetailRow: React.FC<{
   label: string;
   value: string;
 }> = ({label, value}) => {
-  const icon = iconMap[label] || 'info-circle'; // Fallback to a generic icon
+  const icon = iconMap[label] || 'info-circle';
 
   return (
     <View style={styles.detailRow}>
-      <FontAwesomeIcon
-        icon={['fas', icon]}
-        size={18}
-        style={styles.iconStyle}
-      />
+      <FontAwesomeIcon icon={['fa', icon]} size={18} style={styles.iconStyle} />
       <Text style={styles.detailLabel}>
         {label}:<Text style={styles.detailValue}> {value}</Text>
       </Text>

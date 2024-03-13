@@ -42,15 +42,6 @@ const UserProfile: React.FC = () => {
     loadUserProfile();
   }, []);
 
-    // New state hook for the border color
-
-    // Function to randomly select a border color
-    useEffect(() => {
-      const colors = ['lightgreen', 'lightblue', 'lightgold', 'lightgray', 'lightrose'];
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-      setBorderColor(randomColor);
-    }, []);
-
   // State hooks for each field
   const [pronouns, setPronouns] = useState('');
   const [zodiac, setZodiac] = useState('');
