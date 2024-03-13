@@ -31,7 +31,7 @@ const HeaderComponent = ({icons = []}) => {
       {(iconCount === 0 || iconCount === 1) && <View style={{flex: 1}} />}
       <View style={styles.logoContainer}>
         <Image source={logoStandaloneBlack} style={styles.logo} />
-        <Text style={styles.logoText}>goLucky</Text>
+        <Text style={styles.logoText}>golucky</Text>
       </View>
       {(iconCount === 0 || iconCount === 1) && <View style={{flex: 1}} />}
       {iconCount > 0 && (
