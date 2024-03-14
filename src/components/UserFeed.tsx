@@ -183,7 +183,6 @@ const UserFeed: React.FC<UserFeedProps> = ({
       </View>
       {/* Additional User Details Section {likes} likes*/}
       <View style={styles.additionalInfoSection}>
-        {/* User Header Block */}
         <View>
           <Text style={styles.userName}>
             <Text style={{fontStyle: 'italic'}}>{userName.split(' ')[0]}</Text>
@@ -193,17 +192,11 @@ const UserFeed: React.FC<UserFeedProps> = ({
             {`${age} ${location} ${height}`}
           </Text>
         </View>
-        {/* Biography */}
         <DetailRow icon="user" label="About Me" value={biography} />
-        {/* Education */}
         <DetailRow icon="graduation-cap" label="Education" value={education} />
-        {/* Occupation */}
         <DetailRow icon="briefcase" label="Occupation" value={occupation} />
-        {/* Zodiac Sign */}
         <DetailRow icon="star" label="Zodiac Sign" value={zodiacSign} />
-        {/* Interests */}
         <DetailRow icon="heart" label="Interests" value={interests} />
-        {/* Looking For */}
         <DetailRow icon="search" label="Looking For" value={lookingFor} />
 
         <View style={styles.bannerContainer}>
@@ -245,7 +238,11 @@ const DetailRow: React.FC<{
 
   return (
     <View style={styles.detailRow}>
-      <FontAwesomeIcon icon={['fa', icon]} size={18} style={styles.iconStyle} />
+      <FontAwesomeIcon
+        icon={['fas', icon]}
+        size={18}
+        style={styles.iconStyle}
+      />
       <Text style={styles.detailLabel}>
         {label}:<Text style={styles.detailValue}> {value}</Text>
       </Text>

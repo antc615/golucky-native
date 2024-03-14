@@ -99,15 +99,17 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'visible', // This is key for allowing icons to show when positioned absolutely.
+    overflow: 'visible',
   },
 
   iconStyle: {
-    fontSize: 30,
-    color: '#FFF',
+    fontSize: 20, // Adjusted for balance between visibility and layout impact
+    alignSelf: 'center', // Aligns the icon vertically within its container
+    marginRight: 8, // Ensures some spacing between the icon and the text
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
+    color: 'black',
   },
 
   // START of ADDITIONAL INFO

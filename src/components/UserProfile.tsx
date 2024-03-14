@@ -15,7 +15,7 @@ import {styles} from '../styles/UserProfile.styles';
 import HeaderComponent from './HeaderComponent';
 import {Picker} from '@react-native-picker/picker';
 import image1 from '../assets/mock-feed-assets/mock-image6.png';
-import ReusableImageUploader from './reusable/ReusableImageUploader';
+import ReusableImageUploader from './reusable/ReusableImageUploader';``
 import {fetchUserProfile} from '../services/apiServices';
 import {getAccessTokens} from '../utils/appUtils';
 
