@@ -7,6 +7,21 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     // Add additional styling for shadow, borders etc.
   },
+  carouselContainer: {
+    position: 'relative',
+  },
+  overlayRow: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    // backgroundColor: 'rgba(255, 255, 255, 0.5)', // Example: semi-transparent white background
+    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Example: semi-transparent white background
+  },
   backButton: {
     padding: 10,
     backgroundColor: 'blue',
@@ -33,7 +48,7 @@ export const styles = StyleSheet.create({
   verifiedIcon: {
     marginLeft: 5,
     color: 'blue',
-    fontSize: 12, // Small size for the verified icon
+    fontSize: 12,
   },
   ellipsisIcon: {},
 
@@ -41,7 +56,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10, // Adjust padding as needed for your layout
+    padding: 10,
   },
 
   iconsGroup: {
@@ -50,7 +65,7 @@ export const styles = StyleSheet.create({
   },
 
   icon: {
-    marginRight: 10, // Adjust the spacing between icons as needed
+    marginRight: 2,
   },
 
   // New style for ensuring the paginator is centered directly
@@ -59,10 +74,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  paginator: {
-    // Center your paginator styling
-    // If necessary, adjust width to help with centering
-  },
+  paginator: {},
   likesSection: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -103,9 +115,9 @@ export const styles = StyleSheet.create({
   },
 
   iconStyle: {
-    fontSize: 20, // Adjusted for balance between visibility and layout impact
-    alignSelf: 'center', // Aligns the icon vertically within its container
-    marginRight: 8, // Ensures some spacing between the icon and the text
+    fontSize: 20,
+    alignSelf: 'center',
+    marginRight: 8,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,

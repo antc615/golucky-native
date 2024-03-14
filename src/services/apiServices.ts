@@ -276,3 +276,35 @@ export const markImageAsInactive = async (accessToken, imageId) => {
     throw error;
   }
 };
+
+// Add a new likeUser function
+export const likeUser = async (userId, accessToken) => {
+  try {
+    console.error('LIKED');
+    const response = await apiClient.post(
+      '/matches/swipes/',
+      {swiped: userId, direction: 'like'},
+      {headers: {Authorization: `Bearer ${accessToken}`}},
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error sending like:', error);
+    throw error;
+  }
+};
+
+// Add a new dislikeUser function
+export const dislikeUser = async (userId, accessToken) => {
+  try {
+    console.error('DISLIKED');
+    const response = await apiClient.post(
+      '/matches/swipes/',
+      {swiped: userId, direction: 'dislike'},
+      {headers: {Authorization: `Bearer ${accessToken}`}},
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error sending dislike:', error);
+    throw error;
+  }
+};

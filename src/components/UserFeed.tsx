@@ -6,12 +6,17 @@ import SnapCarousel from 'react-native-snap-carousel';
 import {styles} from '../styles/UserFeed.styles';
 import {StackNavigationProp} from '@react-navigation/stack';
 
+// Import the API service functions
+import {likeUser, dislikeUser} from '../services/apiServices';
+import {getAccessTokens} from '../utils/appUtils';
+
 type StackParams = {
   PublicProfile: undefined;
 };
 
 // Inside UserFeed.tsx
 interface UserFeedProps {
+  id: number;
   userName: string;
   profilePic: string;
   postImages: string[];
@@ -26,6 +31,7 @@ interface UserFeedProps {
   zodiacSign: string;
   interests: string;
   lookingFor: string;
+  onSwipe: (userId: number, direction: string) => void; // Remove if not used
 }
 
 const screenWidth = Dimensions.get('window').width;
@@ -49,6 +55,7 @@ const Paginator: React.FC<{
 );
 
 const UserFeed: React.FC<UserFeedProps> = ({
+  id,
   userName,
   profilePic,
   postImages,
@@ -80,18 +87,38 @@ const UserFeed: React.FC<UserFeedProps> = ({
     setBorderColor(randomColor);
   }, []);
 
-  const handleLike = () => {
-    console.log('Liked');
-    // Implement like functionality here
+  // Modify handleLike and handleDislike to use likeUser and dislikeUser
+  const handleLike = async () => {
+    try {
+      const tokens = await getAccessTokens();
+      if (tokens && tokens.accessToken) {
+        await likeUser(id, tokens.accessToken);
+        console.log('User liked successfully');
+      } else {
+        console.error('No access token found');
+      }
+    } catch (error) {
+      console.error('Error liking user:', error);
+    }
   };
 
-  const handleDislike = () => {
-    console.log('Disliked');
-    // Implement dislike functionality here
+  const handleDislike = async () => {
+    console.error('ENTER DISLIKE');
+    try {
+      const tokens = await getAccessTokens();
+      if (tokens && tokens.accessToken) {
+        await dislikeUser(id, tokens.accessToken);
+        console.log('User disliked successfully');
+      } else {
+        console.error('No access token found');
+      }
+    } catch (error) {
+      console.error('Error disliking user:', error);
+    }
   };
 
   const handleMessage = () => {
-    console.log('Message');
+    console.error('Message');
     // Implement message functionality here
   };
 
@@ -157,10 +184,10 @@ const UserFeed: React.FC<UserFeedProps> = ({
         onSnapToItem={index => setActiveSlide(index)}
       />
       <View style={styles.iconsSection}>
-        <TouchableOpacity style={styles.icon}>
+        <TouchableOpacity style={styles.icon} onPress={() => handleDislike()}>
           <FontAwesomeIcon
             icon={['far', 'times-circle']}
-            size={21}
+            size={32}
             color="black"
           />
         </TouchableOpacity>
@@ -172,12 +199,12 @@ const UserFeed: React.FC<UserFeedProps> = ({
           <TouchableOpacity style={styles.icon}>
             <FontAwesomeIcon
               icon={['far', 'comment']}
-              size={21}
+              size={32}
               color="black"
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
-            <FontAwesomeIcon icon={['far', 'heart']} size={21} color="black" />
+          <TouchableOpacity style={styles.icon} onPress={handleLike}>
+            <FontAwesomeIcon icon={['far', 'heart']} size={32} color="black" />
           </TouchableOpacity>
         </View>
       </View>

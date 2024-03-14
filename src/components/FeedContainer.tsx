@@ -16,6 +16,7 @@ interface Image {
 }
 
 interface Recommendation {
+  id: number;
   userName: string;
   firstName: string;
   lastName: string;
@@ -97,6 +98,7 @@ const FeedContainer: React.FC = () => {
       <ScrollView style={styles.container}>
         {recommendations.map((item, index) => (
           <UserFeed
+            id={item.id}
             key={index} // Consider using a unique ID if available
             userName={`${item.firstName} ${item.lastName[0]}.`} // Adjust according to your data structure
             profilePic={
