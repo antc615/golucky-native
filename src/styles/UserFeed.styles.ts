@@ -88,7 +88,6 @@ export const styles = StyleSheet.create({
   postImage: {
     width: '100%',
     height: 200,
-    // Add additional styling
   },
   paginatorContainer: {
     flexDirection: 'row',

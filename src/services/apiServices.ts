@@ -13,6 +13,28 @@ const apiClient = axios.create({
   },
 });
 
+interface Image {
+  id: number;
+  image: string;
+  uploaded_at: string;
+  description: string | null;
+  is_profile_picture: boolean;
+  active: boolean;
+}
+
+interface MatchDetail {
+  id: number;
+  username: string;
+  images: Image[];
+}
+
+interface Match {
+  id: number;
+  match_details: MatchDetail;
+  matched_on: string;
+  is_active: boolean;
+}
+
 // ************ BEGIN UTILITY **************************
 apiClient.interceptors.request.use(
   // Request Interceptor for Proactive Token Refresh
@@ -41,7 +63,6 @@ apiClient.interceptors.request.use(
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
     }
-
     // For requests without an access token (e.g., login, registration),
     // no Authorization header is added, and the request proceeds as normal
     return config;
@@ -58,7 +79,7 @@ function decodeJWT(token: string) {
   return payload;
 }
 
-// ************ BEGIN API CALLS **************************
+// ************ BEGIN API CALLS ****************************************************
 export const authenticateUser = async (
   username: string,
   password: string,
@@ -280,7 +301,6 @@ export const markImageAsInactive = async (accessToken, imageId) => {
 // Add a new likeUser function
 export const likeUser = async (userId, accessToken) => {
   try {
-    console.error('LIKED');
     const response = await apiClient.post(
       '/matches/swipes/',
       {swiped: userId, direction: 'like'},
@@ -300,11 +320,31 @@ export const dislikeUser = async (userId, accessToken) => {
     const response = await apiClient.post(
       '/matches/swipes/',
       {swiped: userId, direction: 'dislike'},
-      {headers: {Authorization: `Bearer ${accessToken}`}},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
     return response.data;
   } catch (error) {
     console.error('Error sending dislike:', error);
+    throw error;
+  }
+};
+
+// Add to the API services file
+export const fetchMatches = async (accessToken: string): Promise<Match[]> => {
+  try {
+    console.error('fetching data ', accessToken);
+    const response = await apiClient.get('/matches/matches/', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching matches:', error);
     throw error;
   }
 };

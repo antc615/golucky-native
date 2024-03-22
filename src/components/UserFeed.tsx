@@ -31,7 +31,7 @@ interface UserFeedProps {
   zodiacSign: string;
   interests: string;
   lookingFor: string;
-  onSwipe: (userId: number, direction: string) => void; // Remove if not used
+  onSwipe: (userId: number, direction: string) => void;
 }
 
 const screenWidth = Dimensions.get('window').width;
@@ -187,7 +187,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
         <TouchableOpacity style={styles.icon} onPress={() => handleDislike()}>
           <FontAwesomeIcon
             icon={['far', 'times-circle']}
-            size={32}
+            size={40}
             color="black"
           />
         </TouchableOpacity>
@@ -199,12 +199,12 @@ const UserFeed: React.FC<UserFeedProps> = ({
           <TouchableOpacity style={styles.icon}>
             <FontAwesomeIcon
               icon={['far', 'comment']}
-              size={32}
+              size={40}
               color="black"
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icon} onPress={handleLike}>
-            <FontAwesomeIcon icon={['far', 'heart']} size={32} color="black" />
+            <FontAwesomeIcon icon={['far', 'heart']} size={40} color="black" />
           </TouchableOpacity>
         </View>
       </View>

@@ -18,6 +18,30 @@ import {faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons';
 import image1 from '../assets/mock-feed-assets/mock-image5.png';
 import image2 from '../assets/mock-feed-assets/mock-image6.png';
 import image3 from '../assets/mock-feed-assets/mock-image4.png';
+import {fetchMatches} from '../services/apiServices';
+import {getAccessTokens} from '../utils/appUtils';
+
+interface Image {
+  id: number;
+  image: string;
+  uploaded_at: string;
+  description: string | null;
+  is_profile_picture: boolean;
+  active: boolean;
+}
+
+interface MatchDetail {
+  id: number;
+  username: string;
+  images: Image[];
+}
+
+interface Match {
+  id: number;
+  match_details: MatchDetail;
+  matched_on: string;
+  is_active: boolean;
+}
 
 const dummyData = [
   {
@@ -68,6 +92,25 @@ const Messages: React.FC = () => {
   const animatedHeightYourTurn = useState(new Animated.Value(1))[0];
   const animatedHeightTheirTurn = useState(new Animated.Value(1))[0];
   const animatedHeightHidden = useState(new Animated.Value(1))[0];
+  const [matches, setMatches] = useState<Match[]>([]);
+
+  useEffect(() => {
+    const fetchAndSetMatches = async () => {
+      try {
+        const tokens = await getAccessTokens();
+        if (tokens && tokens.accessToken) {
+          const data = await fetchMatches(tokens.accessToken);
+          setMatches(data);
+        } else {
+          console.error('No access token found');
+        }
+      } catch (error) {
+        console.error('Failed to fetch matches', error);
+      }
+    };
+
+    fetchAndSetMatches();
+  }, []);
 
   const toggleSection = section => {
     let animatedHeight, setCollapsedState;
@@ -134,6 +177,32 @@ const Messages: React.FC = () => {
         <View style={styles.newMatchesContainer}>
           <FlatList
             horizontal
+            data={matches}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => (
+              <TouchableOpacity onPress={navigateToPublicProfile}>
+                <View style={styles.matchItem}>
+                  <Image
+                    source={{
+                      uri:
+                        item.match_details.images[0]?.image ||
+                        'default_image_url',
+                    }}
+                    style={styles.matchImage}
+                  />
+                  <Text style={styles.matchUsername}>
+                    {item.match_details.username}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+
+        {/* <View style={styles.newMatchesContainer}>
+          <FlatList
+            horizontal
             data={newMatchesData}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
@@ -146,7 +215,7 @@ const Messages: React.FC = () => {
             )}
             showsHorizontalScrollIndicator={false}
           />
-        </View>
+        </View> */}
 
         {/* Your Turn Section */}
         <View style={styles.headerContainer}>

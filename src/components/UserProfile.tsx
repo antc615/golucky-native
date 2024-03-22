@@ -31,11 +31,11 @@ const UserProfile: React.FC = () => {
         if (tokens && tokens.accessToken) {
           const profileData = await fetchUserProfile(tokens.accessToken);
           setUserImages(profileData.images || []);
-          setIsLoading(false); // Set loading to false once data is fetched
+          setIsLoading(false);
         }
       } catch (error) {
         console.log('Failed to load user profile:', error);
-        setIsLoading(false); // Also set loading to false if an error occurs
+        setIsLoading(false);
       }
     };
 
