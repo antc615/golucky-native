@@ -66,8 +66,8 @@ const BottomTabNavigator: React.FC = () => {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Messages"
-        component={Messages}
+        name="Notifications"
+        component={Explore}
         options={{headerShown: false}}
       />
       <Tab.Screen
@@ -76,8 +76,8 @@ const BottomTabNavigator: React.FC = () => {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Explore}
+        name="Messages"
+        component={Messages}
         options={{headerShown: false}}
       />
       <Tab.Screen

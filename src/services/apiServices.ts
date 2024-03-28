@@ -336,7 +336,6 @@ export const dislikeUser = async (userId, accessToken) => {
 // Add to the API services file
 export const fetchMatches = async (accessToken: string): Promise<Match[]> => {
   try {
-    console.error('fetching data ', accessToken);
     const response = await apiClient.get('/matches/matches/', {
       headers: {
         Authorization: `Bearer ${accessToken}`,

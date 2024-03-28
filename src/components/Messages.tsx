@@ -170,8 +170,8 @@ const Messages: React.FC = () => {
     <>
       <HeaderComponent icons={[]} />
       <ScrollView style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.headerText}>Matches</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>New Matches</Text>
         </View>
 
         <View style={styles.newMatchesContainer}>
