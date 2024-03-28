@@ -50,4 +50,9 @@ export const styles = StyleSheet.create({
     color: '#666',
     fontStyle: 'italic',
   },
+  bioAndMore: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 4,
+  },
 });
