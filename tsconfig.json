@@ -6,6 +6,6 @@
     "./src/declarations.d.ts" // Path to your declarations.d.ts file
   ],
   "compilerOptions": {
-    // Add any specific compiler options here if needed
+    "jsx": "react"
   }
 }
