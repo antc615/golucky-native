@@ -32,7 +32,6 @@ interface UserFeedProps {
   zodiacSign: string;
   interests: string;
   lookingFor: string;
-  onSwipe: (userId: number, direction: string) => void;
 }
 
 const screenWidth = Dimensions.get('window').width;
@@ -94,10 +93,11 @@ const UserFeed: React.FC<UserFeedProps> = ({
     setBorderColor(randomColor);
   }, []);
 
-  const handleLike = async (id: number) => {
+  const handleLike = async () => {
     try {
       const tokens = await getAccessTokens();
       if (tokens && tokens.accessToken) {
+        console.error('X', tokens.accessToken);
         const response = await likeUser(id, tokens.accessToken);
         if (response.match_created) {
           setMatchedUser({userName, profilePic});
@@ -204,7 +204,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
         onSnapToItem={index => setActiveSlide(index)}
       />
       <View style={styles.iconsSection}>
-        <TouchableOpacity style={styles.icon} onPress={() => handleDislike()}>
+        <TouchableOpacity style={styles.icon} onPress={handleDislike}>
           <FontAwesomeIcon
             icon={['far', 'times-circle']}
             size={40}

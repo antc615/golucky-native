@@ -301,6 +301,7 @@ export const markImageAsInactive = async (accessToken, imageId) => {
 // Add a new likeUser function
 export const likeUser = async (userId, accessToken) => {
   try {
+    console.error('NUMBER', userId);
     const response = await apiClient.post(
       '/matches/swipes/',
       {swiped: userId, direction: 'like'},
@@ -308,7 +309,10 @@ export const likeUser = async (userId, accessToken) => {
     );
     return response.data;
   } catch (error) {
-    console.error('Error sending like:', error);
+    console.error(
+      'Error sending like:',
+      error.response ? error.response.data : error,
+    );
     throw error;
   }
 };
