@@ -268,7 +268,7 @@ const UserFeed: React.FC<UserFeedProps> = ({
 };
 
 // Define a mapping from labels to FontAwesome icon names
-const iconMap = {
+const iconMap: {[key: string]: string} = {
   'About Me': 'user',
   Education: 'graduation-cap',
   Occupation: 'briefcase',
