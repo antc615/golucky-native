@@ -9,6 +9,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 // Import the API service functions
 import {likeUser, dislikeUser} from '../services/apiServices';
 import {getAccessTokens} from '../utils/appUtils';
+import MatchNotification from './MatchNotification';
 
 type StackParams = {
   PublicProfile: undefined;
@@ -73,7 +74,13 @@ const UserFeed: React.FC<UserFeedProps> = ({
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const likes = Math.floor(Math.random() * 100);
-  const [borderColor, setBorderColor] = useState('lightblue'); // New state for border color
+  const [borderColor, setBorderColor] = useState('lightblue');
+  const [matchNotificationVisible, setMatchNotificationVisible] =
+    useState(false);
+  const [matchedUser, setMatchedUser] = useState({
+    userName: '',
+    profilePic: '',
+  });
 
   useEffect(() => {
     const colors = [
@@ -93,8 +100,8 @@ const UserFeed: React.FC<UserFeedProps> = ({
       if (tokens && tokens.accessToken) {
         const response = await likeUser(id, tokens.accessToken);
         if (response.match_created) {
-          console.log("It's a match!");
-          // Optionally, trigger a UI update or notification about the match here
+          setMatchedUser({userName, profilePic});
+          setMatchNotificationVisible(true);
         } else {
           console.log('User liked successfully, no match yet.');
         }
@@ -107,7 +114,6 @@ const UserFeed: React.FC<UserFeedProps> = ({
   };
 
   const handleDislike = async () => {
-    console.error('ENTER DISLIKE');
     try {
       const tokens = await getAccessTokens();
       if (tokens && tokens.accessToken) {
@@ -133,6 +139,16 @@ const UserFeed: React.FC<UserFeedProps> = ({
 
   return (
     <View style={styles.feedBlock}>
+      <MatchNotification
+        visible={matchNotificationVisible}
+        userName={matchedUser.userName}
+        profilePic={matchedUser.profilePic}
+        onClose={() => setMatchNotificationVisible(false)}
+        onChat={() => {
+          setMatchNotificationVisible(false);
+          // Navigate to chat or perform other actions
+        }}
+      />
       {/* <View style={styles.profileSection}>
         <TouchableOpacity onPress={navigateToPublicProfile}>
           <Image source={{uri: profilePic}} style={styles.profilePic} />
