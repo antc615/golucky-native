@@ -8,7 +8,7 @@ import FeedContainer from '../components/FeedContainer';
 import Messages from '../components/Messages';
 import Explore from './Notifications';
 import UserProfile from '../components/UserProfile';
-import {styles} from '../styles/BottomTabNavigator.styles'; // Import your styles
+import {styles} from '../styles/BottomTabNavigator.styles';
 import SalesComponent from './Sales';
 import Recommendations from '../components/Recommendations';
 

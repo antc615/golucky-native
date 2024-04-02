@@ -31,15 +31,18 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  userNameWithIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   userName: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginRight: 5, // Add some space between the name and the icon
   },
   verifiedIcon: {
-    alignSelf: 'center',
-    marginLeft: 5,
-  },
+    marginLeft: 5, // Adjust as necessary based on your design
+  }, 
   userDetails: {
     fontSize: 16,
     color: '#666',

@@ -87,13 +87,17 @@ const UserFeed: React.FC<UserFeedProps> = ({
     setBorderColor(randomColor);
   }, []);
 
-  // Modify handleLike and handleDislike to use likeUser and dislikeUser
-  const handleLike = async () => {
+  const handleLike = async (id: number) => {
     try {
       const tokens = await getAccessTokens();
       if (tokens && tokens.accessToken) {
-        await likeUser(id, tokens.accessToken);
-        console.log('User liked successfully');
+        const response = await likeUser(id, tokens.accessToken);
+        if (response.match_created) {
+          console.log("It's a match!");
+          // Optionally, trigger a UI update or notification about the match here
+        } else {
+          console.log('User liked successfully, no match yet.');
+        }
       } else {
         console.error('No access token found');
       }
