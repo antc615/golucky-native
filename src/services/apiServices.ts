@@ -80,22 +80,7 @@ function decodeJWT(token: string) {
 }
 
 // ************ BEGIN API CALLS ****************************************************
-export const authenticateUser = async (
-  username: string,
-  password: string,
-): Promise<AuthResponse> => {
-  try {
-    const response: AxiosResponse<AuthResponse> = await apiClient.post(
-      '/api/token/',
-      {username, password},
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Authentication error:', error);
-    // You can throw a custom error or the original error based on your error handling strategy
-    throw error;
-  }
-};
+
 
 export const registerAndLogin = async (
   username: string,
