@@ -97,23 +97,7 @@ export const authenticateUser = async (
   }
 };
 
-export const registerAndLogin = async (
-  username: string,
-  email: string,
-  password: string,
-): Promise<AuthResponse> => {
-  try {
-    const response: AxiosResponse<AuthResponse> = await apiClient.post(
-      '/api/auth/registerLogin/',
-      {username, email, password},
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Authentication error:', error);
-    // You can throw a custom error or the original error based on your error handling strategy
-    throw error;
-  }
-};
+
 
 export const logoutUser = async (refreshToken: string): Promise<void> => {
   try {
